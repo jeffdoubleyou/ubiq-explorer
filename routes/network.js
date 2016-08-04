@@ -25,7 +25,7 @@ router.get('/hashrate', function(req, res, next) {
   req.db.get('_shf_current_hashrate', function(error, result) {
     var data = {
         error: error,
-        hashrate: result
+        hashrate: result*1000*1000*1000
     };
     res.json(data);
   });
@@ -45,7 +45,7 @@ router.get('/difficulty', function(req, res, next) {
   req.db.get('_shf_current_difficulty', function(error, result) {
     var data = {
         error: error,
-        difficulty: result
+        difficulty: result*1000*1000*1000
     };
     res.json(data);
   });

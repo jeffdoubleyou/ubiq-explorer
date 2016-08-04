@@ -138,5 +138,21 @@ router.get('/minechart/:addressId', function(req, res, next) {
 	
 });
 
+router.get('/balance/:addressId', function(req, res, next) {
+  var addressId = req.params.addressId;
+  if(addressId.substring(0,2) != '0x') {
+	addressId = '0x'+addressId;
+  }
+  req.db.llen('_shf_balance_'+addressId, function(error, result) {
+	req.db.lindex('_shf_balance_'+addressId, -1, function(error, result) {
+		var data = {
+			error: error,
+			balance: result ? result : 0
+		}
+		res.json(data);
+	});
+  });
+});
+
 module.exports = router;
 module.exports = router;
