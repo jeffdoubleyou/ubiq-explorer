@@ -9,6 +9,17 @@ router.get('/', function(req, res, next) {
   res.json(t);
 });
 
+router.get('/lastblock', function(req, res, next) {
+	req.db.lrange('_shf_recent_blocks', 0, 0, function(error, result) {
+		result = JSON.parse(result[0]);
+		var data = {
+			error: error,
+			result: result.block
+		};
+		res.json(data);
+	});
+});
+
 router.get('/hashrate', function(req, res, next) {
   //res.render('index', { title: 'Express' });
   req.db.get('_shf_current_hashrate', function(error, result) {
@@ -40,6 +51,70 @@ router.get('/difficulty', function(req, res, next) {
   });
 });
 
+router.get('/hashratehistory', function(req, res, next) {
+	req.db.lrange('_shf_history_hashrate', 0, 2500, function(error, result) {
+		var resArray = [];
+		for (var i in result) {
+			resArray.push(result[i]);
+		}
+		res.json(resArray);
+	});
+});
+
+router.get('/difficultyhistory', function(req, res, next) {
+	req.db.lrange('_shf_history_difficulty', 0, 2500, function(error, result) {
+		var resArray = [];
+		for (var i in result) {
+			resArray.push(result[i]);
+		}
+		res.json(resArray);
+	});
+});
+
+router.get('/blocktimehistory', function(req, res, next) {
+	req.db.lrange('_shf_history_blocktime', 0, 2500, function(error, result) {
+		var resArray = [];
+		for (var i in result) {
+			resArray.push(result[i]);
+		}
+		res.json(resArray);
+	});
+});
+
+
+router.get('/recentblocks', function(req, res, next) {
+	req.db.lrange('_shf_recent_blocks', 0, 10, function(error, result) {
+		var resArray = [];
+		for(var i in result) {
+		    resArray.push(JSON.parse(result[i]));
+		}
+		console.log(resArray);
+		res.json(resArray);
+	});
+});
+
+router.get('/recenttxns', function(req, res, next) {
+	req.db.lrange('_shf_recent_transactions', 0, 10, function(error, result) {
+		var resArray = [];
+		for(var i in result) {
+		    resArray.push(JSON.parse(result[i]));
+		}
+		console.log(resArray);
+		res.json(resArray);
+	});
+});
+
+router.get('/topminers', function(req, res, next) {
+	req.db.lrange('_shf_top_miners', 0, 10, function(error, result) {
+		var resArray = [];
+		for(var i in result) {
+		    resArray.push(JSON.parse(result[i]));
+		}
+		console.log(resArray);
+		res.json(resArray);
+	});
+});
+
 router.get('/exchangerate', function(req, res, next) {
     var now = new Date() / 1000;
     var expires = 0;
@@ -63,7 +138,7 @@ router.get('/exchangerate', function(req, res, next) {
                         console.log("USD REQUEST SETNT");
                         if(!err && result.statusCode == 200) {
                             body = JSON.parse(body);
-                            usd = body.result.Last;
+                            usd = parseFloat(body.result.Last);
                             var data = {usd: usd, btc: btc};
                             req.db.set('_shf_exchange_rate', JSON.stringify(data), function(error, result) {
                                 console.log("Inserted exchange rate data");

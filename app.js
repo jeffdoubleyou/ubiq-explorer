@@ -23,7 +23,7 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use('/api', express.static(__dirname + '/public/apidoc'));
 
 app.use(function(req,res,next) {
     req.db = redis;
@@ -31,13 +31,13 @@ app.use(function(req,res,next) {
 });
 
 app.use('/', routes);
-app.use('/users', users);
-app.use('/address', address);
-app.use('/network', network);
+app.use('/api/users', users);
+app.use('/api/address', address);
+app.use('/api/network', network);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
+  var err = new Error('Method Not Found');
   err.status = 404;
   next(err);
 });
@@ -51,7 +51,7 @@ if (app.get('env') === 'development') {
     res.status(err.status || 500);
     res.render('error', {
       message: err.message,
-      error: err
+      error: {}
     });
   });
 }
@@ -61,7 +61,7 @@ if (app.get('env') === 'development') {
 app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error', {
-    message: err.message,
+    message: err.message + " ERRRRR",
     error: {}
   });
 });
