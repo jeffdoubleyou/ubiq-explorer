@@ -6,10 +6,16 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var Redis = require('redis');
 var redis = Redis.createClient(6379, '127.0.0.1');
+var web3 = require('web3');
+var Web3 = new web3();
+Web3.setProvider(new web3.providers.HttpProvider("http://127.0.0.1:53901"));
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var address = require('./routes/address');
 var network = require('./routes/network');
+var transaction = require('./routes/transaction');
+var block = require('./routes/block');
 
 var app = express();
 
@@ -27,6 +33,7 @@ app.use('/api', express.static(__dirname + '/public/apidoc'));
 
 app.use(function(req,res,next) {
     req.db = redis;
+    req.web3 = Web3;
     next();
 });
 
@@ -34,6 +41,8 @@ app.use('/', routes);
 app.use('/api/users', users);
 app.use('/api/address', address);
 app.use('/api/network', network);
+app.use('/api/transaction', transaction);
+app.use('/api/block', block);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
