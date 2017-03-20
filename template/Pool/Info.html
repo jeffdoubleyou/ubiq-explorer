@@ -1,0 +1,70 @@
+<hr/>
+
+<div class="panel panel-default">
+  <div class="panel-body">
+    <table id="pool-info-table">
+      <tr>
+       <td width="50%">
+	<h5><span class="label label-success">NEW</span> Email alerts for offline workers</h5>
+	<h5><span class="label label-info">Info</span> .25 UBQ minimum payment</h5>
+	<h5><span class="label label-info">Info</span> Hourly Payments</h5>
+	<h5><span class="label label-info">Info</span> 1% Pool Fee</h5>
+	<h5><span class="label label-info">Info</span> Now supporting NiceHash</h5>
+       </td>
+       <td width="50%">
+	<h5><span class="label label-info">Info</span> Transaction fees paid by pool</h5>
+	<h5><span class="label label-info">Info</span> Full payout including uncles </h5>
+	<h5><span class="label label-info">Info</span> Anonymous mining - no login required</h5>
+	<h5><span class="label label-info">Info</span> Miner stats right on explorer page</h5>
+       <td>
+      </tr>
+     </table>
+  </div>
+</div>
+
+<h4>Ubiq Pool Hashrate</h4>
+<div ng-controller="poolController">
+<canvas id="hashrate-history" class="chart chart-line" chart-data="hashRateHistoryData" chart-labels="hashRateHistoryLabels" chart-series="series" chart-options="options" chart-colors="colors" height="120">
+
+</canvas>
+</div>
+
+<div class="panel panel-success pool-info-panel">
+	<div class="panel-heading">Stratum Mining ( recommended ) - use <a href="https://github.com/Atrides/eth-proxy">eth-proxy</a> or <a href="https://bitcointalk.org/index.php?topic=1433925.0">Claymore Miner</a></div>
+	<div class="panel-body">
+		<div class="well well-sm">
+            stratum.ubiq.cc:8008
+        </div>
+	</div>
+</div>
+
+<div class="panel panel-info pool-info-panel">
+	<div class="panel-heading">NiceHash Mining</div>
+	<div class="panel-body">
+		<div class="well well-sm">
+            stratum.ubiq.cc:8088
+        </div>
+	</div>
+</div>
+
+<div class="panel panel-success pool-info-panel">
+	<div class="panel-heading">Getwork / Ethminer</div>
+	<div class="panel-body">
+		<div class="well well-sm">
+			Linux: ethminer -F http://getwork.ubiq.cc:8888/YOURADDRESS/<worker> -G
+            <hr>
+			Windows: ethminer.exe -F http://getwork.ubiq.cc:8888/YOURADDRESS/<worker> -G
+		</div>
+	</div>
+</div>
+
+<div class="panel panel-info pool-info-panel">
+	<div class="panel-heading">Rent a mining Rig - Enter the stratum host and port and simply use your mining address as the username</div>
+	<div class="panel-body">
+		<div class="well well-sm">
+            <ul>
+                <li><a href="https://www.miningrigrentals.com?ref=19471" target="_blank">Mining Rig Rentals</a></li>
+            </ul>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,246 @@
+/* app css stylesheet */
+
+table.md-table td.online {
+    background-color: #B2FF59;
+}
+
+table.md-table td.offline {
+    background-color: #FFA000;
+}
+
+nav.navbar-shift {
+	background-color: #EDEDED;
+	border-bottom: 1px solid #CECECE;
+}
+
+.panel-ubiq > .panel-heading {
+  background-color: #00f694;
+  color: #494949;
+  border: 1px solid #494949;
+  border-bottom: none;
+}
+
+.panel-ubiq > .panel-body {
+	border: 1px solid #494949;
+	padding-top: 15px;
+	padding-bottom: 15px;
+	border-radius: 0px 0px 4px 4px;
+}
+
+div.panel-green {
+	background-color: #00F694;
+}
+
+.menu {
+  list-style: none;
+  border-bottom: 0.1em solid black;
+  margin-bottom: 2em;
+  padding: 0 0 0.5em;
+}
+
+.menu:before {
+  content: "[";
+}
+
+.menu:after {
+  content: "]";
+}
+
+.menu > li {
+  display: inline;
+}
+
+.menu > li:before {
+  content: "|";
+  padding-right: 0.3em;
+}
+
+.menu > li:nth-child(1):before {
+  content: "";
+  padding: 0;
+}
+
+div.network-panel-right {
+	float: right;
+}
+
+div.network-panel {
+    width: 18%;
+    clear: none;
+    float: left;
+    margin: 1%;
+    min-height: 120px;
+    min-width: 112px;
+}
+
+div.network-panel .panel-heading {
+    font-weight: bold;
+    font-size: 19px;
+    text-align: center;
+}
+
+div.network-panel .panel-body {
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+div.recent-blocks {
+	clear: left;
+	float: left;
+	width: 48%;
+	min-width: 320px;
+}
+
+div.recent-transactions {
+	clear: both;
+	float: auto;
+	width: 100%;
+}
+div.recent-blocks table {
+	font-size: 12px;
+}
+
+div.recent-transactions table {
+	font-size: 12px;
+}
+
+div.recent-transactions td {
+	text-align: center;
+}
+
+div.recent-blocks td {
+	text-align: center;
+}
+div.recent-miners {
+	clear: auto;
+	float: right;
+	width: 48%;
+	min-width: 338px;
+}
+
+div.recent-miners-body {
+	min-height: 424px;
+}
+
+#miners-pie {
+	height: 400px;
+	width: 400px;
+}
+
+
+.v-wrap{
+    height: 100%;
+    white-space: nowrap;
+    text-align: center;
+}
+.v-wrap:before{
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    width: 0;
+    /* adjust for white space between pseudo element and next sibling */
+    margin-right: -.25em;
+    /* stretch line height */
+    height: 100%; 
+}
+.v-box{
+    display: inline-block;
+    vertical-align: middle;
+    white-space: normal;
+}
+
+div.network-info-badges {
+	width: 100%;
+	text-align: center;
+}
+
+div.nav-right {
+	float: right;
+	padding-top: 8px;
+}
+
+div.nav-center {
+	text-align: center;
+}
+
+a.nav-link {
+	margin-top: 1px;
+	margin-left: 6px;
+	font-weight: bold;
+}
+
+img.nav-logo {
+	height: 34px;
+	width: 34px;
+	padding: 0px;
+}
+
+a.nav-logo {
+	padding: 8px;
+}
+
+div.pool-stats-panel {
+    width: 30%;
+    clear: none;
+    float: left;
+    margin: 1%;
+    min-height: 120px;
+    min-width: 112px;
+}
+
+div.pool-stats-panel .panel-heading {
+    font-weight: bold;
+    font-size: 19px;
+    text-align: center;
+}
+
+div.pool-stats-panel .panel-body {
+    text-align: center;
+    font-weight: bold;
+    font-size: 16px;
+}
+
+span.pool-value-badge {
+	margin-left: 8px;
+}
+
+span.pool-stats-label {
+	padding-top: 3px;
+	font-weight: bold;
+}
+
+td.pool-label {
+	font-weight: bold;
+}
+
+button.pool-stats-btn {
+	min-width: 125px;
+}
+
+div.pool-info-panel {
+	margin: 5px;
+}
+
+div.address-pool-overview {
+	float: left;
+}
+
+div.address-pool-payments {
+	min-width: 350px;
+}
+
+div.clear {
+	clear: both;
+}
+
+div.footer {
+    bottom: 0px;
+    text-align: center;
+    background-color: white;
+    width:100%;
+}
+
+.md-table-pagination > .buttons > .label {
+    color: inherit;
+}

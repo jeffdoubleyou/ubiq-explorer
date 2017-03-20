@@ -1,0 +1,91 @@
+<div class="container">
+
+    <h3 style="text-align:center;">Ubiq Block Explorer and Network Status</h3>
+
+<md-card>
+    <md-card-title>
+        <md-card-title-text><span class="md-title">Network Overview</span></md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+
+        <div class="network-info-badges">
+            <div class="panel panel-primary network-panel">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
+                    <span>Last Block</span>
+                </div>
+                <div class="panel-body">{{blockNum}}</div>
+            </div>
+
+            <div class="panel panel-success network-panel">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
+                    <span>Hash Rate</span>
+                </div>
+                <div class="panel-body">{{networkHashRate | hashrate}}</div>
+            </div>
+
+            <div class="panel panel-info network-panel">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-signal" aria-hidden="true"></span>
+                    <span>Difficulty</span>
+                </div>
+                <div class="panel-body">{{networkDifficulty | hashrate}}</div>
+            </div>
+
+            <div class="panel panel-warning network-panel">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span>
+                    <span>Block Time</span>
+                </div>
+                <div class="panel-body">{{networkBlockTime}}/s</div>
+            </div>
+
+            <div class="panel panel-danger network-panel network-panel-right">
+                <div class="panel-heading">
+                    <span class="glyphicon glyphicon-btc" aria-hidden="true"></span>
+                    <span>Price</span>
+                </div>
+                <div class="panel-body">${{shf_usd}}<br>BTC {{btc}}</div>
+            </div>
+        </div>
+    </md-card-content>
+</md-card>
+
+<div  layout-xs="column" layout="row">
+    <div flex-xs flex-gt-xs="50" layout="column">
+        <md-card>
+            <md-card-title>
+                <md-card-title-text><span class="md-title">Recent Blocks</span></md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+                <div data-ng-include src="'template/Main/RecentBlocks.html'"></div>
+            </md-card-content>
+        </md-card>
+    </div>
+
+    <div flex-xs flex-gt-xs="50" layout="column">
+        <md-card>
+            <md-card-title>
+                <md-card-title-text><span class="md-title">Top Miners</span></md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+		        <canvas id="miners-pie" class="chart-pie" chart-data="data" chart-labels="labels" chart-options="options" chart-legend="true" height="200"></canvas>
+            </md-card-content>
+        </md-card>
+    </div>
+
+</div>
+
+<md-card>
+    <md-card-title>
+        <md-card-title-text><span class="md-title">Recent Transactions</span></md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+        <div data-ng-include src="'template/Main/RecentTransactions.html'"></div>
+    </md-card-content>
+</md-card>
+
+</div>
+
+<div ng-data-include="'template/misc/adsense.html'"></div>

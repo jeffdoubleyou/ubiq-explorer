@@ -1,0 +1,25 @@
+<md-table-container>
+    <table md-table>
+        <tbody md-body>
+            <tr md-row>
+                <td md-cell><strong>Address</strong></td>
+                <td md-cell>{{addressId}}</td>
+                <td md-cell colspan="2">{{addressId | knownMiners: 0}}</td>
+            </tr>
+            <tr md-row>
+                <td md-cell><strong>Balance</strong></td>
+                <td md-cell>{{balance | fromWei}} UBQ</td>
+                <td md-cell>${{balance | fromWei | toUSD}}</td>
+                <td md-cell>{{balance | fromWei | toBTC}} BTC</td>
+            </tr>
+            <tr md-row>
+                <td md-cell><strong>Incoming Transactions</strong></td>
+                <td md-cell colspan="3">{{incomingTransactionCount}}</td>
+            </tr>
+            <tr md-row>
+                <td md-cell><strong>Outgoing Transactions</strong></td>
+                <td md-cell colspan="3">{{outgoingTransactionCount}}</td>
+            </tr>
+        </tbody>
+    </table>
+</md-table-container>

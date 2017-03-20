@@ -1,0 +1,21 @@
+<div class="container" ng-init="init()">
+<md-table-container>
+    <table md-table>
+        <thead md-head>
+            <tr md-row>
+                <th md-column>Address</th>
+                <th colspan="3" md-column>Balance</th>
+            </tr>
+        </thead>
+        <tbody md-body>
+            <tr md-row ng-repeat="account in richList">
+                <td md-cell><a href="/address/{{account.address}}">{{account.address | knownMiners }}</a></td>
+                <td md-cell>{{account.balance}} UBQ</td>
+                <td md-cell>${{account.balance | toUSD}}</td>
+                <td md-cell>{{account.balance | toBTC}} BTC</td>
+            </tr>
+        </tbody>
+    </table>
+</md-table-container>
+</div>
+<div ng-data-include="'template/misc/adsense.html'"></div>

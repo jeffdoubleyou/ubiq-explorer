@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="Explorer" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="Explorer" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="Explorer" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="Explorer" class="no-js"> <!--<![endif]-->
+<head>
+    <base href="http://localhost:8080/index.html" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title ng-bind="$root.title">UBIQ.cc - Ubiq Blockchain Explorer</title>
+    <meta name="keywords" content="ubiq, blockchain, explorer, ubiq, ubiq explorer,ubiq blockchain, currency, ubiq currency, crypto, cryptocurrency, ubiq crypto, ubiq cryptocurrency, ubiq address info, ubiq block, blocks, block, ubiq block chain, mining pool, ubiq pool, ubiq mining pool, ubiq miner pool, pool">
+    <meta name="Ubiq Blockchain explorer - network status - mining pool - ubiq.cc">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="node_modules/angular-material/angular-material.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+    <link rel="stylesheet" href="node_modules/angular-material-data-table/dist/md-data-table.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+<body>
+
+    <md-toolbar class="md-primary md-hue-7" ng-controller="mainController">
+        <div class="md-toolbar-tools">
+            <md-button class="md-icon-button" aria-label="Settings" ng-click="ctrl.showToolbarMenu($event, ctrl.settings)">
+                <md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
+            </md-button>
+            <a class="navbar-brand nav-logo" href="/">
+                <img class="nav-logo" src="images/ubiq-logo.png" alt="ubiq.cc - Ubiq Blockchain explorer">
+            </a>
+            <a href="/" class="navbar-brand nav-link">
+                <h2>ubiq.cc</h2>
+            </a>
+            <span flex></span>
+            <input type="text" placeholder="Enter a transaction hash, address or Block number" name="requestType" required  ng-model="searchString"  class="form-control search-bar">
+            <md-button class="md-raised" aria-label="Search" ng-click="search()">Search</md-button>
+        </div>
+    </md-toolbar>
+
+    <div layout="row" layout-align="center" hide-xs hide-sm show-gt-sm>
+        <md-button class="md-primary" ng-href="/hashrate">Hash Rate Evolution</md-button>
+        <md-button class="md-primary" ng-href="/difficulty">Difficulty Evolution</md-button>
+        <md-button class="md-primary" ng-href="/blocktime">Block Time Evolution</md-button>
+        <md-button class="md-primary" ng-href="/richlist">Rich List</md-button>
+        <md-button class="md-primary" ng-href="/minerpool">Mining Pool</md-button>
+    </div>
+    <div layout="row" layout-align="end" show-xs show-sm hide-gt-sm>
+        <md-menu>
+            <md-button class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                <md-icon md-font-library="material-icons">menu</md-icon>
+            </md-button>
+            <md-menu-content>
+                <md-menu-item>
+                    <md-button class="md-primary" ng-href="/hashrate">Hash Rate Evolution</md-button>
+                </md-menu-item>
+                <md-menu-item>
+                    <md-button class="md-primary" ng-href="/difficulty">Difficulty Evolution</md-button>
+                </md-menu-item>
+                <md-menu-item>
+                    <md-button class="md-primary" ng-href="/blocktime">Block Time Evolution</md-button>
+                </md-menu-item>
+                <md-menu-item>
+                    <md-button class="md-primary" ng-href="/richlist">Rich List</md-button>
+                </md-menu-item>
+                <md-menu-item>
+                    <md-button class="md-primary" ng-href="/minerpool">Mining Pool</md-button>
+                </md-menu-item>
+            </md-menu-content>
+        </md-menu>
+    </div>
+
+    <div ng-view></div>
+<!--Libs-->
+
+<script src="node_modules/angular/angular.min.js"></script> 
+<script src="node_modules/angular-aria/angular-aria.js"></script> 
+<script src="node_modules/angular-animate/angular-animate.js"></script> 
+<script src="node_modules/angular-material/angular-material.js"></script>
+<script src="node_modules/angular-route/angular-route.js"></script>
+<script src="node_modules/moment/moment.js"></script>
+<script src="node_modules/angular-moment/angular-moment.min.js"></script>
+<script src="node_modules/sprintf-js/dist/angular-sprintf.min.js"></script>
+<script src="node_modules/sprintf-js/dist/sprintf.min.js"></script>
+<script src="node_modules/angular-material-data-table/dist/md-data-table.js"></script>
+
+<!--Charts-->
+<script src="node_modules/chart.js/dist/Chart.min.js"></script>
+<script src="node_modules/angular-chart.js/dist/angular-chart.min.js"></script> 
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"</script>
+<script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
+
+<!--Core-->
+
+<script src="app.js"></script>
+<script src="scripts/format/explorer.js"></script>
+
+<!--Services-->
+
+<script src="scripts/services/networkService.js"></script>
+<script src="scripts/services/poolService.js"></script>
+<script src="scripts/services/searchService.js"></script>
+<script src="scripts/services/richListService.js"></script>
+<script src="scripts/services/addressService.js"></script>
+<script src="scripts/services/poolAlertsService.js"></script>
+
+<!--Controllers-->
+<script src="scripts/controllers/mainController.js"></script>
+<script src="scripts/controllers/addressController.js"></script>
+<script src="scripts/controllers/blockController.js"></script>
+<script src="scripts/controllers/transactionController.js"></script>
+<script src="scripts/controllers/hashRateController.js"></script>
+<script src="scripts/controllers/difficultyController.js"></script>
+<script src="scripts/controllers/blockTimeController.js"></script>
+<script src="scripts/controllers/poolController.js"></script>
+<script src="scripts/controllers/richListController.js"></script>
+
+<div class="footer">
+    <footer>
+        <hr>
+        <p>
+            © ubiq.cc - Ubiq Blockchain Explorer and Pool
+        </p>
+    </footer>
+</div>
+
+</div>
+
+<div ng-data-include="'template/misc/adsense.html'"></div>
+ 
+</body>
+</html>

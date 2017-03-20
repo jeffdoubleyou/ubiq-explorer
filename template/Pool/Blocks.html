@@ -1,0 +1,22 @@
+<div class="panel panel-default pool-info-panel">
+	<div class="panel-heading">Pool Blocks</div>
+	<div class="panel-body">
+		<div class="well well-sm">
+			The pool always pays full block rewards including transaction fees and uncles.
+		</div>
+		
+		<div>
+		    <md-tabs>
+                <md-tab label="Mature ({{totalBlocks}})" >
+                    <div data-ng-include src="'template/Pool/Blocks/Mature.html'"></div>
+                </md-tab>
+                <md-tab label="Immature ({{immature}})" >
+                    <div data-ng-include src="'template/Pool/Blocks/Immature.html'"></div>
+                </md-tab>
+                <md-tab label="New Blocks ({{candidates}})" >
+                    <div data-ng-include src="'template/Pool/Blocks/New.html'"></div>
+                </md-tab>
+            </md-tabs>
+		</div>
+	</div>
+</div>

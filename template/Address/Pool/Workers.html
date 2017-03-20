@@ -1,0 +1,37 @@
+<md-table-container>
+    <table md-table>
+        <thead md-head>
+            <tr md-row>
+                <th md-column><strong>Worker</strong></th>
+                <th md-column><strong>Current Hashrate</strong></th>
+                <th md-column><strong>Average Hashrate</strong></th>
+                <th md-column><strong>Last Share</strong></th>
+            </tr>
+        </thead>
+        <tbody md-body>
+            <tr md-row ng-repeat="worker in minerData.workers | orderObjectBy:'key'">
+                <td md-cell class="online" ng-class="{ 'offline': worker.offline }">{{worker.key}}</td>
+                <td md-cell class="online" ng-class="{ 'offline': worker.offline }">{{worker.hr | hashrate}}</td>
+                <td md-cell class="online" ng-class="{ 'offline': worker.offline }">{{worker.hr2 | hashrate}}</td>
+                <td md-cell class="online" ng-class="{ 'offline': worker.offline }">{{worker.lastBeat | relativetime}}</td>
+            </tr>
+            <tr md-row>
+                <td md-cell colspan="4">
+                    <div class="clear" ng-style="{'margin-top': '10px'}"></div>
+                    <md-card  md-colors="::{backgroundColor: 'light-blue'}">
+                        <md-card-content>
+                            Current hashrate is based on your average hashrate over the last 30 minutes.  Until you've been mining for at least 30 minutes, this value will not reflect your actual current hashrate.  Average hashrate is based on your average hashrate over the last 3 hours.
+                        </md-card-content>
+                    </md-card>
+
+                    <md-card class="md-primary">
+                        <md-card-content>
+                            Stats API URL: <a href="http://www.ubiq.cc/pool/accounts/{{addressId}}" target="_blank">http://www.ubiq.cc/pool/accounts/{{addressId}}</a>
+                        </md-card-content>
+                    </md-card>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</md-table-container>
+
