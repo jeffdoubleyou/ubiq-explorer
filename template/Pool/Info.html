@@ -29,42 +29,76 @@
 </canvas>
 </div>
 
-<div class="panel panel-success pool-info-panel">
-	<div class="panel-heading">Stratum Mining ( recommended ) - use <a href="https://github.com/Atrides/eth-proxy">eth-proxy</a> or <a href="https://bitcointalk.org/index.php?topic=1433925.0">Claymore Miner</a></div>
-	<div class="panel-body">
-		<div class="well well-sm">
+<md-card>
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-title">Stratum Mining</span>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+        <md-divider></md-divider>
+        <p class="md-body-1">For stratum mining, you can use any miner that supports stratum such as <a href="https://bitcointalk.org/index.php?topic=1433925.0">Claymore Miner</a>.  For ethminer / getwork stratum support, you can use <a href="https://github.com/Atrides/eth-proxy">eth-proxy</a>.</p>
+        <span class="md-body-2">Stratum host and port</span>
+        <p class="md-caption">
             stratum.ubiq.cc:8008
-        </div>
-	</div>
-</div>
+        </p>
+    </md-card-content>
+</md-card>
 
-<div class="panel panel-info pool-info-panel">
-	<div class="panel-heading">NiceHash Mining</div>
-	<div class="panel-body">
-		<div class="well well-sm">
+<md-divider></md-divider>
+
+<md-card>
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-title">NiceHash mining</span>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+        <md-divider></md-divider>
+        <p class="md-body-1">If you're using nicehash, please point your miner to our NiceHash port 8088.</p>
+        <span class="md-body-2">Stratum host and port</span>
+        <p class="md-caption">
             stratum.ubiq.cc:8088
-        </div>
-	</div>
-</div>
+        </p>
+    </md-card-content>
+</md-card>
 
-<div class="panel panel-success pool-info-panel">
-	<div class="panel-heading">Getwork / Ethminer</div>
-	<div class="panel-body">
-		<div class="well well-sm">
-			Linux: ethminer -F http://getwork.ubiq.cc:8888/YOURADDRESS/<worker> -G
-            <hr>
-			Windows: ethminer.exe -F http://getwork.ubiq.cc:8888/YOURADDRESS/<worker> -G
-		</div>
-	</div>
-</div>
+<md-divider></md-divider>
 
-<div class="panel panel-info pool-info-panel">
-	<div class="panel-heading">Rent a mining Rig - Enter the stratum host and port and simply use your mining address as the username</div>
-	<div class="panel-body">
-		<div class="well well-sm">
+<md-card>
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-title">Getwork / Ethminer</span>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+        <md-divider></md-divider>
+        <p class="md-body-1">Not recommended.  You may use getwork to mine Ubiq on our pool.  It's recommended to use stratum mining whenever possible.</p>
+        <span class="md-body-2">Point your ethminer to:</span>
+        <p class="md-caption">
+            Linux: ethminer -F http://getwork.ubiq.cc:8888/YOURADDRESS/<worker> -G
+            <br>
+            Windows: ethminer.exe -F http://getwork.ubiq.cc:8888/YOURADDRESS/<worker> -G
+        </p>
+    </md-card-content>
+</md-card>
+
+<md-divider></md-divider>
+
+<md-card>
+    <md-card-title>
+        <md-card-title-text>
+            <span class="md-title">Rent mining power</span>
+        </md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+        <md-divider></md-divider>
+        <p class="md-body-1">Enter the stratum host and port and simply use your mining address as the username</p>
+        <p class="md-caption">
             <ul>
                 <li><a href="https://www.miningrigrentals.com?ref=19471" target="_blank">Mining Rig Rentals</a></li>
             </ul>
-		</div>
-	</div>
-</div>
+        </p>
+    </md-card-content>
+</md-card>
+
