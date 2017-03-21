@@ -13,41 +13,41 @@
             <table md-table>
                 <tbody md-body>
                     <tr md-row>
-                        <td md-cell><strong>Block Number</strong></md-cell>
+                        <td md-cell><strong>Block Number</strong></td>
                         <td md-cell colspan="2"><a href="/block/{{block.block}}">{{blockNumber}}</a></td>
                     </tr>
                     <tr md-row>
-                        <td md-cell><strong>Block Found</strong></md-cell>
+                        <td md-cell><strong>Block Found</strong></td>
                         <td md-cell>{{result.timestamp+"000" | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                         <td md-cell>{{result.timestamp | relativetime}}</td>
                     </tr>
                     <tr md-row>
-                        <td md-cell><strong>Found By</strong></md-cell>
+                        <td md-cell><strong>Found By</strong></td>
                         <td md-cell><a href="/address/{{result.miner}}">{{result.miner}}</a></td>
                         <td md-cell><a href="/address/{{result.miner}}">{{result.miner | knownMiners: 0}}</a></td>
                     </tr>
                     <tr md-row>
-                        <td md-cell><strong>Difficulty</strong></md-cell>
+                        <td md-cell><strong>Difficulty</strong></td>
                         <td md-cell colspan="2">{{result.difficulty | hashrate}}</td>
                     </tr>
                     <tr md-row>
-                        <td md-cell><strong>Nonce</strong></md-cell>
+                        <td md-cell><strong>Nonce</strong></td>
                         <td md-cell colspan="2">{{result.nonce}}</td>
                     </tr>
                     <tr md-row>
-                        <td md-cell><strong>Size</strong></md-cell>
+                        <td md-cell><strong>Size</strong></td>
                         <td md-cell colspan="2">{{result.size}}</td>
                     </tr>
                     <tr md-row>
-                        <td md-cell><strong>Gas Limit</strong></md-cell>
+                        <td md-cell><strong>Gas Limit</strong></td>
                         <td md-cell colspan="2">{{result.gasLimit}}</td>
                     </tr>
                     <tr md-row>
-                        <td md-cell><strong>Data</strong></md-cell>
+                        <td md-cell><strong>Data</strong></td>
                         <td md-cell colspan="2">{{result.extraData}}</td>
                     </tr>
                     <tr md-row>
-                        <td md-cell><strong>Data Translated</strong></md-cell>
+                        <td md-cell><strong>Data Translated</strong></td>
                         <td md-cell colspan="2">{{result.extraData | hextoascii | utf8Decode }}</td>
                     </tr>
                 </tbody>
@@ -75,30 +75,32 @@
             <md-card-content>
                 <md-card ng-repeat="tx in transactions">
                     <md-card-content>
-                        <table md-table>
-                            <tbody md-body>
-                                <tr md-row>
-                                    <td md-cell><strong>Transaction Hash</strong></md-cell>
-                                    <td md-cell colspan="2"><a href="/transaction/{{tx.blockHash}}">{{tx.blockHash}}</a></td>
-                                </tr>
-                                <tr md-row>
-                                    <td md-cell><strong>From</strong></md-cell>
-                                    <td md-cell colspan="2"><a href="/address/{{tx.from}}">{{tx.from | knownMiners}}</a></td>
-                                </tr>
-                                <tr md-row>
-                                    <td md-cell><strong>To</strong></md-cell>
-                                    <td md-cell colspan="2"><a href="/address/{{tx.to}}">{{tx.to | knownMiners}}</a></td>
-                                </tr>
-                                <tr md-row>
-                                    <td md-cell><strong>Amount</strong></md-cell>
-                                    <td md-cell colspan="2">{{tx.value | fromWei}} UBQ</td>
-                                </tr>
-                                <tr md-row>
-                                    <td md-cell><strong>Gas</strong></md-cell>
-                                    <td md-cell colspan="2">{{tx.gas}}</td>
-                                </tr>
-                            </tbody>
-                        </table>
+			<md-table-container>
+				<table md-table>
+				    <tbody md-body>
+					<tr md-row>
+					    <td md-cell><strong>Transaction Hash</strong></td>
+					    <td md-cell colspan="2"><a href="/transaction/{{tx.blockHash}}">{{tx.blockHash}}</a></td>
+					</tr>
+					<tr md-row>
+					    <td md-cell><strong>From</strong></td>
+					    <td md-cell colspan="2"><a href="/address/{{tx.from}}">{{tx.from | knownMiners}}</a></td>
+					</tr>
+					<tr md-row>
+					    <td md-cell><strong>To</strong></td>
+					    <td md-cell colspan="2"><a href="/address/{{tx.to}}">{{tx.to | knownMiners}}</a></td>
+					</tr>
+					<tr md-row>
+					    <td md-cell><strong>Amount</strong></td>
+					    <td md-cell colspan="2">{{tx.value | fromWei}} UBQ</td>
+					</tr>
+					<tr md-row>
+					    <td md-cell><strong>Gas</strong></td>
+					    <td md-cell colspan="2">{{tx.gas}}</td>
+					</tr>
+				    </tbody>
+				</table>
+			</md-table-container>
                     </md-card-content>
                 </md-card>
             </md-card-content>
