@@ -1,7 +1,7 @@
 angular.module('Explorer').service('PoolStatsService', function($rootScope, $interval, $http) {
 	this.getPoolStats = function() {
         console.log("GET Pool stats");
-	    $http({method : 'GET',url : 'http://www.ubiq.cc/pool/stats'})
+	    $http({method : 'GET',url : '/pool/stats'})
 		.success(function(data, status) {
 			var blocks = parseInt(data.immatureTotal)+parseInt(data.candidatesTotal);
 			$rootScope.$emit('poolBlocks', {blocks: blocks, immature: data.immatureTotal, candidates: data.candidatesTotal, total: data.maturedTotal });
@@ -22,7 +22,7 @@ angular.module('Explorer').service('PoolStatsService', function($rootScope, $int
 	}
 
     this.getHashRateHistory = function() {
-        $http({method : 'GET', url : 'http://www.ubiq.cc/api/pool/hashrateHistory'})
+        $http({method : 'GET', url : '/api/pool/hashrateHistory'})
             .success(function(data, status) {
                 $rootScope.$emit('poolHashRateHistory', data.reverse());
             })
