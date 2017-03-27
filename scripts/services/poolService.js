@@ -7,7 +7,7 @@ angular.module('Explorer').service('PoolStatsService', function($rootScope, $int
 			$rootScope.$emit('poolBlocks', {blocks: blocks, immature: data.immatureTotal, candidates: data.candidatesTotal, total: data.maturedTotal });
 			$rootScope.$emit('activeMiners', data.minersTotal);
 			$rootScope.poolMiners = data.minersTotal;
-			$rootScope.poolHashrate = parseFloat(data.hashrate/1000/1000).toFixed(2) + ' MH';
+			$rootScope.poolHashrate = data.hashrate;
 			$rootScope.poolDifficulty = parseFloat(data.nodes[0].difficulty/1000/1000/1000).toFixed(2) + ' G';
 			$rootScope.poolLastBlock = data.stats.lastBlockFound;
 			$rootScope.poolRoundShares = data.stats.roundShares;
