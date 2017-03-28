@@ -180,7 +180,7 @@ angular.module('Explorer').filter('utf8Decode', function() {
 	return function(input) {
 		if(input === undefined)
 			return "";
-		var decoded = decodeURIComponent(escape(input));
+		var decoded = decodeURIComponent(utf8Decode(input));
 		return decoded;
 	}
 });
@@ -202,3 +202,24 @@ angular.module('Explorer').filter('toBTC', function($rootScope) {
 		return btc;
 	}
 });
+
+
+/* From chrisveness - https://gist.github.com/chrisveness/bcb00eb717e6382c5608
+    This fixes the error when using escape to deal w/ utf8 in extraData
+*/
+function utf8Decode(utf8String) {
+    if (typeof utf8String != 'string') throw new TypeError('parameter ‘utf8String’ is not a string');
+    const unicodeString = utf8String.replace(
+        /[\u00e0-\u00ef][\u0080-\u00bf][\u0080-\u00bf]/g,  // 3-byte chars
+        function(c) {  // (note parentheses for precedence)
+            var cc = ((c.charCodeAt(0)&0x0f)<<12) | ((c.charCodeAt(1)&0x3f)<<6) | ( c.charCodeAt(2)&0x3f);
+            return String.fromCharCode(cc); }
+    ).replace(
+        /[\u00c0-\u00df][\u0080-\u00bf]/g,                 // 2-byte chars
+        function(c) {  // (note parentheses for precedence)
+            var cc = (c.charCodeAt(0)&0x1f)<<6 | c.charCodeAt(1)&0x3f;
+            return String.fromCharCode(cc); }
+    );
+    return unicodeString;
+}
+
