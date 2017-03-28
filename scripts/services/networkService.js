@@ -100,6 +100,11 @@ angular.module('Explorer').service('BlockInfoService', function($rootScope, $htt
 			return data;
 		});
 	}
+    this.getUncles = function(num) {
+        return $http.get('/api/block/uncle/'+num).then(function(data, status) {
+            return data;
+        });
+    }
 });
 
 angular.module('Explorer').service('TransactionInfoService', function($rootScope, $http, $q) {

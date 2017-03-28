@@ -7,7 +7,7 @@
     <md-card-content>
         <md-table-container>
             <div style="padding-bottom:30px;width:100%;text-align:right;clear:both">
-                <button class="btn btn-primary">{{conf}}</button>
+                <button class="btn btn-primary">{{confirms}}</button>
                 <button class="btn btn-success cb"><span>{{result.gasLimit}} Gas Used</span></button>
             </div>
             <table md-table>
@@ -55,6 +55,72 @@
         </md-table-container>
     </md-card-content>
 </md-card>
+
+<div ng-switch on="uncles.length">
+    <div ng-switch-when="0">
+        <md-card>
+            <md-card-title>
+                <md-card-title-text><span class="md-title">No uncles in this block</span></md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+
+            </md-card-content>
+        </md-card>
+    </div>
+    <div ng-switch-default>
+        <md-card>
+            <md-card-title>
+                <md-card-title-text><span class="md-title">There were {{uncles.length}} uncles found in this block</span></md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+                <md-card ng-repeat="result in uncles">
+                    <md-card-content>
+                        <md-table-container>
+                            <table md-table>
+                                <tbody md-body>
+                                    <tr md-row>
+                                        <td md-cell><strong>Uncle Found</strong></td>
+                                        <td md-cell>{{result.timestamp+"000" | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                        <td md-cell>{{result.timestamp | relativetime}}</td>
+                                    </tr>
+                                    <tr md-row>
+                                        <td md-cell><strong>Found By</strong></td>
+                                        <td md-cell><a href="/address/{{result.miner}}">{{result.miner}}</a></td>
+                                        <td md-cell><a href="/address/{{result.miner}}">{{result.miner | knownMiners: 0}}</a></td>
+                                    </tr>
+                                    <tr md-row>
+                                        <td md-cell><strong>Difficulty</strong></td>
+                                        <td md-cell colspan="2">{{result.difficulty | hashrate}}</td>
+                                    </tr>
+                                    <tr md-row>
+                                        <td md-cell><strong>Nonce</strong></td>
+                                        <td md-cell colspan="2">{{result.nonce}}</td>
+                                    </tr>
+                                    <tr md-row>
+                                        <td md-cell><strong>Size</strong></td>
+                                        <td md-cell colspan="2">{{result.size}}</td>
+                                    </tr>
+                                    <tr md-row>
+                                        <td md-cell><strong>Gas Limit</strong></td>
+                                        <td md-cell colspan="2">{{result.gasLimit}}</td>
+                                    </tr>
+                                    <tr md-row>
+                                        <td md-cell><strong>Data</strong></td>
+                                        <td md-cell colspan="2">{{result.extraData}}</td>
+                                    </tr>
+                                    <tr md-row>
+                                        <td md-cell><strong>Data Translated</strong></td>
+                                        <td md-cell colspan="2">{{result.extraData | hextoascii | utf8Decode }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </md-table-container>
+                    </md-card-content>
+                </md-card>
+            </md-card-content>
+        </md-card>
+    </div>
+</div>
 
 <div ng-switch on="transactions.length">
     <div ng-switch-when="0">
