@@ -1,5 +1,5 @@
 {
-  "name": "shiftchain.net-shift-api",
+  "name": "ubiq-api",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -13,6 +13,8 @@
     "jade": "~1.11.0",
     "morgan": "~1.7.0",
     "serve-favicon": "~2.3.0",
-    "redis":"~2.6.2"
+    "redis":"~2.6.2",
+    "web3":"0.17.0-alpha",
+    "request":"2.81.0"
   }
 }

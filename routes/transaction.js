@@ -10,7 +10,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/hash/:txnHash', function(req, res, next) {
 	var txn = req.params.txnHash;
-	req.db.get('_shf_transaction_hash_'+txn, function(error, result) {
+	req.db.get('explorer::transaction_hash_'+txn, function(error, result) {
 		if(!error && result != undefined) {
 			console.log("Got database stored transaction for ", txn);
 			res.json(JSON.parse(result));
@@ -19,7 +19,7 @@ router.get('/hash/:txnHash', function(req, res, next) {
 			req.web3.eth.getTransaction(txn,function(error, result) {
 				if(!error) {
 					res.json(result);
-					req.db.set('_shf_transaction_hash_'+txn, JSON.stringify(result), function(error, result) {
+					req.db.set('explorer::transaction_hash_'+txn, JSON.stringify(result), function(error, result) {
 						if(!error) {
 							console.log("Stored transaction hash ", txn);
 						}
