@@ -5,7 +5,7 @@ angular.module('Explorer')
         $scope.init=function()
         {
             $scope.blockId=$routeParams.blockId;
-
+            $scope.uncles = [];
             if($scope.blockId!==undefined) {
                 $rootScope.title += " Block # "+$scope.blockId;
                 BlockInfoService.getBlock($scope.blockId).then(function(result){
@@ -26,9 +26,6 @@ angular.module('Explorer')
                             if(result && result.data && result.data.uncles) {
                                 $scope.uncles = result.data.uncles;
                                 console.log(result.data.uncles);
-                            }
-                            else {
-                                $scope.uncles = [];
                             }
                         });
                     }
