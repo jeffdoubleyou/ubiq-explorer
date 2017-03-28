@@ -65,7 +65,7 @@ div.network-panel-right {
 }
 
 div.network-panel {
-    width: 18%;
+    width: 13%;
     clear: none;
     float: left;
     margin: 1%;
@@ -75,14 +75,14 @@ div.network-panel {
 
 div.network-panel .panel-heading {
     font-weight: bold;
-    font-size: 19px;
+    font-size: 15px;
     text-align: center;
 }
 
 div.network-panel .panel-body {
     text-align: center;
     font-weight: bold;
-    font-size: 16px;
+    font-size: 13px;
 }
 
 div.recent-blocks {

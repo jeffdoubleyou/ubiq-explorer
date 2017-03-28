@@ -57,6 +57,18 @@ angular.module('Explorer').service('NetworkService', function($rootScope, $inter
 		})
 	}
 
+	this.updateUncleRate = function() {
+	    $http({method : 'GET',url : '/api/network/unclerate'})
+		.success(function(data, status) {
+			var unclerate = parseFloat(data.unclerate).toFixed(2);
+			$rootScope.networkUncleRate = unclerate;
+		})
+		.error(function(data, status) {
+			$rootScope.networkUncleRate = 'N/A';
+		})
+	}
+
+
 	this.updateExchangeRate = function() {
 	    $http({method : 'GET',url : '/api/network/exchangerate'})
 		.success(function(data, status) {
@@ -86,12 +98,14 @@ angular.module('Explorer').service('NetworkService', function($rootScope, $inter
 	this.updateExchangeRate();
 	this.updateBlockTime();
 	this.updateDifficulty();
+    this.updateUncleRate();
 
 	$interval(networkService.updateCurrentBlock, 5000);
 	$interval(networkService.updateNetworkHashRate, 5000);
 	$interval(networkService.updateExchangeRate, 15000);
 	$interval(networkService.updateBlockTime, 5000);
 	$interval(networkService.updateDifficulty, 5000);
+    $interval(networkService.updateUncleRate, 5000);
 });
 
 angular.module('Explorer').service('BlockInfoService', function($rootScope, $http, $q) {

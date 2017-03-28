@@ -1,60 +1,81 @@
 <div class="container">
 
-    <h3 style="text-align:center;">Ubiq Block Explorer and Network Status</h3>
+    <div class="nav-center"><span class="md-headline">Ubiq Blockchain Explorer and Network Status</span></div>
+
+    <md-divider> </md-divider>
 
 <md-card>
-    <md-card-title>
+    <md-card-title md-colors="{background: 'light-green-50'}">
         <md-card-title-text><span class="md-title">Network Overview</span></md-card-title-text>
     </md-card-title>
-    <md-card-content>
+    <md-card-content layout-xs="column" layout="row" layout-align="center center" md-colors="{background: 'light-green-50'}">
 
-        <div class="network-info-badges">
-            <div class="panel panel-primary network-panel">
-                <div class="panel-heading">
-                    <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
-                    <span>Last Block</span>
-                </div>
-                <div class="panel-body">{{blockNum}}</div>
-            </div>
-
-            <div class="panel panel-success network-panel">
-                <div class="panel-heading">
-                    <span class="glyphicon glyphicon-globe" aria-hidden="true"></span>
-                    <span>Hash Rate</span>
-                </div>
-                <div class="panel-body">{{networkHashRate | hashrate}}</div>
-            </div>
-
-            <div class="panel panel-info network-panel">
-                <div class="panel-heading">
-                    <span class="glyphicon glyphicon-signal" aria-hidden="true"></span>
-                    <span>Difficulty</span>
-                </div>
-                <div class="panel-body">{{networkDifficulty | hashrate}}</div>
-            </div>
-
-            <div class="panel panel-warning network-panel">
-                <div class="panel-heading">
-                    <span class="glyphicon glyphicon-hourglass" aria-hidden="true"></span>
-                    <span>Block Time</span>
-                </div>
-                <div class="panel-body">{{networkBlockTime}}/s</div>
-            </div>
-
-            <div class="panel panel-danger network-panel network-panel-right">
-                <div class="panel-heading">
-                    <span class="glyphicon glyphicon-btc" aria-hidden="true"></span>
-                    <span>Price</span>
-                </div>
-                <div class="panel-body">${{shf_usd}}<br>BTC {{btc}}</div>
+        <div flex class="md-2-line nav-center">
+            <md-button class="md-fab md-primary" md-colors="::{backgroundColor: 'blue-grey'}">
+                <md-icon md-font-library="material-icons">view_module</md-icon>
+            </md-button>
+            <div class="div flex-text" layout="column">
+                <h4>Last Block</h4>
+                <h5>{{blockNum}}</h5>
             </div>
         </div>
+
+        <div flex class="md-2-line nav-center">
+            <md-button class="md-fab md-primary" md-colors="::{backgroundColor: 'light-green'}">
+                <md-icon md-font-library="material-icons">poll</md-icon>
+            </md-button>
+            <div class="div flex-text" layout="column">
+                <h4>Network Hashrate</h4>
+                <h5>{{networkHashRate | hashrate}}</h5>
+            </div>
+        </div>
+
+        <div flex class="md-2-line nav-center">
+            <md-button class="md-fab md-primary" md-colors="::{backgroundColor: 'teal'}">
+                <md-icon md-font-library="material-icons">trending_up</md-icon>
+            </md-button>
+            <div class="div flex-text" layout="column">
+                <h4>Network Difficulty</h4>
+                <h5>{{networkDifficulty | hashrate}}</h5>
+            </div>
+        </div>
+
+
+        <div flex class="md-2-line nav-center">
+            <md-button class="md-fab" md-colors="::{backgroundColor: 'light-blue'}">
+                <md-icon md-font-library="material-icons">access_time</md-icon>
+            </md-button>
+            <div class="div flex-text" layout="column">
+                <h4>Block Time</h4>
+                <h5>{{networkBlockTime}}/s</h5>
+            </div>
+        </div>
+        <div flex class="md-2-line nav-center">
+            <md-button class="md-fab md-primary" md-colors="::{backgroundColor: 'orange'}">
+                <md-icon md-font-library="material-icons">picture_in_picture</md-icon>
+            </md-button>
+            <div class="div flex-text" layout="column">
+                <h4>Uncle Rate</h4>
+                <h5>{{networkUncleRate}}%</h5>
+            </div>
+        </div>
+
+        <div flex class="md-2-line nav-center">
+            <md-button class="md-fab md-primary">
+                <md-icon md-font-library="material-icons">shuffle</md-icon>
+            </md-button>
+            <div class="div flex-text" layout="column">
+                <h4>Exchange Rate</h4>
+                <span class="md-caption">${{shf_usd}}</span><span class="md-caption">BTC {{btc}}</span>
+            </div>
+        </div>
+
     </md-card-content>
 </md-card>
 
 <div  layout-xs="column" layout="row">
     <div flex-xs flex-gt-xs="50" layout="column">
-        <md-card>
+        <md-card md-colors="{background: 'grey-50'}">
             <md-card-title>
                 <md-card-title-text><span class="md-title">Recent Blocks</span></md-card-title-text>
             </md-card-title>
@@ -65,7 +86,7 @@
     </div>
 
     <div flex-xs flex-gt-xs="50" layout="column">
-        <md-card>
+        <md-card md-colors="{background: 'lime-50'}">
             <md-card-title>
                 <md-card-title-text>
                     <span class="md-title">Top Miners</span>
@@ -80,7 +101,7 @@
 
 </div>
 
-<md-card>
+<md-card md-colors="{background: 'brown-50'}">
     <md-card-title>
         <md-card-title-text><span class="md-title">Recent Transactions</span></md-card-title-text>
     </md-card-title>
