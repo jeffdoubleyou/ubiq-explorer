@@ -67,7 +67,10 @@
     <div flex-xs flex-gt-xs="50" layout="column">
         <md-card>
             <md-card-title>
-                <md-card-title-text><span class="md-title">Top Miners</span></md-card-title-text>
+                <md-card-title-text>
+                    <span class="md-title">Top Miners</span>
+                    <span class="md-subhead"> ( Last 100 blocks )</span>
+                </md-card-title-text>
             </md-card-title>
             <md-card-content>
 		        <canvas id="miners-pie" class="chart-pie" chart-data="data" chart-labels="labels" chart-options="options" chart-legend="true" height="200"></canvas>
