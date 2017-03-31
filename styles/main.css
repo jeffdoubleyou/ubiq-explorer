@@ -244,3 +244,10 @@ div.footer {
 .md-table-pagination > .buttons > .label {
     color: inherit;
 }
+
+#chatbox {
+    position: fixed; 
+    bottom: 0;
+    right: 0;
+    height: 30px;
+}
