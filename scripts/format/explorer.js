@@ -12,7 +12,8 @@ const knownAddresses = {
 	      '_miner_0xb3c4e9ca7c12a6277deb9eef2dece65953d1c864' : 'Bittrex',
 	      '_miner_0xafda64d9e03deb48698b6914bf13225ee95900c6' : 'UBIQ.cc',
           '_miner_0xd144e30a0571aaf0d0c050070ac435deba461fab' : 'clona.ru',
-          '_miner_0x5a608f4adc2978a89f0b7777eb0cf6cef9c1b8a2' : 'ubiqminers.org'
+          '_miner_0x5a608f4adc2978a89f0b7777eb0cf6cef9c1b8a2' : 'ubiqminers.org',
+          '_miner_0xce72cf982244a4a489f367d224a1904dc8549c3b' : 'ubiqpool.com'
 };
 
 var hashRateUnits = ['H', 'KH', 'MH', 'GH', 'TH', 'PH'];
