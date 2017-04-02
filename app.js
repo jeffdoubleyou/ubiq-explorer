@@ -12,7 +12,6 @@ var Web3 = new web3();
 Web3.setProvider(new web3.providers.HttpProvider("http://127.0.0.1:8888"));
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
 var address = require('./routes/address');
 var network = require('./routes/network');
 var transaction = require('./routes/transaction');
@@ -40,7 +39,6 @@ app.use(function(req,res,next) {
 });
 
 app.use('/', routes);
-app.use('/api/users', users);
 app.use('/api/address', address);
 app.use('/api/network', network);
 app.use('/api/transaction', transaction);

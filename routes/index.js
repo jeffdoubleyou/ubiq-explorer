@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/api', function(req, res, next) {
-  res.render('index', { title: 'shiftchain.net API' });
+  res.render('index', { title: 'ubiq.cc API' });
 });
 
 module.exports = router;

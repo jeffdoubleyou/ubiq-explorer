@@ -112,6 +112,16 @@ router.get('/topminers', function(req, res, next) {
 	});
 });
 
+router.get('/unclerate', function(req, res, next) {
+    req.db.get('explorer::current_unclerate', function(error, result) {
+        var data = {
+            unclerate: result,
+            error: error
+        }
+        res.json(data);
+    });
+});
+
 router.get('/exchangerate', function(req, res, next) {
     var now = new Date() / 1000;
     var expires = 0;

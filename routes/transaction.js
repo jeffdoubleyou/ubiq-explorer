@@ -1,19 +1,13 @@
 var express = require('express');
 var router = express.Router();
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  //res.render('index', { title: 'Express' });
-  var t = [1,2,3,4,5];
-  res.json(t);
-});
-
 router.get('/hash/:txnHash', function(req, res, next) {
 	var txn = req.params.txnHash;
 	req.db.get('explorer::transaction_hash_'+txn, function(error, result) {
-		if(!error && result != undefined) {
+        result = JSON.parse(result);
+		if(!error && result != undefined && result.blockNumber > 0) {
 			console.log("Got database stored transaction for ", txn);
-			res.json(JSON.parse(result));
+			res.json(result);
 		}
 		else {
 			req.web3.eth.getTransaction(txn,function(error, result) {
