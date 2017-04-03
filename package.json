@@ -2,6 +2,10 @@
   "name": "UbiqExplorer",
   "version": "2.0.0",
   "description": "Ubiq Blockchain Explorer",
+  "repository": {
+    "type":"git",
+    "url":"https://github.com/jeffdoubleyou/ubiq-explorer.git"
+  },
   "main": "app.js",
   "scripts": {
     "start": "node ./bin/server",
