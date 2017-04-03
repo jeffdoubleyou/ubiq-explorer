@@ -1,0 +1,34 @@
+<div class="container">
+    <md-card ng-width=100>
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-title">Ubiq Network Pools Overview</span>
+                <span class="md-subhead">Updated every 5 minutes</span>
+            </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+                
+            <md-table-container>
+                <table md-table>
+                    <thead md-head>
+                        <tr md-row>
+                            <th md-column>Pool</th>
+                            <th md-column>Miners</th>
+                            <th md-column>Hashrate</th>
+                            <th md-column>API Uptime</th>
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-row ng-repeat="pool in pools | orderObjectBy: 'hashrate':true">
+                            <td md-cell><a href="{{pool.url}}" target="_blank">{{pool.name}}</a></td>
+                            <td md-cell>{{pool.miners}}</td>
+                            <td md-cell>{{pool.hashrate | hashrate}}</td>
+                            <td md-cell>{{pool.uptime}}%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+        </md-card-content>
+    </md-card>
+</div>
+<div ng-data-include="'template/misc/adsense.html'"></div>

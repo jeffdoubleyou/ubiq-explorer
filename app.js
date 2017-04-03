@@ -69,6 +69,11 @@ angular.module('Explorer', ['ngMaterial', 'md.data.table', 'ngRoute','chart.js',
                 controller: 'richListController',
                 title: 'Ubiq Rich List'
             }).
+            when('/networkpools', {
+                templateUrl: 'views/networkPools.html',
+                controller: 'networkPoolController',
+                title: 'Ubiq Network Pools Overview'
+            }).
             otherwise({
                 redirectTo: '/'
             });
