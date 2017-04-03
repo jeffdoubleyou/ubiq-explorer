@@ -105,5 +105,15 @@ router.get('/removealert/:address/:email', function(req, res, next) {
     });
 });
 
+router.get('/poolstats', function(req, res, next) {
+    req.db.get('explorer::pools::stats', function(error, result) {
+        if(error || !result) {
+            res.json({ status: 0, pools: {} });
+        }
+        else {
+            res.json({ status: 1, pools: JSON.parse(result) });
+        }
+    });
+});
 
 module.exports = router;
