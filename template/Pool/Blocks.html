@@ -4,7 +4,34 @@
 		<div class="well well-sm">
 			The pool always pays full block rewards including transaction fees and uncles.
 		</div>
-		
+	    <md-card md-colors="::{backgroundColor: 'lime-50'}">       
+            <md-card-title>     
+                <md-card-title-text><span class="md-title">Block Statstics</span></md-card-title-text>    
+            </md-card-title>    
+            <md-card-content>
+				<md-table-container ng-controller="poolBlocksController">
+                    <table md-table>
+                        <thead md-head>
+                            <tr md-row>
+                                <th md-column>Blocks</th>
+                                <th md-column>Variance</th>
+                                <th md-column>Uncle Rate</th>
+                                <th md-column>Orphan Rate</th>
+                            </tr>
+                        </thead>
+                        <tbody md-body>
+                            <tr md-row ng-repeat="(key, blocks) in luck">
+                                <td md-cell>{{key}}</td>
+                                <td md-cell>{{blocks.luck * 100| variance}}</td>
+                                <td md-cell>{{blocks.uncleRate * 100}}%</td>
+                                <td md-cell>{{blocks.orphanRate * 100}}%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </md-table-container>
+            </md-card-content>
+        </md-card>
+        <hr>
 		<div>
 		    <md-tabs>
                 <md-tab label="Mature ({{totalBlocks}})" >

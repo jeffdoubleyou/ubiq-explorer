@@ -68,6 +68,7 @@ angular.module('Explorer').controller('poolIndexController', function(PoolStatsS
 
 angular.module('Explorer').controller('poolBlocksController', function($rootScope, $scope) {
 	$rootScope.$on('poolBlocksResult', function(event, result) {
+        $scope.luck = result.luck;
 		$scope.matured = result.matured;
 		$scope.maturedTotal = result.maturedTotal;
 		$scope.immature = result.immature;
