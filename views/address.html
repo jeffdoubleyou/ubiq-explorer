@@ -11,7 +11,7 @@
                 <canvas id="balance-line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options" height="120"></canvas> 
             </div>
             <div ng-controller="AddressTabsController">
-              <md-tabs md-border-bottom md-dynamic-height>
+              <md-tabs md-border-bottom md-dynamic-height md-selected="ActiveAddressTab">
                 <md-tab ng-repeat="tab in tabs" label="{{tab.title}}" ng-init="template = tab.template">
                     <div data-ng-include src="template"></div>
                 </md-tab>

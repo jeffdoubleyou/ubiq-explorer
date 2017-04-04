@@ -230,7 +230,7 @@ angular.module('Explorer').controller('AddressTabsController', function(AddressS
                     slug: 'pool',
                     title: "Pool Stats",
                     content: "Pool Stats",
-                    template: "template/Address/Pool.html"
+                    template: "template/Address/Pool.html",
                 });
                 $scope.setPoolAccount();
                 // Inject pool stats mostly just for calculating round share
