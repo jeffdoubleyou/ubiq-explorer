@@ -19,7 +19,8 @@ const knownAddresses = {
           '_miner_0x68740c38d4968597367670ba8952e75249ffe393' : 'Bittrex Swap Address',
           '_miner_0xff391d7f5fdae18f55b6b4037d6e5d740bbe0ddc' : 'Ubiq Mine Peon',
           '_miner_0x7872d49d999757e881f076be4271df89394b0114' : 'Epool',
-          '_miner_0x9cdfc07c6409d97d66ad6b181a5faebb3c26b8a5' : 'HakoPool'
+          '_miner_0x9cdfc07c6409d97d66ad6b181a5faebb3c26b8a5' : 'HakoPool',
+          '_miner_0x18520a8aaf5142e0d788db696bb46124b2e7bb9b' : 'UBIQ.cc - Donation Address'
 };
 
 var hashRateUnits = ['H', 'KH', 'MH', 'GH', 'TH', 'PH'];
