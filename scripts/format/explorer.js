@@ -22,7 +22,8 @@ const knownAddresses = {
           '_miner_0x9cdfc07c6409d97d66ad6b181a5faebb3c26b8a5' : 'HakoPool',
           '_miner_0x18520a8aaf5142e0d788db696bb46124b2e7bb9b' : 'UBIQ.cc - Donation Address',
           '_miner_0x6f0e38d2a050c7c66b96ffc4a566da3243d56070' : 'Epic Pool',
-          '_miner_0x8fac71106a3aa9a6617c51ceed25a661bc36f561' : 'Coinminer.space'
+          '_miner_0x8fac71106a3aa9a6617c51ceed25a661bc36f561' : 'Coinminer.space',
+          '_miner_0xaa5091ec0c91847fd72262241949d811303f945f' : 'ZET Tech'
 };
 
 var hashRateUnits = ['H', 'KH', 'MH', 'GH', 'TH', 'PH'];
