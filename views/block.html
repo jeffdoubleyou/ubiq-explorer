@@ -17,6 +17,10 @@
                         <td md-cell colspan="2"><a href="/block/{{block.block}}">{{blockNumber}}</a></td>
                     </tr>
                     <tr md-row>
+                        <td md-cell><strong>Block Hash</strong></td>
+                        <td md-cell colspan="2"><a href="/block/{{result.hash}}">{{result.hash}}</a></td>
+                    </tr>
+                    <tr md-row>
                         <td md-cell><strong>Block Found</strong></td>
                         <td md-cell>{{result.timestamp+"000" | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                         <td md-cell>{{result.timestamp | relativetime}}</td>
@@ -146,7 +150,7 @@
 				    <tbody md-body>
 					<tr md-row>
 					    <td md-cell><strong>Transaction Hash</strong></td>
-					    <td md-cell colspan="2"><a href="/transaction/{{tx.blockHash}}">{{tx.blockHash}}</a></td>
+					    <td md-cell colspan="2"><a href="/transaction/{{tx.blockHash}}">{{tx.hash}}</a></td>
 					</tr>
 					<tr md-row>
 					    <td md-cell><strong>From</strong></td>
