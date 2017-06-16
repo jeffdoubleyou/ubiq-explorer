@@ -1,0 +1,50 @@
+<md-table-container>
+    <table md-table>
+        <thead md-head>
+            <tr md-row>
+                <th md-column><strong>Duration</strong></th>
+                <th md-column><strong>UBQ</strong></th>
+                <th md-column><strong>USD</strong></th>
+                <th md-column><strong>BTC</strong></th>
+            </tr>
+        </thead>
+        <tbody md-body>
+            <tr md-row>
+                <td md-cell>Hourly</td>
+                <td md-cell>{{(86400/networkBlockTime)/24*8*(minerData.hashrate / networkHashRate)}}</td>
+                <td md-cell>${{(86400/networkBlockTime)/24*8*(minerData.hashrate / networkHashRate) | toUSD}}</td>
+                <td md-cell>{{(86400/networkBlockTime)/24*8*(minerData.hashrate / networkHashRate) | toBTC}} BTC</td>
+            </tr>
+            <tr md-row>
+                <td md-cell>Daily</td>
+                <td md-cell>{{(86400/networkBlockTime)*8*(minerData.hashrate / networkHashRate)}}</td>
+                <td md-cell>${{(86400/networkBlockTime)*8*(minerData.hashrate / networkHashRate) | toUSD}}</td>
+                <td md-cell>{{(86400/networkBlockTime)*8*(minerData.hashrate / networkHashRate) | toBTC}} BTC</td>
+            </tr>
+            <tr md-row>
+                <td md-cell>Weekly</td>
+                <td md-cell>{{(86400/networkBlockTime)*7*8*(minerData.hashrate / networkHashRate)}}</td>
+                <td md-cell>${{(86400/networkBlockTime)*7*8*(minerData.hashrate / networkHashRate) | toUSD}}</td>
+                <td md-cell>{{(86400/networkBlockTime)*7*8*(minerData.hashrate / networkHashRate) | toBTC}} BTC</td>
+            </tr>
+            <tr md-row>
+                <td md-cell>Monthly</td>
+                <td md-cell>{{(86400/networkBlockTime)*30*8*(minerData.hashrate / networkHashRate)}}</td>
+                <td md-cell>${{(86400/networkBlockTime)*30*8*(minerData.hashrate / networkHashRate) | toUSD}}</td>
+                <td md-cell>{{(86400/networkBlockTime)*30*8*(minerData.hashrate / networkHashRate) | toBTC}} BTC</td>
+            </tr>
+            <tr md-row>
+                <td md-cell colspan="4">
+                    <div class="clear" ng-style="{'margin-top': '10px'}"></div>
+                    <md-card  md-colors="::{backgroundColor: 'light-blue'}">
+                        <md-card-content>
+                            Your estimated earnings are based on your average hash rate of {{minerData.hashrate | hashrate}} and the overall network hashrate of {{networkHashRate | hashrate}} using the network's current average block time of {{networkBlockTime}} seconds.
+                        </md-card-content>
+                    </md-card>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</md-table-container>
+
