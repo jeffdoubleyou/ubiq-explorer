@@ -21,9 +21,18 @@
                     <tbody md-body>
                         <tr md-row ng-repeat="pool in pools | orderObjectBy: 'hashrate':true">
                             <td md-cell><a href="{{pool.url}}" target="_blank">{{pool.name}}</a></td>
-                            <td md-cell>{{pool.miners}}</td>
-                            <td md-cell>{{pool.hashrate | hashrate}}</td>
+                            <td md-cell ng-init="addMiners(pool.miners)">{{pool.miners}}</td>
+                            <td md-cell ng-init="addHashRate(pool.hashrate)">{{pool.hashrate | hashrate}}</td>
                             <td md-cell>{{pool.uptime}}%</td>
+                        </tr>
+                        <tr md-row>
+                            <td colspan="4" md-cell><span class="md-subhead">Totals</td>
+                        </tr>
+                        <tr md-row>
+                            <td md-cell>&nbsp;</td>
+                            <td md-cell>{{totalMiners}}</td>
+                            <td md-cell>{{totalHashRate | hashrate}}</td>
+                            <td md-cell>&nbsp;</td>
                         </tr>
                     </tbody>
                 </table>
@@ -32,3 +41,4 @@
     </md-card>
 </div>
 <div ng-data-include="'template/misc/adsense.html'"></div>
+
