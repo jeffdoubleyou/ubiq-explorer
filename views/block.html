@@ -158,7 +158,7 @@
 					</tr>
 					<tr md-row>
 					    <td md-cell><strong>To</strong></td>
-					    <td md-cell colspan="2"><a href="/address/{{tx.to}}">{{tx.to | knownMiners}}</a></td>
+					    <td md-cell colspan="2"><span ng-if="tx.contract"><md-tooltip>Contract Address</md-tooltip><md-icon md-font-library="material-icons" style="font-size: 18px;" aria-label="Contract Address">transform</md-icon></span><a href="/address/{{tx.to}}">{{tx.to | knownMiners}}</a></td>
 					</tr>
 					<tr md-row>
 					    <td md-cell><strong>Amount</strong></td>
