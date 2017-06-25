@@ -12,15 +12,36 @@ router.get('/hash/:txnHash', function(req, res, next) {
 		else {
 			req.web3.eth.getTransaction(txn,function(error, result) {
 				if(!error) {
-					res.json(result);
-					req.db.set('explorer::transaction_hash_'+txn, JSON.stringify(result), function(error, result) {
-						if(!error) {
-							console.log("Stored transaction hash ", txn);
-						}
-						else {
-							console.log("Error storing transaction hash", txn, error);
-						}
-					});
+                    if(result.to) {
+                        res.json(result)
+                        req.db.set('explorer::transaction_hash_'+txn, JSON.stringify(result), function(error, result) {
+                            if(!error) {
+                                console.log("Stored transaction hash ", txn);
+                            }
+                            else {
+                                console.log("Error storing transaction hash", txn, error);
+                            }
+                        });
+                    } 
+                    else {
+                        req.web3.eth.getTransactionReceipt(txn, function(error, receipt) {
+                            if(receipt) {
+                                console.log(receipt.contractAddress)
+                                result.to = receipt.contractAddress;
+                                result.contract = 1;
+                            }
+					        res.json(result);
+
+                            req.db.set('explorer::transaction_hash_'+txn, JSON.stringify(result), function(error, result) {
+                                if(!error) {
+                                    console.log("Stored transaction hash ", txn);
+                                }
+                                else {
+                                    console.log("Error storing transaction hash", txn, error);
+                                }
+                            });
+                        });
+                    }
 				}
 				else {
 					res.json(error);
