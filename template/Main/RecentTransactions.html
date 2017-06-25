@@ -15,7 +15,7 @@
                 <td md-cell><a href="/block/{{txn.number}}">{{txn.number}}</a></td>
                 <td md-cell><a href="/transaction/{{txn.hash}}">{{txn.hash | truncate: '25'}}</a></td>
                 <td md-cell><a href="/address/{{txn.from}}">{{txn.from | knownMiners: '25'}}</a></td>
-                <td md-cell><span ng-if="txn.contract"><md-tooltip>Contract Address</md-tooltip><md-icon md-font-library="material-icons" style="font-size: 18px;" aria-label="Contract Address">transform</md-icon></span><a href="/address/{{txn.to}}">{{txn.to | knownMiners: '25'}}</a></td>
+                <td md-cell><span ng-if="txn.contract"><md-tooltip>Contract Execution</md-tooltip><md-icon md-font-library="material-icons" style="font-size: 18px;" aria-label="Contract Execution">transform</md-icon></span><a href="/address/{{txn.to}}">{{txn.to | knownMiners: '25'}}</a></td>
                 <td md-cell>{{txn.value | fromWei}}</td>
                 <td md-cell>{{txn.timestamp | relativetime }}</td>
             </tr>
