@@ -24,7 +24,10 @@ const knownAddresses = {
           '_miner_0x18520a8aaf5142e0d788db696bb46124b2e7bb9b' : 'UBIQ.cc - Donation Address',
           '_miner_0x6f0e38d2a050c7c66b96ffc4a566da3243d56070' : 'Epic Pool',
           '_miner_0x8fac71106a3aa9a6617c51ceed25a661bc36f561' : 'Coinminer.space',
-          '_miner_0xaa5091ec0c91847fd72262241949d811303f945f' : 'ZET Tech'
+          '_miner_0xaa5091ec0c91847fd72262241949d811303f945f' : 'ZET Tech',
+          '_miner_0x0b85d03faf9d4105d41d800000f58876e69692a7' : 'MyPool.online',
+          '_miner_0x4db9427b6903614fbb796a350c6e61948a0dc09e' : 'pool.ubq.tw',
+          '_miner_0x3cb1f80ad907d10d58896b64bfe2c2f7483c8337' : 'HODLPool'
 };
 
 var hashRateUnits = ['H', 'KH', 'MH', 'GH', 'TH', 'PH'];

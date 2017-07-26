@@ -14,6 +14,10 @@ angular.module('Explorer').service('NetworkService', function($rootScope, $inter
         return $http.get('/api/network/blocktimehistory');
     }
 
+    this.getUncleRateHistory = function() {
+        return $http.get('/api/network/uncleratehistory');
+    }
+
     this.getRecentBlocks = function() {
         return $http.get('/api/network/recentblocks');
     }

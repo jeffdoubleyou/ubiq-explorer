@@ -39,6 +39,11 @@ angular.module('Explorer', ['ngMaterial', 'md.data.table', 'ngRoute','chart.js',
                 controller: 'BlockTimeHistoryController',
                 title: 'Ubiq Block Time Evolution'
             }).
+            when('/unclerate', {
+                templateUrl: 'views/uncleRateHistory.html',
+                controller: 'UncleRateHistoryController',
+                title: 'Ubiq Uncle Rate Evolution'
+            }).
             when('/addressinfo/summary/:addressId', {
                 templateUrl: 'views/addressInfoSummary.html'
                 //controller: 'addressInfoSummary'
