@@ -71,6 +71,17 @@ router.get('/difficultyhistory', function(req, res, next) {
 	});
 });
 
+router.get('/uncleratehistory', function(req, res, next) {
+	req.db.lrange('explorer::history_unclerate', 0, 2500, function(error, result) {
+		var resArray = [];
+		for (var i in result) {
+			resArray.push(result[i]);
+		}
+		res.json(resArray);
+	});
+});
+
+
 router.get('/blocktimehistory', function(req, res, next) {
 	req.db.lrange('explorer::history_blocktime', 0, 2500, function(error, result) {
 		var resArray = [];
