@@ -27,7 +27,12 @@ const knownAddresses = {
           '_miner_0xaa5091ec0c91847fd72262241949d811303f945f' : 'ZET Tech',
           '_miner_0x0b85d03faf9d4105d41d800000f58876e69692a7' : 'MyPool.online',
           '_miner_0x4db9427b6903614fbb796a350c6e61948a0dc09e' : 'pool.ubq.tw',
-          '_miner_0x3cb1f80ad907d10d58896b64bfe2c2f7483c8337' : 'HODLPool'
+          '_miner_0x3cb1f80ad907d10d58896b64bfe2c2f7483c8337' : 'HODLPool',
+          '_miner_0xd9881bacbec51b831ef221f96c05e3891cd99544' : 'ubiq.minerpool.net',
+          '_miner_0x958246fe0549bb52648d776374e6a56436cd5dfb' : 'Kwiq Pool Party',
+          '_miner_0x1a225c643c523be1a3b3d87ad8fc6e0238e2fc8a' : 'AltpOOls',
+          '_miner_0xc759e1606051432d4eb3be7a6c34866c3bceca50' : 'millio.nz'
+
 };
 
 var hashRateUnits = ['H', 'KH', 'MH', 'GH', 'TH', 'PH'];
