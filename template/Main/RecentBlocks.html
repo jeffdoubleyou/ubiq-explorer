@@ -10,7 +10,7 @@
         <tbody md-body>
             <tr md-row ng-repeat="block in recentBlocks">
                 <td md-cell><a href="/block/{{block.block}}">{{block.block}}</a></td>
-                <td md-cell><a href="/address/{{block.miner}}">{{block.miner | knownMiners: '30'}}</a></td>
+                <td md-cell><a href="/address/{{block.miner}}"><span format-address address-id="block.miner" max-length="30"></span></a></td>
                 <td md-cell>{{block.timestamp | relativetime }}</td>
             </tr>
         </tbody>

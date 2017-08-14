@@ -17,12 +17,12 @@
                         <tr md-row>
                             <td md-cell><strong>From</strong></td>
                             <td md-cell><a href="/address/{{txn.from}}">{{txn.from}}</a></td>
-                            <td md-cell colspan="2"><a href="/address/{{txn.from}}">{{txn.from | knownMiners: 0}}</a></td>
+                            <td md-cell colspan="2"><a href="/address/{{txn.from}}"><span format-address address-id="txn.from"></span></a></td>
                         </tr>
                         <tr md-row>
                             <td md-cell><strong>To</strong></td>
                             <td md-cell><span ng-if="txn.contract"><md-tooltip>Contract Execution</md-tooltip><md-icon md-font-library="material-icons" style="font-size: 18px;" aria-label="Contract Execution">transform</md-icon></span><a href="/address/{{txn.to}}">{{txn.to}}</a></td>
-                            <td md-cell colspan="2"><a href="/address/{{txn.to}}">{{txn.to | knownMiners: 0}}</a></td>
+                            <td md-cell colspan="2"><a href="/address/{{txn.to}}"><span format-address address-id="txn.to"></span></a></td>
                         </tr>
                         <tr md-row>
                             <td md-cell><strong>Amount</strong></td>

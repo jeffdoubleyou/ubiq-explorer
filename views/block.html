@@ -28,7 +28,7 @@
                     <tr md-row>
                         <td md-cell><strong>Found By</strong></td>
                         <td md-cell><a href="/address/{{result.miner}}">{{result.miner}}</a></td>
-                        <td md-cell><a href="/address/{{result.miner}}">{{result.miner | knownMiners: 0}}</a></td>
+                        <td md-cell><a href="/address/{{result.miner}}"><span format-address address-id="result.miner"></span></a></td>
                     </tr>
                     <tr md-row>
                         <td md-cell><strong>Difficulty</strong></td>
@@ -90,7 +90,7 @@
                                     <tr md-row>
                                         <td md-cell><strong>Found By</strong></td>
                                         <td md-cell><a href="/address/{{result.miner}}">{{result.miner}}</a></td>
-                                        <td md-cell><a href="/address/{{result.miner}}">{{result.miner | knownMiners: 0}}</a></td>
+                                        <td md-cell><a href="/address/{{result.miner}}"><span format-address address-id="result.miner"></span></a></td>
                                     </tr>
                                     <tr md-row>
                                         <td md-cell><strong>Difficulty</strong></td>
@@ -154,11 +154,11 @@
 					</tr>
 					<tr md-row>
 					    <td md-cell><strong>From</strong></td>
-					    <td md-cell colspan="2"><a href="/address/{{tx.from}}">{{tx.from | knownMiners}}</a></td>
+					    <td md-cell colspan="2"><a href="/address/{{tx.from}}"><span format-address address-id="txn.from"></span></a></td>
 					</tr>
 					<tr md-row>
 					    <td md-cell><strong>To</strong></td>
-					    <td md-cell colspan="2"><span ng-if="tx.contract"><md-tooltip>Contract Execution</md-tooltip><md-icon md-font-library="material-icons" style="font-size: 18px;" aria-label="Contract Execution">transform</md-icon></span><a href="/address/{{tx.to}}">{{tx.to | knownMiners}}</a></td>
+					    <td md-cell colspan="2"><span ng-if="tx.contract"><md-tooltip>Contract Execution</md-tooltip><md-icon md-font-library="material-icons" style="font-size: 18px;" aria-label="Contract Execution">transform</md-icon></span><a href="/address/{{tx.to}}"><span format-address address-id="txn.to"></span></a></td>
 					</tr>
 					<tr md-row>
 					    <td md-cell><strong>Amount</strong></td>

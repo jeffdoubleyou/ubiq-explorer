@@ -1,4 +1,4 @@
-const knownAddresses = {
+/*var knownAddresses = {
           '_miner_0x3347da801dfeca62e7d327ad9286726083797a4e' : 'PoolTo.Be',
           '_miner_0x41a6d4370e4aebdca59c1c2b0c20dfe5264314ca' : 'Minerpool.cc',
           '_miner_0x8eb92319c431f72df6182d150bb87887aeef2a7a' : 'Pool Sexy',
@@ -33,7 +33,9 @@ const knownAddresses = {
           '_miner_0x1a225c643c523be1a3b3d87ad8fc6e0238e2fc8a' : 'AltpOOls',
           '_miner_0xc759e1606051432d4eb3be7a6c34866c3bceca50' : 'millio.nz'
 
-};
+};*/
+
+var knownAddresses = {};
 
 var hashRateUnits = ['H', 'KH', 'MH', 'GH', 'TH', 'PH'];
 
