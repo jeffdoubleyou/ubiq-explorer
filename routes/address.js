@@ -7,6 +7,21 @@ var router = express.Router();
 * @apiGroup transactions
 */
 
+router.get('/name/:addressId', function(req, res, next) {
+    var addressId = req.params.addressId;
+    if(addressId.substring(0,2) != '0x') {
+        adressId = '0x'+addressId;
+    }
+    req.db.hget('explorer::known_miners', '_miner_'+addressId, function(error, result) {
+        if(result) {
+            res.json({ status: 1, name: result });
+        }
+        else {
+            res.json({ status: 0, name: null ,error: error });
+        }
+    })
+})
+
 router.get('/transactions/from/:addressId.:start.:end', function(req, res, next) {
   var start = req.params.start ? req.params.start : 1;
   var end = req.params.end ? req.params.end : -1;
