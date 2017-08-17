@@ -29,7 +29,7 @@ angular.module('Explorer')
         NetworkService.getTopMiners().then(function(res) { 
             var data = res.data || [];
 			for (var i in data) {
-				labels.push(data[i].name + ' ' + data[i].percent + '%' + ' ('+data[i].count+')');
+				labels.push(data[i].name + ' ' + parseFloat(data[i].percent).toFixed(2) + '%' + ' ('+data[i].count+')');
 				values.push(data[i].percent);
 			}
 			$scope.labels = labels;

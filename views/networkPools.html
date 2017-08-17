@@ -39,6 +39,21 @@
             </md-table-container>
         </md-card-content>
     </md-card>
+
+<div flex-xs flex-gt-xs="100" layout="column" ng-controller="mainController">
+        <md-card md-colors="{background: 'lime-50'}">
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-title">Top Miners</span>
+                    <span class="md-subhead"> ( Last 200 blocks )</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+                <canvas id="miners-pie" class="chart-pie" chart-data="data" chart-labels="labels" chart-options="options" chart-legend="true" height="200"></canvas>
+            </md-card-content>
+        </md-card>
+    </div>
+
 </div>
 <div ng-data-include="'template/misc/adsense.html'"></div>
 
