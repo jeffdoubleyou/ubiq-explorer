@@ -114,7 +114,7 @@ router.get('/recenttxns', function(req, res, next) {
 });
 
 router.get('/topminers', function(req, res, next) {
-	req.db.lrange('explorer::top_miners', 0, 10, function(error, result) {
+	req.db.lrange('explorer::top_miners', 0, -1, function(error, result) {
 		var resArray = [];
 		for(var i in result) {
 		    resArray.push(JSON.parse(result[i]));
