@@ -4,7 +4,7 @@
 <!--[if IE 8]>         <html lang="en" ng-app="Explorer" class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html lang="en" ng-app="Explorer" class="no-js"> <!--<![endif]-->
 <head>
-    <base href="http://www.ubiq.cc/index.html" />
+    <base href="http://localhost:8080/index.html" />
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title ng-bind="$root.title">UBIQ.cc - Ubiq Blockchain Explorer</title>
@@ -25,9 +25,6 @@
 
     <md-toolbar class="md-primary md-hue-7" ng-controller="mainController">
         <div class="md-toolbar-tools">
-            <md-button class="md-icon-button" aria-label="Settings" ng-click="ctrl.showToolbarMenu($event, ctrl.settings)">
-                <md-icon md-svg-icon="img/icons/menu.svg"></md-icon>
-            </md-button>
             <a class="navbar-brand nav-logo" href="/">
                 <img class="nav-logo" src="images/ubiq-logo.png" alt="ubiq.cc - Ubiq Blockchain explorer">
             </a>
