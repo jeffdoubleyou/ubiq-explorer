@@ -34,8 +34,4 @@ angular.module('Explorer').service('AddressService', function($http) {
     this.getPoolAccount = function(address) {
         return $http.get('/pool/accounts/'+address);
     }
-
-    this.getAddressName = function(address) {
-        return $http.get('/api/address/name/'+address);
-    }
 });

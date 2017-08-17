@@ -4,7 +4,7 @@
             <tr md-row>
                 <td md-cell><strong>Address</strong></td>
                 <td md-cell>{{addressId}}</td>
-                <td md-cell colspan="2"><span format-address address-id="addressId"></span></td>
+                <td md-cell colspan="2">{{addressId | knownMiners: 0}}</td>
             </tr>
             <tr md-row>
                 <td md-cell><strong>Balance</strong></td>

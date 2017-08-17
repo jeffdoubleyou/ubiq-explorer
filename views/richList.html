@@ -23,7 +23,7 @@
                     <tbody md-body>
                         <tr md-row ng-repeat="account in richList">
                             <td md-cell>{{$index+1}}</td>
-                            <td md-cell><a href="/address/{{account.address}}"><span format-address address-id="account.address"></span></a></td>
+                            <td md-cell><a href="/address/{{account.address}}">{{account.address | knownMiners }}</a></td>
                             <td md-cell>{{account.balance}} UBQ</td>
                             <td md-cell>${{account.balance | toUSD}}</td>
                             <td md-cell>{{account.balance | toBTC}} BTC</td>
