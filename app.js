@@ -5,10 +5,12 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var Redis = require('redis');
-var redis = Redis.createClient(6379, '127.0.0.1');
+var redis = Redis.createClient(6379, '192.168.0.254');
 var web3 = require('web3');
 var Web3 = new web3();
-Web3.setProvider(new web3.providers.HttpProvider("http://127.0.0.1:8888"));
+Web3.setProvider(new web3.providers.HttpProvider("http://192.168.0.254:8588"));
+var cache = require('node-cache');
+var Cache = new cache;
 
 var routes = require('./routes/index');
 var address = require('./routes/address');
@@ -34,6 +36,7 @@ app.use('/api', express.static(__dirname + '/public/apidoc'));
 app.use(function(req,res,next) {
     req.db = redis;
     req.web3 = Web3;
+    req.cache = Cache;
     next();
 });
 

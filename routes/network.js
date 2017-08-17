@@ -9,6 +9,18 @@ router.get('/', function(req, res, next) {
   res.json(t);
 });
 
+router.get('/knownaddresses', function(req, res, next) {
+    var cached = req.cache.get("knownAddresses");
+    if(cached) {
+        console.log("Known addresses is cached");
+        return res.json(cached);
+    }
+    req.db.hgetall('explorer::known_miners', function(error, result) {
+        req.cache.set("knownAddresses", result, 15*60);
+        res.json(result);
+    });
+});
+
 router.get('/lastblock', function(req, res, next) {
 	req.db.lrange('explorer::recent_blocks', 0, 0, function(error, result) {
 		result = JSON.parse(result[0]);

@@ -17,6 +17,7 @@
     "request": "2.81.0",
     "serve-favicon": "~2.3.0",
     "web3": "0.17.0-alpha",
-    "xmlhttprequest": "^1.8.0"
+    "xmlhttprequest": "^1.8.0",
+    "node-cache": "~4.1.1"
   }
 }
