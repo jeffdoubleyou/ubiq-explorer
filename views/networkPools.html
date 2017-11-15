@@ -19,7 +19,7 @@
                         </tr>
                     </thead>
                     <tbody md-body>
-                        <tr md-row ng-repeat="pool in pools | orderObjectBy: 'hashrate':true">
+                        <tr md-row ng-repeat="pool in pools | orderObjectBy: 'uptime':true | orderObjectBy: 'hashrate':true">
                             <td md-cell><a href="{{pool.url}}" target="_blank">{{pool.name}}</a></td>
                             <td md-cell ng-init="addMiners(pool.miners)">{{pool.miners}}</td>
                             <td md-cell ng-init="addHashRate(pool.hashrate)">{{pool.hashrate | hashrate}}</td>
