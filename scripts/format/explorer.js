@@ -62,12 +62,12 @@ angular.module('Explorer').filter('truncate', function() {
     };
 });
 
-angular.module('Explorer').filter('knownMiners', function() {
+angular.module('Explorer').filter('knownMiners', function($rootScope) {
     return function(input, max) {
         if(input) {
             var out;
-            if(knownAddresses["_miner_"+input] != undefined) {
-                out = knownAddresses["_miner_"+input];
+            if($rootScope.knownAddresses["_"+input] != undefined) {
+                out = $rootScope.knownAddresses["_"+input];
             }
             if(out == "" || out == undefined) {
                 out = input;
@@ -173,7 +173,7 @@ angular.module('Explorer').filter('toUSD', function($rootScope) {
 	return function(input) {
 		if(input === undefined)
 			return ""
-		var usd = parseFloat(($rootScope.btc*$rootScope.usd)*input).toFixed(2);
+		var usd = parseFloat($rootScope.shf_usd*input).toFixed(2);
 		return usd;
 	}
 });

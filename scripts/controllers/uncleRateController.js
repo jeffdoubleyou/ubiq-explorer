@@ -5,8 +5,8 @@ angular.module('Explorer').controller('UncleRateHistoryController', function (Ne
     NetworkService.getUncleRateHistory().then(function(res) {
         for (var i in res.data.reverse()) {
             $scope.labels.push("");
+            $scope.data.push(res.data[i].value/10);
         }
-        $scope.data = res.data;
     });
 
 	$scope.options = { 

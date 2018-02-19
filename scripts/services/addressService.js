@@ -1,37 +1,45 @@
 angular.module('Explorer').service('AddressService', function($http) {
     this.getBalance = function(address) {
-        return $http.get('/api/address/balance2/'+address);
+        return $http.get('/api/v1/balance/get?address='+address);
     }
 
-    this.getIncomingTransactions = function(address, start, end) {
-        return $http.get('/api/address/transactions/to/'+address+'.'+start+'.'+end);
+    this.getIncomingTransactions = function(address, start, limit) {
+        return $http.get('/api/v1/transaction/to?address='+address+'&cursor='+start+'&limit='+limit);
     }
 
-    this.getIncomingTransactionsTotal = function(address) {
-        return $http.get('/api/address/transactions/to/total/'+address);
+    this.getOutgoingTransactions = function(address, start, limit) {
+        return $http.get('/api/v1/transaction/from?address='+address+'&cursor='+start+'&limit='+limit);
     }
 
-    this.getOutgoingTransactions = function(address, start, end) {
-        return $http.get('/api/address/transactions/from/'+address+'.'+start+'.'+end);
+    this.getMinedBlocks = function(address, start, limit) {
+        return $http.get('/api/v1/block/miner?address='+address+'&cursor='+start+'&limit='+limit)
     }
 
-    this.getOutgoingTransactionsTotal = function(address) {
-        return $http.get('/api/address/transactions/from/total/'+address);
-    }
-
-    this.getMinedBlocks = function(address, start, end) {
-        return $http.get('/api/address/mined/'+address+'.'+start+'.'+end);
-    }
-
-    this.getMinedBlocksTotal = function(address) {
-        return $http.get('/api/address/mined/blocks/'+address);
+    this.getMinedUncles = function(address, start, limit) {
+        return $http.get('/api/v1/uncle/miner?address='+address+'&cursor='+start+'&limit='+limit)
     }
 
     this.getBalanceHistory = function(address) {
-        return $http.get('/api/address/transactions/balance/'+address);
+        return $http.get('/api/v1/balance/history?limit=100&address='+address);
     }
 
     this.getPoolAccount = function(address) {
         return $http.get('/pool/accounts/'+address);
+    }
+
+    this.getTokenBalance = function(address) {
+        return $http.get('/api/v1/token/balance?address='+address);
+    }
+
+    this.getTokenInfo = function(address) {
+        return $http.get('/api/v1/token/address?address='+address);
+    }
+
+    this.getIncomingTokenTransactions = function(address, cursor, limit) {
+        return $http.get('api/v1/token/to?address='+address+'&cursor='+cursor+'&limit='+limit);
+    }
+
+    this.getOutgoingTokenTransactions = function(address, cursor, limit) {
+        return $http.get('api/v1/token/from?address='+address+'&cursor='+cursor+'&limit='+limit);
     }
 });

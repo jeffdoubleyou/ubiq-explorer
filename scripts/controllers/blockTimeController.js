@@ -5,8 +5,8 @@ angular.module('Explorer').controller('BlockTimeHistoryController', function (Ne
     NetworkService.getBlockTimeHistory().then(function(res) {
         for (var i in res.data.reverse()) {
             $scope.labels.push("");
+            $scope.data.push(res.data[i].value)
         }
-        $scope.data = res.data;
     });
 
 	$scope.options = { 

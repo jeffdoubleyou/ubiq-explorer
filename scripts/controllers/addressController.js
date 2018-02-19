@@ -10,22 +10,22 @@ angular.module('Explorer').controller('addressController', function (AddressServ
               template: "template/Address/Summary.html"
             }, 
             {
-              slug: 'incoming',
-              title: "Incoming Transactions",
-              content: "Incoming Transactions",
-              template: "template/Address/Incoming.html"
-            }, 
-            {
-              slug: 'outgoing',
-              title: "Outgoing Transactions",
-              content: "Outgoing Transactions",
-              template: "template/Address/Outgoing.html"
+              slug: 'transactions',
+              title: "Transactions",
+              content: "Transactions",
+              template: "template/Address/Transactions.html"
             },
             {
               slug: 'mined',
               title: "Mined Blocks",
               content: "Mined Blocks",
               template: "template/Address/Mined.html"
+            },
+            {
+                slug: "uncles",
+                title: "Mined Uncles",
+                content: "Mined Uncles",
+                template: "template/Address/Uncles.html"
             }
         ];
 
@@ -37,6 +37,7 @@ angular.module('Explorer').controller('addressController', function (AddressServ
             if($scope.addressId!==undefined) { 
                 $rootScope.title += " for "+$scope.addressId;
                 $scope.getBalance($scope.addressId);
+                $scope.getTokenInfo($scope.addressId);
             }
             else {
                 $location.path("/");
@@ -51,12 +52,25 @@ angular.module('Explorer').controller('addressController', function (AddressServ
             $scope.isPoolAccount = true;
         }
 
+        $scope.getTokenInfo = function(address) {
+            AddressService.getTokenInfo(address).then(function(res) {
+                if(res.data)
+                    $scope.tokenInfo = res.data;
+            });
+        };
+
         $scope.getBalance = function(address) {
             AddressService.getBalance(address).then(function(res) {
                 if(res.data && res.data.balance)
                     $scope.balance = res.data.balance;
                 else
-                    $scope.balance = "N/A";
+                    $scope.balance = "0";
+            });
+            AddressService.getTokenBalance(address).then(function(res) {
+                if(res.data)
+                    $scope.tokenBalance = res.data
+                else
+                    $scope.tokenBalance = []
             });
         }
 
@@ -72,115 +86,154 @@ angular.module('Explorer').controller('addressController', function (AddressServ
     });
 
 angular.module('Explorer').controller('AddressIncomingController', function(AddressService, $scope) {
-	$scope.currentPage = 1;
-	$scope.maxSize = 10;
-	$scope.displayLimit = 10;
-
+    if(!$scope.Cursor)
+        $scope.Cursor = "";
+    $scope.incomingTransactions = [];
 	$scope.pageChanged = function() {
-		var page = $scope.currentPage;
-		page = page - 1;
-		var start = page * $scope.displayLimit;
-		var end = start + $scope.displayLimit - 1;
-
-        AddressService.getIncomingTransactions($scope.addressId, start, end).then(function(res) {
-            if(res && res.data)
-                $scope.incomingTransactions = res.data;
-            else
-                $scope.incomingTransactions = [];
-        });
+        if(!$scope.scrolling) {
+            $scope.scrolling = true;
+            AddressService.getIncomingTransactions($scope.addressId, $scope.Cursor, 10).then(function(res) {
+                if(res && res.data) {
+                    if(res.data.End)
+                        $scope.Cursor = res.data.End;
+                    angular.forEach(res.data.Transactions, function(txn) {
+                        $scope.incomingTransactions.push(txn);
+                    });
+                    $scope.setIncomingTransactions(res.data.Total);
+                }
+                $scope.scrolling = false;
+            });
+        }
 	}
 	
-	$scope.transactionsInit = function () {
-        AddressService.getIncomingTransactionsTotal($scope.addressId).then(function(res) {
-            if(res && res.data) {
-                $scope.totalTransactions = res.data.transactions;
-                $scope.setIncomingTransactions(res.data.transactions);
-                if(res.data.transactions == 0)
-                    $scope.pages = 0;
-                else
-                    $scope.pages = Math.floor(res.data.transactions/100) + 1;
-            }
-            else {
-                $scope.pages = 0;           
-            }
-        });
-	}
-
 	$scope.pageChanged();
 });
+
+angular.module('Explorer').controller('AddressIncomingTokensController', function(AddressService, $scope) {
+    if(!$scope.Cursor)
+        $scope.Cursor = "";
+    $scope.incomingTransactions = [];
+	$scope.pageChanged = function() {
+        if(!$scope.scrolling) {
+            $scope.scrolling = true;
+            AddressService.getIncomingTokenTransactions($scope.addressId, $scope.Cursor, 10).then(function(res) {
+                if(res && res.data) {
+                    if(res.data.End) {
+                        $scope.Cursor = res.data.End;
+                    }
+                    angular.forEach(res.data.Transactions, function(txn) {
+                        $scope.incomingTransactions.push(txn);
+                    });
+                    $scope.incomingTokenTransactionCount = res.data.Total;
+                }
+                $scope.scrolling = false;
+            });
+        }
+	}
+	
+	$scope.pageChanged();
+});
+
 
 angular.module('Explorer').controller('AddressOutgoingController', function(AddressService, $scope) {
-	$scope.currentPage = 1;
-	$scope.maxSize = 10;
-	$scope.displayLimit = 10;
-
+    if(!$scope.Cursor)
+        $scope.Cursor = "";
+    $scope.outgoingTransactions = [];
 	$scope.pageChanged = function() {
-		var page = $scope.currentPage;
-		page = page - 1;
-		var start = page * $scope.displayLimit;
-		var end = start + $scope.displayLimit - 1;
-
-        AddressService.getOutgoingTransactions($scope.addressId, start, end).then(function(res) {
-            if(res && res.data)
-                $scope.outgoingTransactions = res.data;
-            else
-                $scope.outgoingTransactions = [];
-        });
+        if(!$scope.scrolling) {
+            $scope.scrolling = true;
+            AddressService.getOutgoingTransactions($scope.addressId, $scope.Cursor, 10).then(function(res) {
+                if(res && res.data) {
+                    if(res.data.End)
+                        $scope.Cursor = res.data.End;
+                    angular.forEach(res.data.Transactions, function(txn) {
+                        $scope.outgoingTransactions.push(txn);
+                    });
+                    $scope.setOutgoingTransactions(res.data.Total);
+                }
+                $scope.scrolling = false;
+            });
+        }
 	}
-	
-	$scope.transactionsInit = function () {
-        AddressService.getOutgoingTransactionsTotal($scope.addressId).then(function(res) {
-            if(res && res.data) {
-                $scope.totalTransactions = res.data.transactions;
-                $scope.setOutgoingTransactions(res.data.transactions);
-                if(res.data.transactions == 0)
-                    $scope.pages = 0;
-                else
-                    $scope.pages = Math.floor(res.data.transactions/100) + 1;
-            }
-            else {
-                $scope.pages = 0;
-            }
-        });
-	}
-
 	$scope.pageChanged();
 });
 
+angular.module('Explorer').controller('AddressOutgoingTokensController', function(AddressService, $scope) {
+    if(!$scope.Cursor)
+        $scope.Cursor = "";
+    $scope.outgoingTransactions = [];
+	$scope.pageChanged = function() {
+        if(!$scope.scrolling) {
+            $scope.scrolling = true;
+            AddressService.getOutgoingTokenTransactions($scope.addressId, $scope.Cursor, 10).then(function(res) {
+                if(res && res.data) {
+                    if(res.data.End)
+                        $scope.Cursor = res.data.End;
+                    angular.forEach(res.data.Transactions, function(txn) {
+                        $scope.outgoingTransactions.push(txn);
+                    });
+                    $scope.outgoingTokenTransactionCount = res.data.Total;
+                }
+                $scope.scrolling = false;
+            });
+        }
+	}
+	$scope.pageChanged();
+});
+
+
 angular.module('Explorer').controller('AddressMinedController', function(AddressService, $scope) {
-	$scope.currentPage = 1;
-	$scope.maxSize = 10;
-	$scope.displayLimit = 10;
+    if(!$scope.Cursor)
+        $scope.Cursor = "";
+    $scope.minedBlocks = [];
 
    	$scope.pageChanged = function() {
-		var page = $scope.currentPage;
-		page = page - 1;
-		var start = page * $scope.displayLimit;
-		var end = start + $scope.displayLimit - 1;
-        AddressService.getMinedBlocks($scope.addressId, start, end).then(function(res) {
-            if(res && res.data)
-                $scope.minedBlocks = res.data;
-            else
-                $scope.minedBlocks = [];
-        });
-    }
-	
-	$scope.minedBlocksInit = function () {
-        AddressService.getMinedBlocksTotal($scope.addressId).then(function(res) {
-            if(res && res.data) {
-                $scope.totalBlocks = res.data.blocks;
-                if(res.data.blocks == 0)
-                    $scope.pages = 0;
-                else
-                    $scope.pages = Math.floor(res.data.blocks/100) + 1;
-            }
-            else {
-                $scope.pages = 0;
-            }
-        });
-	}
+        if(!$scope.scrolling) {
+            $scope.scrolling = true;
 
-	$scope.pageChanged();
+            AddressService.getMinedBlocks($scope.addressId, $scope.Cursor, 10).then(function(res) {
+                if(res && res.data) {
+                    if(res.data.End)
+                        $scope.Cursor = res.data.End;
+                    angular.forEach(res.data.Blocks, function(block) {
+                        $scope.minedBlocks.push(block);
+                    });
+                    $scope.minedBlocksCount = res.data.Total;
+                }
+                $scope.scrolling = false;
+            });
+        }
+    }
+    $scope.minedBlocksInit = function() {
+	    $scope.pageChanged();
+    }
+});
+
+angular.module('Explorer').controller('AddressUnclesController', function(AddressService, $scope) {
+    if(!$scope.Cursor)
+        $scope.Cursor = "";
+    $scope.minedUncles = [];
+
+   	$scope.pageChanged = function() {
+        if(!$scope.scrolling) {
+            $scope.scrolling = true;
+
+            AddressService.getMinedUncles($scope.addressId, $scope.Cursor, 10).then(function(res) {
+                if(res && res.data) {
+                    if(res.data.End)
+                        $scope.Cursor = res.data.End;
+                    angular.forEach(res.data.Uncles, function(uncle) {
+                        $scope.minedUncles.push(uncle);
+                    });
+                    $scope.minedUnclesCount = res.data.Total;
+                }
+                $scope.scrolling = false;
+            });
+        }
+    }
+    $scope.minedUnclesInit = function() {
+	    $scope.pageChanged();
+    }
 });
 
 angular.module('Explorer').controller('AddressBalanceChartController', function(AddressService, $scope) {
@@ -188,9 +241,9 @@ angular.module('Explorer').controller('AddressBalanceChartController', function(
 		$scope.labels = [];
 		$scope.series = ['Balance Change'];
 		$scope.data = [];
-		for(var i in res.data) {
-			$scope.labels.push("");
-			$scope.data.push(res.data[i]);
+		for(var i in res.data.Balances.reverse()) {
+			$scope.labels.push(res.data.Balances[i].changedBy);
+			$scope.data.push(res.data.Balances[i].balance/1000000000000000000);
 		}
         // Chart options
 		$scope.options = { 
@@ -198,19 +251,28 @@ angular.module('Explorer').controller('AddressBalanceChartController', function(
 			maintainAspectRatio: false,
 			elements: {
 				point: {
-					radius: 0
+					radius: 3,
+                    backgroundColor: '#837727'
 			       },
 				line: {
-					borderWidth: 6
+					borderWidth: 3,
+                    //backgroundColor: '#528373',
+                    borderColor: '#779988'
 				}
    			},
 			scales : {
 				xAxes : [ {
 				    gridLines : {
-					display : false
-				    }
+					    display : false
+				    },
+                    ticks: {
+                        display: false,
+                        minor: {
+                            display: false
+                        }
+                    }
 				} ]
-			}
+			},
 		};
 	});
 });

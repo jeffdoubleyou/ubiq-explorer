@@ -3,7 +3,6 @@
         <md-card-title>
             <md-card-title-text>
                 <span class="md-title">Ubiq Richlist</span>
-                <span class="md-subhead">Updated hourly</span>
             </md-card-title-text>
         </md-card-title>
         <md-card-actions layout="row" layout-align="end center">
@@ -21,12 +20,12 @@
                         </tr>
                     </thead>
                     <tbody md-body>
-                        <tr md-row ng-repeat="account in richList">
+                        <tr md-row ng-repeat="account in richList.Balances">
                             <td md-cell>{{$index+1}}</td>
                             <td md-cell><a href="/address/{{account.address}}">{{account.address | knownMiners }}</a></td>
-                            <td md-cell>{{account.balance}} UBQ</td>
-                            <td md-cell>${{account.balance | toUSD}}</td>
-                            <td md-cell>{{account.balance | toBTC}} BTC</td>
+                            <td md-cell>{{account.balance | fromWei}} UBQ</td>
+                            <td md-cell>${{account.balance | fromWei | toUSD}}</td>
+                            <td md-cell>{{account.balance | fromWei | toBTC}} BTC</td>
                         </tr>
                     </tbody>
                 </table>

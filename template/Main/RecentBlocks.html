@@ -8,7 +8,7 @@
             </tr>
         </thead>
         <tbody md-body>
-            <tr md-row ng-repeat="block in recentBlocks">
+            <tr md-row ng-repeat="block in recentBlocks.Blocks">
                 <td md-cell><a href="/block/{{block.block}}">{{block.block}}</a></td>
                 <td md-cell><a href="/address/{{block.miner}}">{{block.miner | knownMiners: '30'}}</a></td>
                 <td md-cell>{{block.timestamp | relativetime }}</td>

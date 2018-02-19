@@ -9,6 +9,7 @@ angular.module('Explorer')
             if($scope.blockId!==undefined) {
                 $rootScope.title += " Block # "+$scope.blockId;
                 BlockInfoService.getBlock($scope.blockId).then(function(result){
+		    var transactions = [];
                     result = result.data;
                     $scope.result = result;
                     $scope.blockNumber = result.number;	
@@ -23,21 +24,19 @@ angular.module('Explorer')
                             $scope.confirms='Unconfirmed';
                         }
                         BlockInfoService.getUncles($scope.blockNumber).then(function(result) {
-                            if(result && result.data && result.data.uncles) {
-                                $scope.uncles = result.data.uncles;
-                                console.log(result.data.uncles);
+                            if(result && result.data && result.data.Uncles) {
+                                $scope.uncles = result.data.Uncles;
+                            }
+                        });
+                        BlockInfoService.getTransactions($scope.blockNumber).then(function(result) {
+                            if(result && result.data && result.data.Transactions) {
+                                $scope.transactions = result.data.Transactions;
                             }
                         });
                     }
                     else {
                         $scope.confirms = 'Pending';
                     }
-
-                    angular.forEach(result.transactions, function(txn) {
-                        TransactionInfoService.getTransaction(txn).then(function(result) {
-                            $scope.transactions.push(result.data);
-                        });
-                    });
                 });
             }
             else{

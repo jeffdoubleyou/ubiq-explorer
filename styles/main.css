@@ -255,3 +255,8 @@ div.footer {
 .timeline-Tweet-text {
     font-size: 12px;    
 }
+
+.scrollTable {
+    max-height: 750px;
+    overflow: scroll;
+}

@@ -3,82 +3,54 @@ angular.module('Explorer').service('NetworkService', function($rootScope, $inter
     var networkService = this;
 
     this.getHashRateHistory = function() {
-        return $http.get('/api/network/hashratehistory');
+        return $http.get('/api/v1/stats/hashRateHistory');
     }
 
     this.getDifficultyHistory = function() {
-        return $http.get('/api/network/difficultyhistory');
+        return $http.get('/api/v1/stats/difficultyHistory');
     }
 
     this.getBlockTimeHistory = function() {
-        return $http.get('/api/network/blocktimehistory');
+        return $http.get('/api/v1/stats/blockTimeHistory');
     }
 
     this.getUncleRateHistory = function() {
-        return $http.get('/api/network/uncleratehistory');
+        return $http.get('/api/v1/stats/uncleRateHistory');
     }
 
     this.getRecentBlocks = function() {
-        return $http.get('/api/network/recentblocks');
+        return $http.get('/api/v1/block/list?limit=11');
     }
 
     this.getRecentTransactions = function() {
-        return $http.get('/api/network/recenttxns');
+        return $http.get('/api/v1/transaction/list?limit=25');
     }
 
     this.getTopMiners = function() {
-        return $http.get('/api/network/topminers');
+        return $http.get('/api/v1/stats/miners');
     }
 
-	this.updateNetworkHashRate = function() {
-		$http({ method: 'GET', url: '/api/network/hashrate'})
-			.success(function(data, status) {
-				$rootScope.networkHashRate = data.hashrate;
-		})
-		.error(function(data, status) {
-			$rootScope.networkHashRate = 'N/A';
-		})
-	};
+    this.getKnownAddresses = function() {
+        return $http.get("/api/v1/address/list");
+    }
 
-	this.updateDifficulty = function() {
-	    $http({method : 'GET',url : '/api/network/difficulty'})
-		.success(function(data, status) {
-			$rootScope.networkDifficulty = data.difficulty;
-		})
-		.error(function(data, status) {
-			$rootScope.networkDifficulty = 'N/A';
-		})
-	}
-
-	this.updateBlockTime = function() {
-	    $http({method : 'GET',url : '/api/network/blocktime'})
-		.success(function(data, status) {
-			var blocktime = parseFloat(data.blocktime).toFixed(2);
-			$rootScope.networkBlockTime = blocktime;
-		})
-		.error(function(data, status) {
-			$rootScope.networkBlockTime = 'N/A';
-		})
-	}
-
-	this.updateUncleRate = function() {
-	    $http({method : 'GET',url : '/api/network/unclerate'})
-		.success(function(data, status) {
-			var unclerate = parseFloat(data.unclerate).toFixed(2);
-			$rootScope.networkUncleRate = unclerate;
-		})
-		.error(function(data, status) {
-			$rootScope.networkUncleRate = 'N/A';
-		})
-	}
-
+    this.updateStats = function() {
+        $http.get('/api/v1/stats/get?blocks=10').then(function(res) {
+            $rootScope.blockNum = res.data.lastBlock;
+            $rootScope.networkHashRate = res.data.hashRate;
+            $rootScope.networkDifficulty = res.data.difficulty;
+            $rootScope.networkBlockTime = parseFloat(res.data.blockTime).toFixed(2);
+            $rootScope.networkUncleRate = parseFloat(res.data.uncleRate).toFixed(2);
+        });
+    };
 
 	this.updateExchangeRate = function() {
-	    $http({method : 'GET',url : '/api/network/exchangerate'})
+	    $http({method : 'GET',url : 'https://api.coinmarketcap.com/v1/ticker/UBIQ/?convert=USD'})
 		.success(function(data, status) {
-			$rootScope.btc = parseFloat(data.btc);
-			$rootScope.usd = parseFloat(data.usd).toFixed(4);
-			$rootScope.shf_usd = parseFloat($rootScope.btc*$rootScope.usd).toFixed(8);
+            if(data && data[0]) {
+                $rootScope.btc = parseFloat(data[0].price_btc);
+                $rootScope.shf_usd = parseFloat(data[0].price_usd).toFixed(8);
+            }
 		})
 		.error(function(data, status) {
 			$rootScope.btc = 'N/A';
@@ -87,39 +59,26 @@ angular.module('Explorer').service('NetworkService', function($rootScope, $inter
 		})
 	}
 
-	this.updateCurrentBlock = function() {
-	    $http({method : 'GET',url : '/api/network/lastblock'})
-		.success(function(data, status) {
-			$rootScope.blockNum = data.result;
-		})
-		.error(function(data, status) {
-			$rootScope.blockNum = 'N/A';
-		})
-	}
-
-	this.updateCurrentBlock();
-	this.updateNetworkHashRate();
-	this.updateExchangeRate();
-	this.updateBlockTime();
-	this.updateDifficulty();
-    this.updateUncleRate();
-
-	$interval(networkService.updateCurrentBlock, 5000);
-	$interval(networkService.updateNetworkHashRate, 5000);
-	$interval(networkService.updateExchangeRate, 15000);
-	$interval(networkService.updateBlockTime, 5000);
-	$interval(networkService.updateDifficulty, 5000);
-    $interval(networkService.updateUncleRate, 5000);
+    this.updateStats();
+    this.updateExchangeRate();
+    $interval(networkService.updateStats, 15000);
+    $interval(networkService.updateExchangeRate, 120000);
+    
 });
 
 angular.module('Explorer').service('BlockInfoService', function($rootScope, $http, $q) {
 	this.getBlock = function(num) {
-		return $http.get('/api/block/'+num).then(function(data, status) {
+		return $http.get('/api/v1/block/get?block='+num).then(function(data, status) {
 			return data;
 		});
 	}
     this.getUncles = function(num) {
-        return $http.get('/api/block/uncle/'+num).then(function(data, status) {
+        return $http.get('/api/v1/uncle/block?block='+num).then(function(data, status) {
+            return data;
+        });
+    }
+    this.getTransactions = function(num) {
+	return $http.get('/api/v1/transaction/block?block='+num).then(function(data, status) {
             return data;
         });
     }
@@ -127,7 +86,7 @@ angular.module('Explorer').service('BlockInfoService', function($rootScope, $htt
 
 angular.module('Explorer').service('TransactionInfoService', function($rootScope, $http, $q) {
 	this.getTransaction = function(txn) {
-		return $http.get('/api/transaction/hash/'+txn).then(function(data, status) {
+		return $http.get('/api/v1/transaction/get?hash='+txn).then(function(data, status) {
 			return data;
 		});
 	}

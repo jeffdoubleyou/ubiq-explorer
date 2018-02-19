@@ -1,6 +1,6 @@
 'use strict';
 var knownAddresses = {};
-angular.module('Explorer', ['ngMaterial', 'md.data.table', 'ngRoute','chart.js', 'ui.bootstrap'])
+angular.module('Explorer', ['ngMaterial', 'md.data.table', 'ngRoute','chart.js', 'ui.bootstrap', 'infinite-scroll'])
   .config(['$routeProvider', '$httpProvider', '$locationProvider',
     function($routeProvider, $httpProvider, $locationProvider) {
         $routeProvider.
@@ -87,8 +87,7 @@ angular.module('Explorer', ['ngMaterial', 'md.data.table', 'ngRoute','chart.js',
         .run(function($rootScope, $location, $route, $http) {
             $rootScope.$on("$routeChangeSuccess", function(currentRoute, previousRoute){
             $rootScope.title = 'UBIQ.cc - Block Chain Explorer : '+$route.current.title;
-            $http.get("/api/network/knownaddresses").then(function(result) {
-                knownAddresses = result.data;
-            });
+            angular.module('infinite-scroll').value('THROTTLE_MILLISECONDS', 1000)
+
         }); 
 });

@@ -5,8 +5,8 @@ angular.module('Explorer').controller('HashRateHistoryController', function (Net
     NetworkService.getHashRateHistory().then(function(res) {
         for (var i in res.data.reverse()) {
             $scope.labels.push("");
+            $scope.data.push(res.data[i].value/100000000)
         }
-        $scope.data = res.data;
     });
 
 	$scope.options = { 

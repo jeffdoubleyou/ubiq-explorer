@@ -11,7 +11,7 @@
             </tr>
         </thead>
         <tbody md-body>
-            <tr md-row ng-repeat="txn in recentTransactions">
+            <tr md-row ng-repeat="txn in recentTransactions.Transactions">
                 <td md-cell><a href="/block/{{txn.number}}">{{txn.number}}</a></td>
                 <td md-cell><a href="/transaction/{{txn.hash}}">{{txn.hash | truncate: '25'}}</a></td>
                 <td md-cell><a href="/address/{{txn.from}}">{{txn.from | knownMiners: '25'}}</a></td>

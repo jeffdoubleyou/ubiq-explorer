@@ -7,10 +7,13 @@ angular.module('Explorer')
 	var updateRecentBlocks = function() {
         NetworkService.getRecentBlocks().then(function(res) {
             $scope.recentBlocks = res.data;
+            if(res.data && res.data.End > $rootScope.blockNum)
+                $rootScope.blockNum = res.data.End
         });
 	}
 
 	updateRecentBlocks();
+
 	$interval(updateRecentBlocks, 15000);
 
 	var updateRecentTransactions = function() {
@@ -28,10 +31,11 @@ angular.module('Explorer')
        
         NetworkService.getTopMiners().then(function(res) { 
             var data = res.data || [];
-			for (var i in data) {
-				labels.push(data[i].name + ' ' + parseFloat(data[i].percent).toFixed(2) + '%' + ' ('+data[i].count+')');
-				values.push(data[i].percent);
-			}
+            angular.forEach(res.data, function(data) {
+				labels.push(data.name + ' ' + parseFloat(data.percent).toFixed(2) + '%' + ' ('+data.count+')');
+                values.push(data.percent)
+            });
+
 			$scope.labels = labels;
 			$scope.data = values;
 			$scope.options = { legend: { display: true, position: 'bottom', labels: {  } } };
@@ -39,5 +43,14 @@ angular.module('Explorer')
 	}
 
 	updateTopMiners();
+
+    if(!$rootScope.knownAddreses) {
+        $rootScope.knownAddresses = [];
+        NetworkService.getKnownAddresses().then(function(res) {
+            angular.forEach(res.data, function(a) {
+                $rootScope.knownAddresses["_"+a.address] = a.name
+            });
+        });
+    }
 });
 
