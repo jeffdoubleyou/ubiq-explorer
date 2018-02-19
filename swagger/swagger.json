@@ -1,0 +1,257 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "ubiq-explorer API",
+        "description": "Ubiq explorer created for ubiq.cc",
+        "version": "1.0.0",
+        "termsOfService": "http://www.ubiq.cc",
+        "contact": {
+            "email": "jeffdoubleyou@gmail.com"
+        },
+        "license": {
+            "name": "Apache 2.0",
+            "url": "http://www.apache.org/licenses/LICENSE-2.0.html"
+        }
+    },
+    "basePath": "/v1",
+    "paths": {
+        "/transaction/block": {
+            "get": {
+                "tags": [
+                    "transaction"
+                ],
+                "description": "Get all transactions in the given block",
+                "operationId": "TransactionController.Block",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "block",
+                        "description": "The block number to retreive transactions for",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/.TrasactionPage"
+                        }
+                    },
+                    "404": {
+                        "description": "no transactions found in block"
+                    }
+                }
+            }
+        },
+        "/transaction/from": {
+            "get": {
+                "tags": [
+                    "transaction"
+                ],
+                "description": "Get transactions sent from provided address",
+                "operationId": "TransactionController.From",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "address",
+                        "description": "The address to retrieve transactions from",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Number of records to retrieve",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "query",
+                        "name": "cursor",
+                        "description": "Cursor string of last record result",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "skip",
+                        "description": "Number of records to skip after cursor",
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.Transaction"
+                        }
+                    },
+                    "404": {
+                        "description": "no transactions found"
+                    }
+                }
+            }
+        },
+        "/transaction/get": {
+            "get": {
+                "tags": [
+                    "transaction"
+                ],
+                "description": "Get full transaction data",
+                "operationId": "TransactionController.Get",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "hash",
+                        "description": "Block hash to retrieve",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/.Transaction"
+                        }
+                    },
+                    "404": {
+                        "description": "transaction not found"
+                    }
+                }
+            }
+        },
+        "/transaction/to": {
+            "get": {
+                "tags": [
+                    "transaction"
+                ],
+                "description": "Get transactions sent to provided address",
+                "operationId": "TransactionController.To",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "address",
+                        "description": "The address to retrieve transactions from",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Number of records to retrieve",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "query",
+                        "name": "cursor",
+                        "description": "Cursor string of last record result",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "skip",
+                        "description": "Number of records to skip after cursor",
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.TransactionPage"
+                        }
+                    },
+                    "404": {
+                        "description": "no transactions found"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        ".Address": {
+            "type": "object"
+        },
+        ".Hash": {
+            "type": "object"
+        },
+        ".Int": {
+            "type": "object"
+        },
+        ".ObjectId": {
+            "type": "object"
+        },
+        ".Transaction": {
+            "type": "object"
+        },
+        ".TrasactionPage": {
+            "type": "object"
+        },
+        "models.Transaction": {
+            "title": "Transaction",
+            "type": "object",
+            "properties": {
+                "contract": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "from": {
+                    "$ref": "#/definitions/common.Address"
+                },
+                "hash": {
+                    "$ref": "#/definitions/common.Hash"
+                },
+                "id": {
+                    "$ref": "#/definitions/bson.ObjectId"
+                },
+                "number": {
+                    "$ref": "#/definitions/big.Int"
+                },
+                "timestamp": {
+                    "$ref": "#/definitions/big.Int"
+                },
+                "to": {
+                    "$ref": "#/definitions/common.Address"
+                },
+                "value": {
+                    "$ref": "#/definitions/big.Int"
+                }
+            }
+        },
+        "models.TransactionPage": {
+            "title": "TransactionPage",
+            "type": "object",
+            "properties": {
+                "End": {
+                    "type": "string"
+                },
+                "Start": {
+                    "type": "string"
+                },
+                "Total": {
+                    "type": "integer",
+                    "format": "int64"
+                },
+                "Transactions": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/models.Transaction"
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "transaction",
+            "description": "Operations about transactions\n"
+        }
+    ]
+}
