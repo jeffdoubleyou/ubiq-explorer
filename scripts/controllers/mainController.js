@@ -31,7 +31,8 @@ angular.module('Explorer')
        
         NetworkService.getTopMiners().then(function(res) { 
             var data = res.data || [];
-            angular.forEach(res.data, function(data) {
+            data = sortObject(data, "count", true);
+            angular.forEach(data, function(data) {
 				labels.push(data.name + ' ' + parseFloat(data.percent).toFixed(2) + '%' + ' ('+data.count+')');
                 values.push(data.percent)
             });

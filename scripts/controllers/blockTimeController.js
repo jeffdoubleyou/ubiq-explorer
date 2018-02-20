@@ -3,7 +3,8 @@ angular.module('Explorer').controller('BlockTimeHistoryController', function (Ne
 	$scope.data = [];
 	$scope.series = ['Block Time Evolution'];
     NetworkService.getBlockTimeHistory().then(function(res) {
-        for (var i in res.data.reverse()) {
+        //for (var i in res.data.reverse()) {
+        for (var i in res.data) {
             $scope.labels.push("");
             $scope.data.push(res.data[i].value)
         }

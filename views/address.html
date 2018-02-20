@@ -2,16 +2,20 @@
     <md-card ng-width=100>
         <md-card-title>
             <md-card-title-text>
-                <md-title>
-                    <h1>Address <small>Ubiq Address Info for <a href="/address/{{addressId}}">{{addressId | knownMiners}}</a></small></h1>
-                </md-title>
-                <md-subhead ng-show="tokenInfo">
-                    <span class="md-button"><md-icon md-font-library="material-icons" style="font-size: 18px;" aria-label="{{tokenInfo.name}}">transform</md-icon>
+                <span class="md-headline">Ubiq Address Info for <a href="/address/{{addressId}}">{{addressId | knownMiners}}</a></span>
+                <span class="md-subhead" ng-show="tokenInfo">
+                    <span class="md-button">
+                        <md-icon md-font-library="material-icons" style="font-size: 18px;" aria-label="{{tokenInfo.name}}">transform</md-icon>
                         {{tokenInfo.name}} token
                     </span>
-                    <span class="md-caption"><strong>Name:</strong> {{tokenInfo.name}} <strong>Symbol:</strong> {{tokenInfo.symbol}} <strong>Decimals:</strong> {{tokenInfo.decimals}}</span>
-                </md-subhead>
+                    <span class="md-caption">
+                        <strong>Name:</strong> {{tokenInfo.name}} <strong>Symbol:</strong> {{tokenInfo.symbol}} <strong>Decimals:</strong> {{tokenInfo.decimals}}
+                    </span>
+                </span>
             </md-card-title-text>
+            <md-card-title-media>
+                <div blockie address={{addressId}}></div>
+            </md-card-title-media>
         </md-card-title>
         <md-card-actions layout="row" layout-align="end center">
             <md-button class="md-accent md-raised md-cornered" ng-href="https://www.cryptopia.co.nz/Register?referrer=jeffw">Buy More Ubiq</md-button>

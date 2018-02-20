@@ -38,6 +38,7 @@ Package | Version | Dev
 [angular-chart.js](https://www.npmjs.com/package/angular-chart.js) | ^1.1.1 | ✖
 [angular-loader](https://www.npmjs.com/package/angular-loader) | 1.5.9 | ✖
 [angular-material](https://www.npmjs.com/package/angular-material) | ^1.1.1 | ✖
+[angular-messages](https://www.npmjs.com/package/angular-messages) | ^1.1.1 | ✖
 [angular-moment](https://www.npmjs.com/package/angular-moment) | ^1.0.1 | ✖
 [angular-ui-bootstrap](https://www.npmjs.com/package/angular-ui-bootstrap) | ^2.5.0 | ✖
 [angular-route](https://www.npmjs.com/package/angular-route) | 1.5.9 | ✖
@@ -50,6 +51,7 @@ Package | Version | Dev
 [node-readme](https://www.npmjs.com/package/node-readme) | ^0.1.9 | ✖
 [angular-material-data-table](https://www.npmjs.com/package/angular-material-data-table) | ^0.10.10 | ✖
 [ng-infinite-scroll](https://www.npmjs.com/package/ng-infinite-scroll) | ^1.3.0 | ✖
+[blockies](https://www.npmjs.com/package/blockies) | ^0.0.2 | ✖
 
 
 ## Contributing

@@ -3,9 +3,10 @@ angular.module('Explorer').controller('HashRateHistoryController', function (Net
 	$scope.data = [];
 	$scope.series = ['Hashrate Evolution'];
     NetworkService.getHashRateHistory().then(function(res) {
-        for (var i in res.data.reverse()) {
+        //for (var i in res.data.reverse()) {
+        for (var i in res.data) {
             $scope.labels.push("");
-            $scope.data.push(res.data[i].value/100000000)
+            $scope.data.push(res.data[i].value/1000000000)
         }
     });
 

@@ -4,9 +4,10 @@ angular.module('Explorer').controller('DifficultyHistoryController', function (N
 	$scope.series = ['Hashrate Evolution'];
 
     NetworkService.getDifficultyHistory().then(function(res) {
-        for (var i in res.data.reverse()) {
+        //for (var i in res.data.reverse()) {
+        for (var i in res.data) {
             $scope.labels.push("");
-            $scope.data.push(res.data[i].value)
+            $scope.data.push(res.data[i].value/1000000000000)
         }
     });
 
