@@ -5,24 +5,49 @@ package db
 import (
 	"github.com/astaxie/beego"
 	"gopkg.in/mgo.v2"
+	"log"
 )
 
-var session *mgo.Session
+var sessions map[int]*mgo.Session
+var sessionNum = 0
 
 func Conn() *mgo.Session {
-	return session.Copy()
-}
-
-func Close() {
-	session.Close()
+	if sessionNum >= len(sessions) {
+		sessionNum = 0
+	}
+	var s *mgo.Session
+	if _, c := sessions[sessionNum]; c {
+		s = sessions[sessionNum].Clone()
+	} else {
+		log.Printf("There is no connection at index: %d", sessionNum)
+		s, err := GetConnection(beego.AppConfig.String("mongodb::url"))
+		sessions[sessionNum] = s
+		if err != nil {
+			panic(err)
+		}
+	}
+	sessionNum++
+	return s
 }
 
 func init() {
 	url := beego.AppConfig.String("mongodb::url")
-	sess, err := mgo.Dial(url)
+	maxConnections, err := beego.AppConfig.Int("mongodb::max_connections")
 	if err != nil {
-		panic(err)
+		log.Printf("mongodb::max_connections not set - defaulting to 5 connections")
+		maxConnections = 5
 	}
-	session = sess
-	session.SetMode(mgo.Monotonic, true)
+	sessions = make(map[int]*mgo.Session)
+	for i := 0; i < maxConnections; i++ {
+		sess, err := GetConnection(url)
+		if err != nil {
+			panic(err)
+		}
+		sess.SetMode(mgo.Monotonic, true)
+		sessions[i] = sess
+	}
+}
+
+func GetConnection(url string) (*mgo.Session, error) {
+	return mgo.Dial(url)
 }

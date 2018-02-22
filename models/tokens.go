@@ -1,7 +1,6 @@
 package models
 
 import (
-	"fmt"
 	"github.com/ethereum/go-ethereum/common"
 	"gopkg.in/mgo.v2/bson"
 	"math/big"
@@ -110,7 +109,6 @@ func (t *TokenTransaction) SetBSON(raw bson.Raw) error {
 
 	value.SetString(decoded.Value)
 
-	fmt.Println("TOKEN INFO: %v", decoded.TokenInfo)
 	if bsonErr == nil {
 		t.Id = decoded.Id
 		t.Address = common.HexToAddress(decoded.Address)

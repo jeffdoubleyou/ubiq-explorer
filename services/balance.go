@@ -76,3 +76,7 @@ func (s *BalanceService) UpdateCurrentBalance(address common.Address, balance *b
 	}
 	return s.dao.InsertCurrentBalance(models.CurrentBalance{Address: address, Balance: balance})
 }
+
+func (s *BalanceService) GetCurrentBalance(address common.Address) (models.CurrentBalancePage, error) {
+	return s.dao.FindCurrentBalance(bson.M{"address": strings.ToLower(address.String())}, 1, "", "")
+}

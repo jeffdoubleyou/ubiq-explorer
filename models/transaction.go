@@ -2,7 +2,6 @@ package models
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core/types"
 	"gopkg.in/mgo.v2/bson"
@@ -70,7 +69,6 @@ type Transaction struct {
 }
 
 func (t *Transaction) MarshalJSON() ([]byte, error) {
-	fmt.Println(t.Hash.String())
 	return json.Marshal(&struct {
 		Hash      string         `json:"hash"`
 		Timestamp *big.Int       `json:"timestamp"`

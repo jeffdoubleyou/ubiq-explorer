@@ -40,16 +40,14 @@ func (c *BalanceController) History() {
 // @Title Get
 // @Description Get balance for an address
 // @Param   address	query	string	true	"Address to get balance for"
-// @Param	block	query	int	false	"Block number to get balance at or 0 for current block"
 // @Success 200 {object} models.Balance
 // @Failure 404 not found
 // @router /get [get]
 func (c *BalanceController) Get() {
 	address := c.GetString("address")
-	block, _ := c.GetInt64("block")
 	balanceDAO := daos.NewBalanceDAO()
 	balanceService := services.NewBalanceService(*balanceDAO)
-	balance, err := balanceService.Get(common.HexToAddress(address), block)
+	balance, err := balanceService.GetCurrentBalance(common.HexToAddress(address))
 	if err != nil {
 		c.Data["json"] = &models.APIError{err.Error()}
 		c.Ctx.ResponseWriter.WriteHeader(404)

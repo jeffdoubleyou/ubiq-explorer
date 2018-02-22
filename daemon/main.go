@@ -37,6 +37,7 @@ func main() {
 	statsService := services.NewStatsService()
 
 	statsSmoothing, err := beego.AppConfig.Int("stats::smoothing")
+	statsWindow, err := beego.AppConfig.Int64("stats::history_window")
 
 	if err != nil {
 		panic(err)
@@ -53,7 +54,8 @@ func main() {
 	log.Printf("Current block: %d - Last block imported: %d", currentBlock, lastBlock.Int64())
 
 	run := 1
-	pending := 0
+	syncing := 1
+	inStatsWindow := big.NewInt(0)
 
 	// Commence spaghetti
 	for run == 1 {
@@ -203,25 +205,30 @@ func main() {
 					}
 				}
 			}
-			stats, err := statsService.Get(statsSmoothing)
+			inStatsWindow = inStatsWindow.Add(lastBlock, big.NewInt(statsWindow))
 
-			if err != nil {
-				log.Fatalf("Could not generate statistics: %s", err)
-				run = 0
-			}
+			if syncing == 0 || inStatsWindow.Cmp(currentBlock) == 1 {
+				log.Printf("Getting stats at block %d - window is %d", lastBlock, inStatsWindow)
+				stats, err := statsService.Get(statsSmoothing)
 
-			if stats != nil {
-				historyDAO.Insert("blockTimeHistory", struct{ Value float64 }{stats.BlockTime})
-				historyDAO.Insert("uncleRateHistory", struct{ Value float64 }{stats.UncleRate})
-				historyDAO.Insert("difficultyHistory", struct{ Value string }{stats.Difficulty})
-				historyDAO.Insert("hashRateHistory", struct{ Value string }{stats.HashRate})
+				if err != nil {
+					log.Fatalf("Could not generate statistics: %s", err)
+					run = 0
+				}
+
+				if stats != nil {
+					historyDAO.Insert("blockTimeHistory", struct{ Value float64 }{stats.BlockTime})
+					historyDAO.Insert("uncleRateHistory", struct{ Value float64 }{stats.UncleRate})
+					historyDAO.Insert("difficultyHistory", struct{ Value string }{stats.Difficulty})
+					historyDAO.Insert("hashRateHistory", struct{ Value string }{stats.HashRate})
+				}
 			}
 
 			lastBlock = lastBlock.Add(lastBlock, big.NewInt(1))
 		}
-		if pending == 0 {
+		if syncing == 1 {
 			log.Printf("Current Block: %d Pending Block: %d", currentBlock, lastBlock)
-			pending = 1
+			syncing = 0
 		}
 		time.Sleep(2000 * time.Millisecond)
 		currentBlock, err = blocks.GetCurrentBlock()
