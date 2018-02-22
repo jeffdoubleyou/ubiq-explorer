@@ -61,8 +61,8 @@ angular.module('Explorer').controller('addressController', function (AddressServ
 
         $scope.getBalance = function(address) {
             AddressService.getBalance(address).then(function(res) {
-                if(res.data && res.data.balance)
-                    $scope.balance = res.data.balance;
+                if(res.data && res.data.Balances)
+                    $scope.balance = res.data.Balances[0].balance;
                 else
                     $scope.balance = "0";
             });
