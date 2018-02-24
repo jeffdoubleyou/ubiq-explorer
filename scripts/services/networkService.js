@@ -19,7 +19,7 @@ angular.module('Explorer').service('NetworkService', function($rootScope, $inter
     }
 
     this.getRecentBlocks = function() {
-        return $http.get('/api/v1/block/list?limit=11');
+        return $http.get('/api/v1/block/list?limit=13');
     }
 
     this.getRecentTransactions = function() {

@@ -280,6 +280,7 @@ angular.module('Explorer').controller('AddressBalanceChartController', function(
 angular.module('Explorer').controller('AddressTabsController', function(AddressService, PoolAlertsService, $scope, $interval, $timeout, $injector) {
 	var poolAddressData = function() {
         AddressService.getPoolAccount($scope.addressId).then(function(res) {
+            console.log("Get pool stats for miner");
             $scope.minerData = res.data;
             if($scope.poolRoundShares) {
                 $scope.roundShare = parseInt(res.data.roundShares/$scope.poolRoundShares*100);
@@ -296,7 +297,7 @@ angular.module('Explorer').controller('AddressTabsController', function(AddressS
                 });
                 $scope.setPoolAccount();
                 // Inject pool stats mostly just for calculating round share
-                var poolService=$injector.get('PoolStatsService');
+                $scope.poolService=$injector.get('PoolStatsService');
                 PoolAlertsService.getAlerts($scope.addressId).success(function(alerts, status) {
                     $scope.minerAlerts = alerts.alerts;
                 })
@@ -310,6 +311,7 @@ angular.module('Explorer').controller('AddressTabsController', function(AddressS
                         $scope.ActiveAddressTab = tabIndex-1;
                     });
                 }
+	            $scope.poolAddressInterval = $interval(poolAddressData, 5000);
 	        }
 		})
 	};
@@ -345,5 +347,9 @@ angular.module('Explorer').controller('AddressTabsController', function(AddressS
         });
     }
 	poolAddressData();
-	$scope.poolAddressInterval = $interval(poolAddressData, 5000);
+    // Stop loading pool stats
+    $scope.$on("$destroy", function(){
+        if($scope.poolAddressInterval)
+            $interval.cancel($scope.poolAddressInterval);
+    });
 });

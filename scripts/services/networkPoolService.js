@@ -2,6 +2,6 @@ angular.module('Explorer').service('NetworkPoolService', function($rootScope, $i
     var networkPoolService = this;
 
     this.getPoolStats = function() {
-        return $http.get('/api/pool/poolstats');
+        return $http.get('/api/v1/stats/pools');
     }
 });

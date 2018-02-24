@@ -49,7 +49,8 @@ angular.module('Explorer').service('PoolStatsService', function($rootScope, $int
 
 	var poolStatsService = this;
 	$interval(poolStatsService.getPoolStats, 5000);
-    $interval(poolStatsService.getHashRateHistory, 15000);
+
+    // This doesn't exist right now - $interval(poolStatsService.getHashRateHistory, 15000);
 
 });
 
