@@ -185,7 +185,7 @@ func (t *TxExtraInfo) FormatJSON() (*TxExtraInfo, error) {
 	t.Value = value.String()
 	t.Nonce = nonce.String()
 	t.TransactionIndex = transactionIndex.String()
-	t.To = common.HexToAddress(t.To).String()
+	t.To = strings.ToLower(common.HexToAddress(t.To).String())
 	return t, nil
 }
 
