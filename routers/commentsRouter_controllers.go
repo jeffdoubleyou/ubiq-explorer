@@ -105,6 +105,14 @@ func init() {
 
 	beego.GlobalControllerRouter["ubiq-explorer/controllers:StatsController"] = append(beego.GlobalControllerRouter["ubiq-explorer/controllers:StatsController"],
 		beego.ControllerComments{
+			Method: "Pools",
+			Router: `/pools`,
+			AllowHTTPMethods: []string{"get"},
+			MethodParams: param.Make(),
+			Params: nil})
+
+	beego.GlobalControllerRouter["ubiq-explorer/controllers:StatsController"] = append(beego.GlobalControllerRouter["ubiq-explorer/controllers:StatsController"],
+		beego.ControllerComments{
 			Method: "UncleRateHistory",
 			Router: `/uncleRateHistory`,
 			AllowHTTPMethods: []string{"get"},

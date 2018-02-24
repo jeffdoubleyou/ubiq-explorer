@@ -13,7 +13,7 @@ import (
 )
 
 func main() {
-	s := services.NewStatsService()
+	s := services.NewPoolsService()
 	x, err := s.MinerList(100)
 	fmt.Printf("ERR: %s, MINED: %v", err, x)
 	for _, m := range x {

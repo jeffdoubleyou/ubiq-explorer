@@ -42,7 +42,7 @@ type TxExtraInfo struct {
 	Nonce            string         `json:"nonce"`
 	R                string         `json:"r"`
 	S                string         `json:"s"`
-	To               common.Address `json:"to"`
+	To               string         `json:"to,omitempty"`
 	TransactionIndex string         `json:"transactionIndex"`
 	V                string         `json:"v"`
 	Value            string         `json:"value"`
@@ -185,7 +185,7 @@ func (t *TxExtraInfo) FormatJSON() (*TxExtraInfo, error) {
 	t.Value = value.String()
 	t.Nonce = nonce.String()
 	t.TransactionIndex = transactionIndex.String()
-
+	t.To = common.HexToAddress(t.To).String()
 	return t, nil
 }
 

@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"github.com/astaxie/beego"
+	"ubiq-explorer/daos"
 	"ubiq-explorer/models"
 	"ubiq-explorer/services"
 )
@@ -116,6 +117,24 @@ func (c *StatsController) Miners() {
 		c.Ctx.ResponseWriter.WriteHeader(404)
 	} else {
 		c.Data["json"] = history
+	}
+	c.ServeJSON()
+}
+
+// @Title Pools
+// @Description Get Network Pool Stats
+// @Success 200 {object} []models.Pool
+// @Failure 404 Not found
+// @router /pools [get]
+func (c *StatsController) Pools() {
+	poolsDAO := daos.NewPoolsDAO()
+	poolsService := services.NewPoolsService(*poolsDAO)
+	pools, err := poolsService.List()
+	if err != nil {
+		c.Data["json"] = &models.APIError{err.Error()}
+		c.Ctx.ResponseWriter.WriteHeader(404)
+	} else {
+		c.Data["json"] = pools
 	}
 	c.ServeJSON()
 }

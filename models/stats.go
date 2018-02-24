@@ -15,6 +15,6 @@ type Stats struct {
 type MinerList struct {
 	Name    string  `json:"name"`
 	Address string  `json:"address"`
-	Count   uint8   `json:"count"`
+	Count   uint16  `json:"count"`
 	Percent float64 `json:"percent"`
 }
