@@ -8,10 +8,18 @@ import (
 )
 
 type TokenInfo struct {
+	Id       bson.ObjectId  `json:"id,omitempty" bson:"_id,omitempty"`
 	Name     string         `json:"name"`
 	Address  common.Address `json:"address"`
 	Symbol   string         `json:"symbol"`
 	Decimals uint8          `json:"decimals"`
+}
+
+type TokenInfoPage struct {
+	Start  string
+	End    string
+	Total  int
+	Tokens []*TokenInfo
 }
 
 type TokenTransaction struct {
@@ -48,14 +56,16 @@ func (t TokenInfo) GetBSON() (interface{}, error) {
 
 func (t *TokenInfo) SetBSON(raw bson.Raw) error {
 	decoded := new(struct {
-		Name     string `json:"name"`
-		Address  string `json:"address"`
-		Symbol   string `json:"symbol"`
-		Decimals uint8  `json:"decimals"`
+		Id       bson.ObjectId `json:"id,omitempty" bson:"_id,omitempty"`
+		Name     string        `json:"name"`
+		Address  string        `json:"address"`
+		Symbol   string        `json:"symbol"`
+		Decimals uint8         `json:"decimals"`
 	})
 	bsonErr := raw.Unmarshal(decoded)
 
 	if bsonErr == nil {
+		t.Id = decoded.Id
 		t.Name = decoded.Name
 		t.Address = common.HexToAddress(decoded.Address)
 		t.Symbol = decoded.Symbol

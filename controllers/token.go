@@ -68,20 +68,43 @@ func (c *TokenController) To() {
 	c.ServeJSON()
 }
 
-// @Title List
+// @Title ListTransactions
 // @Description Get a list of transactions
 // @Param   limit	query   int     true        "Number of records to retrieve"
 // @Param   cursor	query   string 	false       "Cursor string of last record result"
 // @Param   skip	query	int		false		"Number of records to skip after cursor"
 // @Success 200 {object} models.TransactionPage
 // @Failure 404 no transactions found
-// @router /list [get]
-func (c *TokenController) List() {
+// @router /listTransactions [get]
+func (c *TokenController) ListTransactions() {
 	limit, _ := c.GetInt("limit")
 	cursor := c.GetString("cursor")
 	tokenDAO := daos.NewTokenDAO()
 	var txn = services.NewTokenService(*tokenDAO)
-	page, err := txn.List(limit, cursor)
+	page, err := txn.TransactionList(limit, cursor)
+	if err != nil {
+		c.Data["json"] = &models.APIError{err.Error()}
+		c.Ctx.ResponseWriter.WriteHeader(404)
+	} else {
+		c.Data["json"] = page
+	}
+	c.ServeJSON()
+}
+
+// @Title ListTokens
+// @Description Get a list of tokens
+// @Param   limit	query   int     true        "Number of records to retrieve"
+// @Param   cursor	query   string 	false       "Cursor string of last record result"
+// @Param   skip	query	int		false		"Number of records to skip after cursor"
+// @Success 200 {object} models.TokenInfoPage
+// @Failure 404 no tokens found
+// @router /listTokens [get]
+func (c *TokenController) ListTokens() {
+	limit, _ := c.GetInt("limit")
+	cursor := c.GetString("cursor")
+	tokenDAO := daos.NewTokenDAO()
+	var token = services.NewTokenService(*tokenDAO)
+	page, err := token.TokenList(limit, cursor)
 	if err != nil {
 		c.Data["json"] = &models.APIError{err.Error()}
 		c.Ctx.ResponseWriter.WriteHeader(404)

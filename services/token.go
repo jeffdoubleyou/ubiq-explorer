@@ -30,7 +30,7 @@ func (s *TokenService) From(address common.Address, limit int, cursor string) (m
 	if limit == 0 {
 		limit = 10
 	}
-	return s.dao.Find(bson.M{"from": strings.ToLower(address.String())}, "-_id", limit, cursor)
+	return s.dao.FindTransactions(bson.M{"from": strings.ToLower(address.String())}, "-_id", limit, cursor)
 }
 
 func (s *TokenService) To(address common.Address, limit int, cursor string) (models.TokenTransactionPage, error) {
@@ -40,17 +40,17 @@ func (s *TokenService) To(address common.Address, limit int, cursor string) (mod
 	if limit == 0 {
 		limit = 10
 	}
-	return s.dao.Find(bson.M{"to": strings.ToLower(address.String())}, "-_id", limit, cursor)
+	return s.dao.FindTransactions(bson.M{"to": strings.ToLower(address.String())}, "-_id", limit, cursor)
 }
 
-func (s *TokenService) List(limit int, cursor string) (models.TokenTransactionPage, error) {
+func (s *TokenService) TransactionList(limit int, cursor string) (models.TokenTransactionPage, error) {
 	if limit > 100 {
 		limit = 100
 	}
 	if limit == 0 {
 		limit = 10
 	}
-	return s.dao.Find(bson.M{}, "-_id", limit, cursor)
+	return s.dao.FindTransactions(bson.M{}, "-_id", limit, cursor)
 }
 
 func (s *TokenService) GetTokenByAddress(address common.Address) (models.TokenInfo, error) {
@@ -59,4 +59,11 @@ func (s *TokenService) GetTokenByAddress(address common.Address) (models.TokenIn
 
 func (s *TokenService) GetTokenBySymbol(symbol string) (models.TokenInfo, error) {
 	return s.dao.GetTokenBySymbol(symbol)
+}
+
+func (s *TokenService) TokenList(limit int, cursor string) (models.TokenInfoPage, error) {
+	if limit > 100 {
+		limit = 100
+	}
+	return s.dao.FindTokens(bson.M{}, "-_id", limit, cursor)
 }

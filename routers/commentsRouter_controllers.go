@@ -145,8 +145,16 @@ func init() {
 
 	beego.GlobalControllerRouter["ubiq-explorer/controllers:TokenController"] = append(beego.GlobalControllerRouter["ubiq-explorer/controllers:TokenController"],
 		beego.ControllerComments{
-			Method: "List",
-			Router: `/list`,
+			Method: "ListTokens",
+			Router: `/listTokens`,
+			AllowHTTPMethods: []string{"get"},
+			MethodParams: param.Make(),
+			Params: nil})
+
+	beego.GlobalControllerRouter["ubiq-explorer/controllers:TokenController"] = append(beego.GlobalControllerRouter["ubiq-explorer/controllers:TokenController"],
+		beego.ControllerComments{
+			Method: "ListTransactions",
+			Router: `/listTransactions`,
 			AllowHTTPMethods: []string{"get"},
 			MethodParams: param.Make(),
 			Params: nil})

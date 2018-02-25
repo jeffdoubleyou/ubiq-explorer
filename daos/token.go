@@ -2,6 +2,7 @@ package daos
 
 import (
 	"gopkg.in/mgo.v2/bson"
+	"strings"
 	"ubiq-explorer/models"
 	"ubiq-explorer/models/db"
 )
@@ -14,13 +15,11 @@ func NewTokenDAO() *TokenDAO {
 }
 
 func (dao *TokenDAO) Insert(t models.TokenInfo) (bool, error) {
-	token, err := dao.GetTokenByAddress(t.Address.String())
-	if err == nil && token.Address.String() != "" {
-		return true, nil
-	}
+
 	conn := db.Conn()
 	defer conn.Close()
-	err = conn.DB("").C("tokens").Insert(t)
+	_, err := conn.DB("").C("tokens").Upsert(bson.M{"address": strings.ToLower(t.Address.String())}, t)
+
 	if err != nil {
 		return false, err
 	}
@@ -59,7 +58,7 @@ func (dao *TokenDAO) InsertTokenTransaction(txn models.TokenTransaction) (bool, 
 	return true, nil
 }
 
-func (dao *TokenDAO) Find(query bson.M, sort string, limit int, cursor string) (models.TokenTransactionPage, error) {
+func (dao *TokenDAO) FindTransactions(query bson.M, sort string, limit int, cursor string) (models.TokenTransactionPage, error) {
 	conn := db.Conn()
 	defer conn.Close()
 
@@ -80,5 +79,29 @@ func (dao *TokenDAO) Find(query bson.M, sort string, limit int, cursor string) (
 		page.End = txns[len(txns)-1].Id.Hex()
 	}
 	page.Transactions = txns
+	return page, nil
+}
+
+func (dao *TokenDAO) FindTokens(query bson.M, sort string, limit int, cursor string) (models.TokenInfoPage, error) {
+	conn := db.Conn()
+	defer conn.Close()
+
+	count, err := conn.DB("").C("tokens").Find(query).Count()
+
+	if cursor != "" {
+		query["_id"] = bson.M{"$lt": bson.ObjectIdHex(cursor)}
+	}
+
+	var tokens []*models.TokenInfo
+	var page = models.TokenInfoPage{Total: count, Start: "", End: ""}
+	err = conn.DB("").C("tokens").Find(query).Sort(sort).Limit(limit).All(&tokens)
+	if err != nil {
+		return page, err
+	}
+	if len(tokens) > 0 {
+		page.Start = tokens[0].Id.Hex()
+		page.End = tokens[len(tokens)-1].Id.Hex()
+	}
+	page.Tokens = tokens
 	return page, nil
 }

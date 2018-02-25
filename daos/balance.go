@@ -34,7 +34,7 @@ func (dao *BalanceDAO) Find(query bson.M, limit int, cursor string, sort string)
 	}
 
 	if sort == "" {
-		sort = "-block"
+		sort = "-_id"
 	}
 
 	var balances []*models.Balance
