@@ -22,24 +22,28 @@ func InitializeMongoDB() (bool, error) {
 	}
 
 	if cnt, _ := db.DB("").C("blockTimeHistory").Count(); cnt == 0 {
+		db.DB("").C("blockTimeHistory").DropCollection()
 		err = db.DB("").C("blockTimeHistory").Create(dbOptions)
 		if err != nil {
 			return false, err
 		}
 	}
 	if cnt, _ := db.DB("").C("hashRateHistory").Count(); cnt == 0 {
+		db.DB("").C("hashRateHistory").DropCollection()
 		err = db.DB("").C("hashRateHistory").Create(dbOptions)
 		if err != nil {
 			return false, err
 		}
 	}
 	if cnt, _ := db.DB("").C("difficultyHistory").Count(); cnt == 0 {
+		db.DB("").C("difficultyHistory").DropCollection()
 		err = db.DB("").C("difficultyHistory").Create(dbOptions)
 		if err != nil {
 			return false, err
 		}
 	}
 	if cnt, _ := db.DB("").C("uncleRateHistory").Count(); cnt == 0 {
+		db.DB("").C("uncleRateHistory").DropCollection()
 		err = db.DB("").C("uncleRateHistory").Create(dbOptions)
 		if err != nil {
 			return false, err
