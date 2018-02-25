@@ -116,10 +116,10 @@ func (t *TokenUtils) GetTokenInfo(address common.Address) (*models.TokenInfo, bo
 	}
 
 	i := &models.TokenInfo{
-		name,
-		address,
-		symbol,
-		decimals,
+		Name:     name,
+		Address:  address,
+		Symbol:   symbol,
+		Decimals: decimals,
 	}
 	t.AddCachedToken(address, i)
 	return i, true, nil

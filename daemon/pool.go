@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/httplib"
 	"log"
@@ -48,7 +49,7 @@ func main() {
 		log.Printf("Checking on %s: ", pool.Name)
 		json, err := GetStats(pool)
 		if err != nil {
-			fmt.Printf("ERR: %s\n", err)
+			log.Printf("ERR: %s\n", err)
 		} else {
 			pool.OnlineCount++
 			pool.Uptime = float64(float64(pool.OnlineCount)/float64(pool.Count)) * 100
@@ -57,7 +58,7 @@ func main() {
 			log.Printf("ONLINE: %f UPTIME: %f\n", json.Miners, pool.Uptime)
 			_, err := poolService.Insert(&pool)
 			if err != nil {
-				fmt.Errorf("FAILED TO UPDATE POOL: %s", err)
+				log.Printf("FAILED TO UPDATE POOL: %s", err)
 			}
 		}
 	}
