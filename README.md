@@ -12,6 +12,7 @@ The API backend is written in golang and uses the beego framework.
 * Beego 1.9
 * Beego Bee tool
 * Ubiq go node
+* abigen ( You need to build this from ethereum/go-etherem, not go-ubiq )
 
 ## UI Requirements
 
@@ -32,26 +33,30 @@ Assuming that you have dependencies installed, this should build and install eve
 
 If you are not using Ubuntu 16.04, you can manually install everything:
 
-1. Build the block daemon and pool monitor
+1. Build token.abi
+```
+abigen --abi ./daemon/tokens/token.abi --pkg tokens --type Token --out ./daemon/tokens/tokens.go
+```
+2. Build the block daemon and pool monitor
 ```
 go build -o bin/blockdaemon daemon/blockdaemon.go
 go build -o bin/poolstats daemon/pool.go
 ```
-2. Build the UI
+3. Build the UI
 ```
 cd www
 npm install
 ```
-3. Package everything
+4. Package everything
 ```
 bee pack
 ```
-4. Unpack to wherever you'd like to install
+5. Unpack to wherever you'd like to install
 ```
 tar -C /destination/directory -xf ubiq-explorer.tar.gz
 ```
-5. Add scripts/nginx.conf to your NGINX config
-6. Add scritps/cron to /etc/cron.d/
+6. Add scripts/nginx.conf to your NGINX config
+7. Add scritps/cron to /etc/cron.d/
 
 ## Configuration
 
