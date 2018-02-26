@@ -8,6 +8,7 @@ The API backend is written in golang and uses the beego framework.
 ## API Requirements:
 
 * Go 1.7+ ( only 1.8 has been tested )
+* MongoDB 3.6+
 * Beego 1.9
 * Beego Bee tool
 * Ubiq go node
