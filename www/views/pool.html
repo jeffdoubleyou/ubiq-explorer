@@ -1,0 +1,97 @@
+<div class="container">
+    <md-card ng-width=100>
+        <md-card-title>
+            <md-card-title-text><span class="md-title"><h1>Ubiq <small>Pool</small></h1></span></md-card-title-text>
+        </md-card-title>
+        <md-card-content id="address-view">
+            <md-card>
+                <md-card-content>
+                    <div layout-xs="column" layout="row" ng-controller="poolIndexController">
+                            <div flex class="md-2-line nav-center">
+                                <md-button class="md-fab" md-colors="::{backgroundColor: 'light-blue'}">
+                                    <md-icon md-font-library="material-icons">people</md-icon>
+                                </md-button>
+                                <div class="div flex-text" layout="column">
+                                    <h4>Miners Online</h4>
+                                    <h5>{{poolMiners}}</h5>
+                                </div>
+                            </div>
+                            <div flex class="md-2-line nav-center">
+                                <md-button class="md-fab md-primary" md-colors="::{backgroundColor: 'teal'}">
+                                    <md-icon md-font-library="material-icons">trending_up</md-icon>
+                                </md-button>
+                                <div class="div flex-text" layout="column">
+                                    <h4>Network Difficulty</h4>
+                                    <h5>{{poolDifficulty}}</h5>
+                                </div>
+                            </div>
+
+                            <div flex class="md-2-line nav-center">
+                                <md-button class="md-fab md-primary" md-colors="::{backgroundColor: 'orange'}">
+                                    <md-icon md-font-library="material-icons">poll</md-icon>
+                                </md-button>
+                                <div class="div flex-text" layout="column">
+                                    <h4>Pool Hashrate</h4>
+                                    <h5>{{poolHashrate | hashrate}}</h5>
+                                </div>
+                            </div>
+                            <div flex class="md-2-line nav-center">
+                                <md-button class="md-fab md-primary" md-colors="::{backgroundColor: 'light-green'}">
+                                    <md-icon md-font-library="material-icons">poll</md-icon>
+                                </md-button>
+                                <div class="div flex-text" layout="column">
+                                    <h4>Network Hashrate</h4>
+                                    <h5>{{networkHashRate | hashrate}}</h5>
+                                </div>
+                            </div>
+
+                            <div flex class="md-2-line nav-center">
+                                <md-button class="md-fab md-primary" md-colors="::{backgroundColor: 'blue-grey'}">
+                                    <md-icon md-font-library="material-icons">view_module</md-icon>
+                                </md-button>
+                                <div class="div flex-text" layout="column">
+                                    <h4>Last Block Found</h4>
+                                    <h5>{{poolLastBlock | relativetime }}</h5>
+                                </div>
+                            </div>
+                            <div flex class="md-2-line nav-center">
+                                <md-button class="md-fab md-primary">
+                                    <md-icon md-font-library="material-icons">shuffle</md-icon>
+                                </md-button>
+                                <div class="div flex-text" layout="column">
+                                    <h4>Round Variance</h4>
+                                    <h5>{{poolRoundVariance}}%</h5>
+                                </div>
+                            </div>
+
+                    </div>
+                </md-card-content>
+            </md-card>
+
+	<hr/>
+        <div ng-controller="poolController">
+            <md-tabs md-border-bottom md-dynamic-height>
+                <md-tab label="Pool Information" md-on-select="PoolTabSelect('info')">
+                    <div data-ng-include src="'template/Pool/Info.html'"></div>
+                </md-tab>
+                <md-tab label="Pool Blocks ({{poolBlocks}})" md-on-select="PoolTabSelect('blocks')">
+                    <div data-ng-include src="'template/Pool/Blocks.html'"></div>
+                </md-tab>
+                <md-tab label="Active Miners ({{poolMiners}})" md-on-select="PoolTabSelect('miners')">
+                    <div data-ng-include src="'template/Pool/Miners.html'"></div>
+                </md-tab>
+                <md-tab label="Payments" md-on-select="PoolTabSelect('payments')">
+                    <div data-ng-include src="'template/Pool/Payments.html'"></div>
+                </md-tab>
+                <md-tab label="Mining Help / Other Info" md-on-select="PoolTabSelect('help')">
+                    <div data-ng-include src="'template/Pool/Help.html'"></div>
+                </md-tab>
+                <md-tab label="Exchanges" md-on-select="PoolTabSelect('exchanges')">
+                    <div data-ng-include src="'template/Pool/Exchanges.html'"></div>
+                </md-tab>
+            </md-tabs>
+        </div>
+        </md-card-content>
+    </md-card>
+</div>
+<div ng-data-include="'template/misc/adsense.html'"></div>

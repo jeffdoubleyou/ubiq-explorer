@@ -1,0 +1,35 @@
+<div ng-controller="AddressUnclesController" ng-init="minedUnclesInit()" class="scrollTable">
+<md-table-container infinite-scroll="pageChanged()">
+    <table md-table>
+        <thead md-head>
+            <tr md-row>
+                <th md-column><strong>Block</strong></th>
+                <th md-column><strong>Height</strong></th>
+                <th md-column><strong>Difficulty</strong></th>
+                <th md-column><strong>Gas Used</strong></th>
+                <th md-column><strong>Date</strong></th>
+            </tr>
+        </thead>
+        <tbody md-body>
+            <tr md-row ng-repeat="uncle in minedUncles">
+                <td md-cell><a href="/block/{{uncle.block}}">{{uncle.block}}</a></td>
+                <td md-cell><a href="/block/{{uncle.height}}">{{uncle.height}}</a></td>
+                <td md-cell>{{uncle.difficulty | hashrate}}</td>
+                <td md-cell>{{uncle.gas}}</td>
+                <td md-cell>{{uncle.timestamp+"000" | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            </tr>
+            <tr md-row>
+                <td md-cell colspan="2">Displaying {{minedBlocks.length}} of {{minedBlocksCount}}</td>
+                <td md-cell>&nbsp;</td>
+                <td md-cell>
+                    <span class="nowScrolling" ng-show="scrolling">Loading...</span>
+                </td>
+                <td md-cell>
+                    <md-button ng-disabled="false" class="md-primary" ng-show="!scrolling && minedUncles.length < minedUnclesCount" ng-click="pageChanged()">Load more</md-button>
+                </td> 
+            </tr>
+
+        </tbody>
+    </table>
+</md-table-container>
+</div>

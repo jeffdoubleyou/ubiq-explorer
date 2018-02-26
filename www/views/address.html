@@ -1,0 +1,38 @@
+<div class="container">
+    <md-card ng-width=100>
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-headline">Ubiq Address Info for <a href="/address/{{addressId}}">{{addressId | knownMiners}}</a></span>
+                <span class="md-subhead" ng-show="tokenInfo">
+                    <span class="md-button">
+                        <md-icon md-font-library="material-icons" style="font-size: 18px;" aria-label="{{tokenInfo.name}}">transform</md-icon>
+                        {{tokenInfo.name}} token
+                    </span>
+                    <span class="md-caption">
+                        <strong>Name:</strong> {{tokenInfo.name}} <strong>Symbol:</strong> {{tokenInfo.symbol}} <strong>Decimals:</strong> {{tokenInfo.decimals}}
+                    </span>
+                </span>
+            </md-card-title-text>
+            <md-card-title-media>
+                <div blockie address={{addressId}} size="large"></div>
+            </md-card-title-media>
+        </md-card-title>
+        <md-card-actions layout="row" layout-align="end center">
+            <md-button class="md-accent md-raised md-cornered" ng-href="https://www.cryptopia.co.nz/Register?referrer=jeffw">Buy More Ubiq</md-button>
+        </md-card-actions>
+        <md-card-content id="address-view">
+            <div ng-controller="AddressBalanceChartController">
+                <canvas id="balance-line" class="chart chart-line" chart-data="data" chart-labels="labels" chart-series="series" chart-options="options" height="120"></canvas> 
+            </div>
+            <div ng-controller="AddressTabsController">
+              <md-tabs md-border-bottom md-dynamic-height md-selected="ActiveAddressTab">
+                <md-tab ng-repeat="tab in tabs" label="{{tab.title}}" ng-init="template = tab.template">
+                    <div data-ng-include src="template"></div>
+                </md-tab>
+              </md-tabs>
+            </div>
+        </md-card-content>
+    </md-card>
+</div> 
+
+<div ng-data-include="'template/misc/adsense.html'"></div>

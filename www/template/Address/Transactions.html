@@ -1,0 +1,16 @@
+<div>
+  <md-tabs md-border-bottom md-dynamic-height md-selected="ActiveTransactionsTab">
+    <md-tab label="Incoming Transactions">
+        <div data-ng-include src="'template/Address/Incoming.html'"></div>
+    </md-tab>
+    <md-tab label="Outgoing Transactions">
+        <div data-ng-include src="'template/Address/Outgoing.html'"></div>
+    </md-tab>
+    <md-tab label="Incoming Tokens">
+        <div data-ng-include src="'template/Address/IncomingTokens.html'"></div>
+    </md-tab>
+    <md-tab label="Outgoing Tokens">
+        <div data-ng-include src="'template/Address/OutgoingTokens.html'"></div>
+    </md-tab>
+  </md-tabs>
+</div>

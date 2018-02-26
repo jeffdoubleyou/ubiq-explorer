@@ -1,0 +1,41 @@
+<md-table-container ng-controller="poolBlocksController">
+    <table md-table>
+        <thead md-head>
+            <tr md-row>
+                <th md-column>Height</th>
+                <th md-column>Block Hash</th>
+                <th md-column>Date</th>
+                <th md-column>Variance</th>
+                <th md-column>Reward</th>
+            </tr>
+        </thead>
+        <tbody md-body>
+            <tr md-row ng-repeat="block in matured">
+                <td md-cell><a href="/block/{{block.height}}">{{block.height}}</a></td>
+                <td md-cell><a href="/block/{{block.hash}}">{{block.hash }}</a></td>
+                <td md-cell>{{block.timestamp | relativetime }}</td>
+                <td md-cell ng-init="variance = block.shares/ block.difficulty*100">
+                    <span ng-if="variance >= 100" class="label label-primary">{{variance | variance}}</span>
+                    <span ng-if="variance < 100" class="label label-default">{{variance | variance}}</span>
+                </td>
+                <td md-cell>
+                    <div ng-switch on="block.orphan">
+                        <div ng-switch-when="true">
+                            <span class="label label-danger">{{block.reward | fromWei | reward }}</span>
+                        </div>
+                        <div ng-switch-when="false">
+                            <div ng-switch on="block.uncle">
+                                <div ng-switch-when="true">
+                                    <span class="label label-default">{{block.reward | fromWei | reward }}</span>
+                                </div>
+                                <div ng-switch-when="false">
+                                    <span class="label label-primary">{{block.reward | fromWei | reward }}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</md-table-container>

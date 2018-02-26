@@ -1,0 +1,97 @@
+<div  layout-xs="column" layout="row">
+
+    <div flex-xs flex-gt-xs="33" layout="column">
+        <md-card>
+            <md-card-title>
+                <md-card-title-text><span class="md-title">Payments</span></md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    <span class="badge">{{minerData.stats.immature | payment}}</span>
+                    Immature Balance
+                  </li>
+                  <li class="list-group-item">
+                    <span class="badge">{{minerData.stats.balance | payment}}</span>
+                    Pending Balance
+                  </li>
+                  <li class="list-group-item">
+                    <span class="badge">{{minerData.stats.paid | payment}}</span>
+                    Total Paid
+                  </li>
+                </ul>	
+            </md-card-content>
+        </md-card>
+    </div>
+
+    <div flex-xs flex-gt-xs="33" layout="column">
+        <md-card>
+            <md-card-title>
+                <md-card-title-text><span class="md-title">Workers</span></md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+	            <ul class="list-group">
+                  <li class="list-group-item">
+                    <span class="badge">{{minerData.workersOnline}}</span>
+                    Workers Online
+                  </li>
+                  <li class="list-group-item">
+                    <span class="badge">{{minerData.currentHashrate | hashrate}}</span>
+                    Current Hashrate
+                  </li>
+                  <li class="list-group-item">
+                    <span class="badge">{{minerData.hashrate | hashrate}}</span>
+                    Average Hashrate
+                  </li>
+                </ul>				
+            </md-card-content>
+        </md-card>
+    </div>
+
+    <div flex-xs flex-gt-xs="33" layout="column">
+        <md-card>
+            <md-card-title>
+                <md-card-title-text><span class="md-title">Round / Block Info</span></md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+                <ul class="list-group">
+                  <li class="list-group-item">
+                    <span class="badge">{{minerData.stats.lastShare | relativetime }}</span>
+                    Last Share
+                  </li>
+                  <li class="list-group-item">
+                    <span class="badge">{{minerData.stats.blocksFound}}</span>
+                    Blocks Found
+                  </li>
+                  <li class="list-group-item">
+                    <span class="badge">{{roundShare}}%</span>
+                    Round Share
+                  </li>
+                </ul>	
+            </md-card-content>
+        </md-card>
+    </div>
+
+
+</div>
+
+<div layout="row">
+    <md-card flex="100">
+        <md-card-content>
+            <md-tabs md-border-bottom md-dynamic-height>
+                <md-tab label="Pool Workers ({{minerData.workersOnline}}/{{minerData.workersTotal}} online)">
+                    <div data-ng-include src="'template/Address/Pool/Workers.html'"></div>
+                </md-tab>
+                <md-tab label="Payments ({{minerData.paymentsTotal}})">
+                    <div data-ng-include src="'template/Address/Pool/Payments.html'"></div>
+                </md-tab>
+                <md-tab label="Offline Worker Alerts">
+                    <div data-ng-include src="'template/Address/Pool/Alerts.html'"></div>
+                </md-tab>
+                <md-tab label="Estimated Earnings">
+                    <div data-ng-include src="'template/Address/Pool/Earnings.html'"></div>
+                </md-tab>
+            </md-tabs>
+        </md-card-content>
+    </md-card>
+</div>

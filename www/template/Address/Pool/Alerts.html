@@ -1,0 +1,31 @@
+<table class="table table-striped">
+    <tbody>
+    <tr>
+        <td colspan="2">
+		<div class="alert alert-info" role="alert">If one of your workers goes offline, we will send an alert to the email addresses specified below.<br>NOTE: Alerts can only be seen here if they were setup from your public IP address {{IPAddress}}</div>
+		<div class="panel panel-default">
+ 			<div class="panel-body">
+                <div class="form-group">
+                    <label for="alertEmail">Email:</label>
+                    <input type="text" class="form-control" id="alertEmail">
+                    <hr>
+                    <button class="btn btn-success" ng-click="addAlert(addressId)">Add Alert</button>
+                </div>
+			</div>
+		</div>
+	</td>
+    </tr>
+    <tr>
+        <td colspan="2"><h4>Your current alerts</h4></td>
+    </tr>
+    <tr>
+        <th style="text-align:left">Email</th>
+        <th style="text-align:left">Remove</th>
+    </tr>
+    <tr ng-repeat="email in minerAlerts">
+        <td>{{email}}</td>
+        <td><button class="btn btn-danger btn-xs" ng-click="removeAlert(addressId, email, $index)">delete</button></td>
+    </tr>
+        </tbody>
+</table> 
+

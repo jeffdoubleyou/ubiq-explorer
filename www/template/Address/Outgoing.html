@@ -1,0 +1,32 @@
+<div ng-controller="AddressOutgoingController" ng-init="transactionsInit()" class="scrollTable">
+<md-table-container infinite-scroll='pageChanged()'>
+    <table md-table>
+        <thead md-head>
+            <tr md-row>
+                <th md-column><strong>To</strong></th>
+                <th md-column><strong>Transaction</strong></th>
+                <th md-column><strong>Amount</strong></th>
+                <th md-column><strong>Date</strong></th>
+            </tr>
+        </thead>
+        <tbody md-body>
+            <tr md-row ng-repeat="txn in outgoingTransactions">
+                <td md-cell><span ng-if="txn.contract"><md-tooltip>Contract Execution</md-tooltip><md-icon md-font-library="material-icons" style="font-size: 18px;" aria-label="Contract Execution">transform</md-icon></span><a href="/address/{{txn.to}}">{{txn.to | knownMiners}}</a></td>
+                <td md-cell><a href="/transaction/{{txn.hash}}">{{txn.hash | truncate:'50'}}</a></td>
+                <td md-cell>{{txn.value | fromWei}}</td>
+                <td md-cell>{{txn.timestamp+"000" | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+            </tr>
+            <tr md-row>
+                <td md-cell>Displaying {{outgoingTransactions.length}} of {{outgoingTransactionCount}}</td>
+                <td md-cell>&nbsp;</td>
+                <td md-cell>
+                    <span class="nowScrolling" ng-show="scrolling">Loading...</span>
+                </td>
+                <td md-cell>
+                    <md-button ng-disabled="false" class="md-primary" ng-show="!scrolling" ng-click="pageChanged()">Load more</md-button>
+                </td> 
+            </tr>
+        </tbody>
+    </table>
+</md-table-container>
+</div>

@@ -1,0 +1,18 @@
+<md-table-container ng-controller="poolMinersController">
+    <table md-table>
+        <thead md-head>
+            <tr md-row>
+                <th md-column>Address</th>
+                <th md-column>Hashrate</th>
+                <th md-column>Last Share</th>
+            </tr>
+        </thead>
+        <tbody md-body>
+            <tr md-row ng-repeat="stat in minersList | orderObjectBy:'hr':true">
+                <td md-cell><a href="/address/{{stat.key}}/pool">{{stat.key}}</a></td>
+                <td md-cell><a href="/transaction/{{block.hash}}">{{stat.hr | hashrate}}</a></td>
+                <td md-cell>{{stat.lastBeat | relativetime }}</td>
+            </tr>
+        </tbody>
+    </table>
+</md-table-container>

@@ -1,0 +1,18 @@
+<md-table-container>
+    <table md-table>
+        <thead md-head>
+            <tr md-row>
+                <th md-column>Block</th>
+                <th md-column>Miner</th>
+                <th md-column>Found</th>
+            </tr>
+        </thead>
+        <tbody md-body>
+            <tr md-row ng-repeat="block in recentBlocks.Blocks">
+                <td md-cell><a href="/block/{{block.block}}">{{block.block}}</a></td>
+                <td md-cell><a href="/address/{{block.miner}}">{{block.miner | knownMiners: '30'}}</a></td>
+                <td md-cell>{{block.timestamp | relativetime }}</td>
+            </tr>
+        </tbody>
+    </table>
+</md-table-container>

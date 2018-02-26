@@ -1,0 +1,60 @@
+<div class="container">
+    <md-card ng-width=100>
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-title">Ubiq Network Pools Overview</span>
+                <span class="md-subhead">Updated every 5 minutes</span>
+            </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+                
+            <md-table-container>
+                <table md-table>
+                    <thead md-head>
+                        <tr md-row>
+                            <th md-column>Pool</th>
+                            <th md-column>Miners</th>
+                            <th md-column>Hashrate</th>
+                            <th md-column>API Uptime</th>
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-row ng-repeat="pool in pools | orderObjectBy: 'uptime':true | orderObjectBy: 'hashrate':true">
+                            <td md-cell><a href="{{pool.url}}" target="_blank">{{pool.name}}</a></td>
+                            <td md-cell ng-init="addMiners(pool.miners)">{{pool.miners}}</td>
+                            <td md-cell ng-init="addHashRate(pool.hashrate)">{{pool.hashrate | hashrate}}</td>
+                            <td md-cell>{{pool.uptime}}%</td>
+                        </tr>
+                        <tr md-row>
+                            <td colspan="4" md-cell><span class="md-subhead">Totals</td>
+                        </tr>
+                        <tr md-row>
+                            <td md-cell>&nbsp;</td>
+                            <td md-cell>{{totalMiners}}</td>
+                            <td md-cell>{{totalHashRate | hashrate}}</td>
+                            <td md-cell>&nbsp;</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+        </md-card-content>
+    </md-card>
+
+<div flex-xs flex-gt-xs="100" layout="column" ng-controller="mainController">
+        <md-card md-colors="{background: 'lime-50'}">
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-title">Top Miners</span>
+                    <span class="md-subhead"> ( Last {{blockCount}} blocks )</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+                <canvas id="miners-pie" class="chart-pie" chart-data="data" chart-labels="labels" chart-options="options" chart-legend="true" height="200"></canvas>
+            </md-card-content>
+        </md-card>
+    </div>
+
+</div>
+<div ng-data-include="'template/misc/adsense.html'"></div>
+
+

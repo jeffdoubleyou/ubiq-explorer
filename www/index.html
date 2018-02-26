@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="Explorer" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="Explorer" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="Explorer" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="Explorer" class="no-js"> <!--<![endif]-->
+<head>
+    <base href="http://192.168.0.124/index.html" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title ng-bind="$root.title">UBIQ.cc - Ubiq Blockchain Explorer</title>
+    <meta name="keywords" content="ubiq, blockchain, explorer, ubiq, ubiq explorer,ubiq blockchain, currency, ubiq currency, crypto, cryptocurrency, ubiq crypto, ubiq cryptocurrency, ubiq address info, ubiq block, blocks, block, ubiq block chain, mining pool, ubiq pool, ubiq mining pool, ubiq miner pool, pool">
+    <meta name="Ubiq Blockchain explorer - network status - mining pool - ubiq.cc">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+    <link rel="stylesheet" href="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-csp.css">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" href="node_modules/angular-material/angular-material.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic">
+    <link rel="stylesheet" href="node_modules/angular-material-data-table/dist/md-data-table.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+</head>
+<body>
+     <md-toolbar class="md-primary md-hue-7" ng-controller="mainController">
+        <div class="md-toolbar-tools">
+            <a class="navbar-brand nav-logo" href="/">
+                <img class="nav-logo" src="images/ubiq-logo.png" alt="ubiq.cc - Ubiq Blockchain explorer">
+            </a>
+            <a href="/" class="navbar-brand nav-link">
+                <h2>ubiq.cc</h2>
+            </a>
+            <span flex></span>
+            <input type="text" placeholder="Enter a transaction hash, address or Block number" name="requestType" required  ng-model="searchString"  class="form-control search-bar"/>
+            <md-button class="md-raised" aria-label="Search" ng-click="search()">Search</md-button>
+            <md-button class="md-raised" aria-label="Menu" md-colors="::{backgroundColor: 'grey'}" ng-click="toggleMenu()">
+                <md-icon md-font-library="material-icons">menu</md-icon>
+            </md-button>
+        </div>
+
+    </md-toolbar>
+
+    <md-sidenav class="md-sidenav-right" md-component-id="right" md-whiteframe="4" id="right">
+        <md-toolbar class="md-theme-indigo">
+            <h1 class="md-toolbar-tools">Menu</h1>
+        </md-toolbar>
+        <md-divider ></md-divider>
+        <md-list class="md-dense" flex>
+
+            <md-list-item class="md-2-line">
+                <md-button class="md-fab md-primary md-mini" md-colors="::{backgroundColor: 'blue'}" ng-href="/tokens">
+                    <md-icon md-font-library="material-icons">tonality</md-icon>
+                </md-button>
+                <div class="md-list-item-text">
+                    <h3>Tokens</h3>
+                    <p>List of ECR20 Ubiq tokens</p>
+                </div>
+            </md-list-item>
+
+            <md-divider ></md-divider>
+
+            <md-list-item class="md-2-line">
+                <md-button class="md-fab md-primary md-mini" md-colors="::{backgroundColor: 'grey'}" ng-href="/networkpools">
+                    <md-icon md-font-library="material-icons">blur_on</md-icon>
+                </md-button>
+                <div class="md-list-item-text">
+                    <h3>Network Pools</h3>
+                    <p>An overview of all Ubiq pools</p>
+                </div>
+            </md-list-item>
+
+            <md-divider ></md-divider>
+
+            <md-list-item class="md-2-line">
+                <md-button class="md-fab md-primary md-mini" md-colors="::{backgroundColor: 'orange'}" ng-href="/minerpool">
+                    <md-icon md-font-library="material-icons">layers</md-icon>
+                </md-button>
+                <div class="md-list-item-text">
+                    <h3>Ubiq.cc Pool</h3>
+                    <p>Support ubiq.cc with your hashpower</p>
+                </div>
+            </md-list-item>
+
+            <md-divider ></md-divider>
+
+            <md-list-item class="md-2-line">
+                <md-button class="md-fab md-primary md-mini" md-colors="::{backgroundColor: 'green'}" ng-href="/richlist">
+                    <md-icon md-font-library="material-icons">local_atm</md-icon>
+                </md-button>
+                <div class="md-list-item-text">
+                    <h3>Rich List</h3>
+                    <p>Top 100 richest accounts</p>
+                </div>
+            </md-list-item>
+
+            <md-divider ></md-divider>
+
+            <md-list-item class="md-2-line">
+                <md-button class="md-fab md-primary md-mini" md-colors="::{backgroundColor: 'blue-grey'}">
+                    <md-icon md-font-library="material-icons">view_module</md-icon>
+                </md-button>
+                <div class="md-list-item-text">
+                    <h3>Block</h3>
+                    <p>{{blockNum}}</p>
+                </div>
+            </md-list-item>
+
+            <md-divider ></md-divider>
+
+            <md-list-item class="md-2-line">
+                <md-button class="md-fab md-primary md-mini" md-colors="::{backgroundColor: 'light-green'}" ng-href="/hashrate">
+                    <md-icon md-font-library="material-icons">poll</md-icon>
+                </md-button>
+                <div class="md-list-item-text">
+                    <h3>Hashrate</h3>
+                    <p>{{networkHashRate | hashrate}}</p>
+                </div>
+            </md-list-item>
+
+            <md-divider ></md-divider>
+
+            <md-list-item class="md-2-line">
+                <md-button class="md-fab md-primary md-mini" md-colors="::{backgroundColor: 'teal'}" ng-href="/difficulty">
+                    <md-icon md-font-library="material-icons">trending_up</md-icon>
+                </md-button>
+                <div class="md-list-item-text">
+                    <h3>Difficulty</h3>
+                    <p>{{networkDifficulty | hashrate}}</p>
+                </div>
+            </md-list-item>
+
+            <md-divider ></md-divider>
+
+            <md-list-item class="md-2-line">
+                <md-button class="md-fab md-primary md-mini" md-colors="::{backgroundColor: 'light-blue'}" ng-href="/blocktime">
+                    <md-icon md-font-library="material-icons">access_time</md-icon>
+                </md-button>
+                <div class="md-list-item-text">
+                    <h3>Block Time</h3>
+                    <p>{{networkBlockTime}}/s</p>
+                </div>
+            </md-list-item>
+
+            <md-divider ></md-divider>
+
+            <md-list-item class="md-2-line">
+                <md-button class="md-fab md-primary md-mini" md-colors="::{backgroundColor: '#3AA2F2'}" ng-href="https://twitter.com/UbiqCC" target="_blank">
+                    <md-icon md-svg-src="images/twitter.svg"></md-icon>
+                </md-button>
+                <div class="md-list-item-text">
+                    <h3>Twitter</h3>
+                    <p>@UbiqCC</p>
+                </div>
+            </md-list-item>
+
+
+        </md-list>
+
+    </md-sidenav>
+
+    <div ng-view></div>
+<!--Libs-->
+
+<script src="node_modules/angular/angular.min.js"></script> 
+<script src="node_modules/angular-aria/angular-aria.js"></script> 
+<script src="node_modules/angular-animate/angular-animate.js"></script> 
+<script src="node_modules/angular-material/angular-material.js"></script>
+<script src="node_modules/angular-route/angular-route.js"></script>
+<script src="node_modules/moment/moment.js"></script>
+<script src="node_modules/angular-moment/angular-moment.min.js"></script>
+<script src="node_modules/angular-material-data-table/dist/md-data-table.js"></script>
+<script src="node_modules/ng-infinite-scroll/build/ng-infinite-scroll.min.js"></script>
+<script src="scripts/blockies.js"></script>
+
+<!--Charts-->
+<script src="node_modules/chart.js/dist/Chart.min.js"></script>
+<script src="node_modules/angular-chart.js/dist/angular-chart.min.js"></script> 
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"</script>
+<script src="node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js"></script>
+
+<!--Core-->
+
+<script src="app.js"></script>
+<script src="scripts/format/explorer.js"></script>
+<script src="scripts/util.js"></script>
+
+<!--Services-->
+
+<script src="scripts/services/networkService.js"></script>
+<script src="scripts/services/poolService.js"></script>
+<script src="scripts/services/searchService.js"></script>
+<script src="scripts/services/richListService.js"></script>
+<script src="scripts/services/addressService.js"></script>
+<script src="scripts/services/poolAlertsService.js"></script>
+<script src="scripts/services/networkPoolService.js"></script>
+
+<!--Controllers-->
+<script src="scripts/controllers/mainController.js"></script>
+<script src="scripts/controllers/addressController.js"></script>
+<script src="scripts/controllers/blockController.js"></script>
+<script src="scripts/controllers/transactionController.js"></script>
+<script src="scripts/controllers/hashRateController.js"></script>
+<script src="scripts/controllers/difficultyController.js"></script>
+<script src="scripts/controllers/blockTimeController.js"></script>
+<script src="scripts/controllers/poolController.js"></script>
+<script src="scripts/controllers/richListController.js"></script>
+<script src="scripts/controllers/networkPoolController.js"></script>
+<script src="scripts/controllers/uncleRateController.js"></script>
+
+<!--Directives-->
+<script src="scripts/directives/blockie.js"></script>
+
+<div class="footer">
+    <footer>
+        <hr/>
+        <p>
+            © ubiq.cc - Ubiq Blockchain Explorer and Pool<br>
+            Donations greatly appreciated - UBQ: <a href="http://www.ubiq.cc/address/0x18520a8aaf5142e0d788db696bb46124b2e7bb9b">0x18520a8aaf5142e0d788db696bb46124b2e7bb9b</a>
+        </p>
+    </footer>
+</div>
+
+</div>
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-82401713-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+
+</body>
+</html>

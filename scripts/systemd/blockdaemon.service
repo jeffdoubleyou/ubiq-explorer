@@ -1,0 +1,11 @@
+[Unit]
+Description=UBIQ Block Daemon
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/ubiq-explorer
+User=ubuntu
+Group=ubuntu
+Restart=always
+ExecStart=/opt/ubiq-explorer/bin/blockdaemon

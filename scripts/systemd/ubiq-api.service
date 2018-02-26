@@ -1,0 +1,11 @@
+[Unit]
+Description=UBIQ API Backend
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/ubiq-explorer
+User=ubuntu
+Group=ubuntu
+Restart=always
+ExecStart=/opt/ubiq-explorer/ubiq-explorer

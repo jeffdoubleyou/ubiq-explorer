@@ -1,0 +1,2 @@
+*/5 * * * * cd /opt/ubiq-explorer && /opt/ubiq-explorer/bin/poolstats
+

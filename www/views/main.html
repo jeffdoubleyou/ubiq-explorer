@@ -1,0 +1,127 @@
+<div class="container">
+
+    <div class="nav-center"><span class="md-headline">Ubiq Blockchain Explorer and Network Status</span></div>
+
+    <md-divider> </md-divider>
+
+<md-card>
+    <md-card-title md-colors="{background: 'light-green-50'}">
+        <md-card-title-text><span class="md-title">Network Overview</span></md-card-title-text>
+    </md-card-title>
+    <md-card-content layout-xs="column" layout="row" layout-align="center center" md-colors="{background: 'light-green-50'}">
+
+        <div flex class="md-2-line nav-center">
+            <md-button class="md-fab md-primary" md-colors="::{backgroundColor: 'blue-grey'}">
+                <md-icon md-font-library="material-icons">view_module</md-icon>
+            </md-button>
+            <div class="div flex-text" layout="column">
+                <h4>Last Block</h4>
+                <h5>{{blockNum}}</h5>
+            </div>
+        </div>
+
+        <div flex class="md-2-line nav-center">
+            <md-button class="md-fab md-primary" md-colors="::{backgroundColor: 'light-green'}" ng-href="/hashrate">
+                <md-icon md-font-library="material-icons">poll</md-icon>
+            </md-button>
+            <div class="div flex-text" layout="column">
+                <h4>Network Hashrate</h4>
+                <h5>{{networkHashRate | hashrate}}</h5>
+            </div>
+        </div>
+
+        <div flex class="md-2-line nav-center">
+            <md-button class="md-fab md-primary" md-colors="::{backgroundColor: 'teal'}" ng-href="/difficulty">
+                <md-icon md-font-library="material-icons">trending_up</md-icon>
+            </md-button>
+            <div class="div flex-text" layout="column">
+                <h4>Network Difficulty</h4>
+                <h5>{{networkDifficulty | hashrate}}</h5>
+            </div>
+        </div>
+
+
+        <div flex class="md-2-line nav-center">
+            <md-button class="md-fab" md-colors="::{backgroundColor: 'light-blue'}" ng-href="/blocktime">
+                <md-icon md-font-library="material-icons">access_time</md-icon>
+            </md-button>
+            <div class="div flex-text" layout="column">
+                <h4>Block Time</h4>
+                <h5>{{networkBlockTime}}/s</h5>
+            </div>
+        </div>
+        <div flex class="md-2-line nav-center">
+            <md-button class="md-fab md-primary" md-colors="::{backgroundColor: 'orange'}" ng-href="/unclerate">
+                <md-icon md-font-library="material-icons">picture_in_picture</md-icon>
+            </md-button>
+            <div class="div flex-text" layout="column">
+                <h4>Uncle Rate</h4>
+                <h5>{{networkUncleRate}}%</h5>
+            </div>
+        </div>
+
+        <div flex class="md-2-line nav-center">
+            <md-button class="md-fab md-primary">
+                <md-icon md-font-library="material-icons">shuffle</md-icon>
+            </md-button>
+            <div class="div flex-text" layout="column">
+                <h4>Exchange Rate</h4>
+                <span class="md-caption">${{shf_usd}}</span><span class="md-caption">BTC {{btc}}</span>
+            </div>
+        </div>
+
+    </md-card-content>
+</md-card>
+
+<div  layout-xs="column" layout="row">
+    <div flex-xs flex-gt-xs="50" layout="column">
+        <md-card md-colors="{background: 'grey-50'}">
+            <md-card-title>
+                <md-card-title-text><span class="md-title">Recent Blocks</span></md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+                <div data-ng-include src="'template/Main/RecentBlocks.html'"></div>
+            </md-card-content>
+        </md-card>
+    </div>
+
+    <div flex-xs flex-gt-xs="50" layout="column">
+        <md-card md-colors="{background: 'lime-50'}">
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-title">Top Miners</span>
+                    <span class="md-subhead"> ( Last {{blockCount}} blocks )</span>
+                </md-card-title-text>
+            </md-card-title>
+            <md-card-content>
+		        <canvas id="miners-pie" class="chart-pie" chart-data="data" chart-labels="labels" chart-options="options" chart-legend="true" height="300"></canvas>
+            </md-card-content>
+        </md-card>
+        <md-card md-colors="{background: 'lime-50'}">
+            <md-card-title>
+                <md-card-title-text>
+                    <span class="md-title">Network Pool Overview</span>
+                </md-card-title-text>
+            </md-card-title>
+            </md-card-content>
+                <div class="md-padding">
+                    <span class="md-subhead"><a href="/networkpools">Click here for an overview of all known Ubiq pools</a></span>
+                </div>
+            </md-card-content>
+        </md-card>
+    </div>
+
+</div>
+
+<md-card md-colors="{background: 'brown-50'}">
+    <md-card-title>
+        <md-card-title-text><span class="md-title">Recent Transactions</span></md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+        <div data-ng-include src="'template/Main/RecentTransactions.html'"></div>
+    </md-card-content>
+</md-card>
+
+</div>
+
+<div ng-data-include="'template/misc/adsense.html'"></div>
