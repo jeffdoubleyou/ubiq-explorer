@@ -4,7 +4,7 @@
 <!--[if IE 8]>         <html lang="en" ng-app="Explorer" class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html lang="en" ng-app="Explorer" class="no-js"> <!--<![endif]-->
 <head>
-    <base href="http://192.168.0.124/index.html" />
+    <base href="http://35.164.155.11/index.html" />
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title ng-bind="$root.title">UBIQ.cc - Ubiq Blockchain Explorer</title>
@@ -24,7 +24,7 @@
 <body>
      <md-toolbar class="md-primary md-hue-7" ng-controller="mainController">
         <div class="md-toolbar-tools">
-            <a class="navbar-brand nav-logo" href="/">
+            <a class="" href="/">
                 <img class="nav-logo" src="images/ubiq-logo.png" alt="ubiq.cc - Ubiq Blockchain explorer">
             </a>
             <a href="/" class="navbar-brand nav-link">
@@ -32,10 +32,22 @@
             </a>
             <span flex></span>
             <input type="text" placeholder="Enter a transaction hash, address or Block number" name="requestType" required  ng-model="searchString"  class="form-control search-bar"/>
-            <md-button class="md-raised" aria-label="Search" ng-click="search()">Search</md-button>
-            <md-button class="md-raised" aria-label="Menu" md-colors="::{backgroundColor: 'grey'}" ng-click="toggleMenu()">
-                <md-icon md-font-library="material-icons">menu</md-icon>
+
+            <md-button class="md-raised" aria-label="Search" ng-click="search()" hide-xs>Search</md-button>
+	        <div class="md-tiny-holder" hide-gt-xs>
+                <md-button class="md-fab md-tiny ubiq-light-grey" ng-click="search()">
+                    <md-icon style="font-size: 18px;" md-font-library="material-icons">search</md-icon>
+                </md-button>
+            </div>
+
+            <md-button class="md-raised" aria-label="Menu" md-colors="::{backgroundColor: 'silver'}" ng-click="toggleMenu()" hide-xs>
+                <md-icon md-font-library="material-icons">more_vert</md-icon>Menu
             </md-button>
+	        <div class="md-tiny-holder" hide-gt-xs>
+                <md-button class="md-fab md-tiny ubiq-dark-green" ng-click="toggleMenu()">
+                    <md-icon style="font-size: 18px;" md-font-library="material-icons">more_vert</md-icon>
+                </md-button>
+	        </div>
         </div>
 
     </md-toolbar>
@@ -48,7 +60,7 @@
         <md-list class="md-dense" flex>
 
             <md-list-item class="md-2-line">
-                <md-button class="md-fab md-primary md-mini" md-colors="::{backgroundColor: 'blue'}" ng-href="/tokens">
+                <md-button class="md-fab md-primary md-tiny" md-colors="::{backgroundColor: 'blue'}" ng-href="/tokens">
                     <md-icon md-font-library="material-icons">tonality</md-icon>
                 </md-button>
                 <div class="md-list-item-text">
@@ -144,7 +156,7 @@
             <md-divider ></md-divider>
 
             <md-list-item class="md-2-line">
-                <md-button class="md-fab md-primary md-mini" md-colors="::{backgroundColor: '#3AA2F2'}" ng-href="https://twitter.com/UbiqCC" target="_blank">
+                <md-button class="md-fab md-primary md-mini twitter-blue"  ng-href="https://twitter.com/UbiqCC" target="_blank">
                     <md-icon md-svg-src="images/twitter.svg"></md-icon>
                 </md-button>
                 <div class="md-list-item-text">
@@ -210,6 +222,7 @@
 <script src="scripts/controllers/richListController.js"></script>
 <script src="scripts/controllers/networkPoolController.js"></script>
 <script src="scripts/controllers/uncleRateController.js"></script>
+<script src="scripts/controllers/tokenController.js"></script>
 
 <!--Directives-->
 <script src="scripts/directives/blockie.js"></script>

@@ -79,6 +79,11 @@ angular.module('Explorer', ['ngMaterial', 'md.data.table', 'ngRoute','chart.js',
                 controller: 'networkPoolController',
                 title: 'Ubiq Network Pools Overview'
             }).
+            when('/tokens', {
+                templateUrl: 'views/tokens.html',
+                controller: 'tokenController',
+                title: 'Ubiq Tokens'
+            }).
             otherwise({
                 redirectTo: '/'
             });

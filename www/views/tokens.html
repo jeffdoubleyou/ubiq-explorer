@@ -1,0 +1,36 @@
+<div class="container">
+    <md-card ng-width=100>
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-title">Ubiq Token Overview</span>
+                <span class="md-subhead">All standard ERC20 tokens seen on the network</span>
+            </md-card-title-text>
+        </md-card-title>
+        <md-card-content>
+                
+            <md-table-container>
+                <table md-table>
+                    <thead md-head>
+                        <tr md-row>
+                            <th md-column>Token</th>
+                            <th md-column>Address</th>
+                            <th md-column>Symbol</th>
+                            <th md-column>Decimals</th>
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-row ng-repeat="token in Tokens">
+                            <td md-cell><a href="/address/{{token.address}}">{{token.name}}</a></td>
+                            <td md-cell><a href="/address/{{token.address}}">{{token.address}}</a></td>
+                            <td md-cell>{{token.symbol}}</td>
+                            <td md-cell>{{token.decimals}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+        </md-card-content>
+    </md-card>
+</div>
+<div ng-data-include="'template/misc/adsense.html'"></div>
+
+

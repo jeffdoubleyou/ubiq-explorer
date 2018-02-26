@@ -34,6 +34,10 @@ angular.module('Explorer').service('NetworkService', function($rootScope, $inter
         return $http.get("/api/v1/address/list");
     }
 
+    this.getTokens = function() {
+        return $http.get("/api/v1/token/listTokens");
+    }
+
     this.updateStats = function() {
         $http.get('/api/v1/stats/get?blocks=10').then(function(res) {
             $rootScope.blockNum = res.data.lastBlock;
