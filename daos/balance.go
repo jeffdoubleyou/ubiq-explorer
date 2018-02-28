@@ -2,6 +2,7 @@ package daos
 
 import (
 	"gopkg.in/mgo.v2/bson"
+	"strings"
 	"ubiq-explorer/models"
 	"ubiq-explorer/models/db"
 )
@@ -54,7 +55,8 @@ func (dao *BalanceDAO) Find(query bson.M, limit int, cursor string, sort string)
 func (dao *BalanceDAO) InsertCurrentBalance(balance models.CurrentBalance) (bool, error) {
 	conn := db.Conn()
 	defer conn.Close()
-	err := conn.DB("").C("currentBalance").Insert(balance)
+
+	_, err := conn.DB("").C("currentBalance").Upsert(bson.M{"address": strings.ToLower(balance.Address.String())}, balance)
 	if err != nil {
 		return false, err
 	}

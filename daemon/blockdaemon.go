@@ -5,6 +5,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"log"
 	"math/big"
+	"sync"
 	"time"
 	"ubiq-explorer/daemon/core"
 	"ubiq-explorer/daemon/tokens"
@@ -56,23 +57,29 @@ func main() {
 	run := 1
 	syncing := 1
 	inStatsWindow := big.NewInt(0)
+	importCount := float64(0)
+	importSeconds := float64(0)
+	remaining := float64(0)
 
 	// Commence spaghetti
 	for run == 1 {
 		for lastBlock.Cmp(currentBlock) < 1 {
-			//for lastBlock.Int64() <= currentBlock.Int64() {
-			log.Printf("Going to get block #%d out of %d", lastBlock, currentBlock)
+			start := time.Now()
+			log.Printf("Going to get block #%d out of %d - %f hours remaining until complete sync", lastBlock, currentBlock, remaining)
 			_, err := blocks.GetBlock(lastBlock)
 			if err != nil {
 				log.Fatalf("%s\n", err)
 				run = 0
 			}
+			var wg sync.WaitGroup
+			//wg = nil
+			var balance *models.Balance
 			miner := blocks.Miner()
 			_, err = minerDAO.Insert(*miner)
 			if err != nil {
 				panic(err)
 			}
-			balance, err := blocks.Balance(common.HexToAddress(miner.Miner), lastBlock)
+			balance, err = blocks.Balance(common.HexToAddress(miner.Miner), lastBlock)
 			if err != nil {
 				panic(err)
 			}
@@ -85,6 +92,7 @@ func main() {
 			if err != nil {
 				panic(err)
 			}
+
 			uncles := blocks.Uncles()
 			for _, u := range uncles {
 				_, err = uncleDAO.Insert(*u)
@@ -105,11 +113,14 @@ func main() {
 					panic(err)
 				}
 			}
+
 			for _, t := range blocks.Transactions() {
-				_, err = transactionDAO.Insert(*t)
-				if err != nil {
-					panic(err)
-				}
+				go func() {
+					_, err = transactionDAO.Insert(*t, &wg)
+					if err != nil {
+						panic(err)
+					}
+				}()
 
 				if t.To.String() != "0x0000000000000000000000000000000000000000" {
 					balance, err = blocks.Balance(t.To, lastBlock)
@@ -168,11 +179,13 @@ func main() {
 					}
 					var tokenAddresses = make(map[string]common.Address)
 					for _, tokenTransaction := range tokenTransactions {
-						_, err := tokenDAO.InsertTokenTransaction(*tokenTransaction)
-						if err != nil {
-							log.Fatalf("Failed to insert token transaction: %s", err)
-							run = 0
-						}
+						go func() {
+							_, err := tokenDAO.InsertTokenTransaction(*tokenTransaction, &wg)
+							if err != nil {
+								log.Fatalf("Failed to insert token transaction: %s", err)
+								run = 0
+							}
+						}()
 						if _, e := tokenAddresses[tokenTransaction.From.String()]; !e {
 							tokenAddresses[tokenTransaction.From.String()] = tokenTransaction.From
 						}
@@ -224,7 +237,14 @@ func main() {
 				}
 			}
 
+			wg.Wait()
+
 			lastBlock = lastBlock.Add(lastBlock, big.NewInt(1))
+			end := time.Now()
+			elapsed := end.Sub(start)
+			importCount++
+			importSeconds += elapsed.Seconds()
+			remaining = float64(currentBlock.Int64()-lastBlock.Int64()) * (importSeconds / importCount) / 60 / 60
 		}
 		if syncing == 1 {
 			log.Printf("Current Block: %d Pending Block: %d", currentBlock, lastBlock)

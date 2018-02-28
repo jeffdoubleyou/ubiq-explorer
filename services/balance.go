@@ -62,18 +62,6 @@ func (s *BalanceService) RichList(count int) (models.CurrentBalancePage, error) 
 }
 
 func (s *BalanceService) UpdateCurrentBalance(address common.Address, balance *big.Int) (bool, error) {
-	query := bson.M{
-		"address": strings.ToLower(address.String()),
-	}
-
-	currentBalance, _ := s.dao.FindCurrentBalance(query, 1, "", "")
-
-	if len(currentBalance.Balances) > 0 {
-		ok, err := s.dao.DeleteCurrentBalance(query)
-		if !ok {
-			return false, err
-		}
-	}
 	return s.dao.InsertCurrentBalance(models.CurrentBalance{Address: address, Balance: balance})
 }
 

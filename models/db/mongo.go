@@ -6,31 +6,19 @@ import (
 	"github.com/astaxie/beego"
 	"gopkg.in/mgo.v2"
 	"log"
+	"math/rand"
+	"time"
 )
 
 var sessions map[int]*mgo.Session
 var sessionNum = 0
 
 func Conn() *mgo.Session {
-	if sessionNum >= len(sessions) {
-		sessionNum = 0
-	}
-	var s *mgo.Session
-	if _, c := sessions[sessionNum]; c {
-		s = sessions[sessionNum].Clone()
-	} else {
-		log.Printf("There is no connection at index: %d", sessionNum)
-		s, err := GetConnection(beego.AppConfig.String("mongodb::url"))
-		sessions[sessionNum] = s
-		if err != nil {
-			panic(err)
-		}
-	}
-	sessionNum++
-	return s
+	return sessions[rand.Intn(len(sessions))].Clone()
 }
 
 func init() {
+	rand.Seed(time.Now().Unix())
 	url := beego.AppConfig.String("mongodb::url")
 	maxConnections, err := beego.AppConfig.Int("mongodb::max_connections")
 	if err != nil {
