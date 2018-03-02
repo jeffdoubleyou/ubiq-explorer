@@ -39,9 +39,12 @@ sudo /bin/cp -af /opt/ubiq-explorer/scripts/systemd/ubiq-api.service /etc/system
 
 echo "Creating nginx symlink"
 sudo ln -f -s /opt/ubiq-explorer/scripts/nginx.conf /etc/nginx/sites-enabled/ubiq-explorer.nginx
+
 echo "Creating cron"
 sudo /bin/cp -af /opt/ubiq-explorer/scripts/cron /etc/cron.d/ubiq-explorer
 sudo chown root: /etc/cron.d/ubiq-explorer
+sudo chmod 644 /etc/cron.d/ubiq-explorer
+
 echo "Reload systemctl"
 sudo systemctl daemon-reload
 
