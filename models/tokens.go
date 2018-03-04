@@ -13,6 +13,7 @@ type TokenInfo struct {
 	Address  common.Address `json:"address"`
 	Symbol   string         `json:"symbol"`
 	Decimals uint8          `json:"decimals"`
+	Verified bool           `json:"verified"`
 }
 
 type TokenInfoPage struct {
@@ -46,11 +47,13 @@ func (t TokenInfo) GetBSON() (interface{}, error) {
 		Address  string `json:"address"`
 		Symbol   string `json:"symbol"`
 		Decimals uint8  `json:"decimals"`
+		Verified bool   `json:"verified"`
 	}{
 		Name:     t.Name,
 		Address:  strings.ToLower(t.Address.String()),
 		Symbol:   t.Symbol,
 		Decimals: t.Decimals,
+		Verified: t.Verified,
 	}, nil
 }
 
@@ -61,6 +64,7 @@ func (t *TokenInfo) SetBSON(raw bson.Raw) error {
 		Address  string        `json:"address"`
 		Symbol   string        `json:"symbol"`
 		Decimals uint8         `json:"decimals"`
+		Verified bool          `json:"verified"`
 	})
 	bsonErr := raw.Unmarshal(decoded)
 
@@ -70,6 +74,7 @@ func (t *TokenInfo) SetBSON(raw bson.Raw) error {
 		t.Address = common.HexToAddress(decoded.Address)
 		t.Symbol = decoded.Symbol
 		t.Decimals = decoded.Decimals
+		t.Verified = decoded.Verified
 		return nil
 	} else {
 		return bsonErr
