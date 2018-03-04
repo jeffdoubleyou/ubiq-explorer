@@ -12,7 +12,7 @@
         </thead>
         <tbody md-body>
             <tr md-row ng-repeat="txn in incomingTransactions">
-                <td md-cell><a href="/address{{txn.tokenInfo.address}}">{{txn.tokenInfo.name}}</a></td>
+                <td md-cell><a href="/address/{{txn.tokenInfo.address}}">{{txn.tokenInfo.name}}</a></td>
                 <td md-cell><a href="/address/{{txn.from}}">{{txn.from | knownMiners}}</a></td>
                 <td md-cell><a href="/transaction/{{txn.hash}}">{{txn.hash | truncate:'50'}}</a></td>
                 <td md-cell>{{+txn.value}}</td>
