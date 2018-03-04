@@ -13,14 +13,16 @@
                     <thead md-head>
                         <tr md-row>
                             <th md-column>Token</th>
+                            <th md-column>Verified</th>
                             <th md-column>Address</th>
                             <th md-column>Symbol</th>
                             <th md-column>Decimals</th>
                         </tr>
                     </thead>
                     <tbody md-body>
-                        <tr md-row ng-repeat="token in Tokens">
+                    <tr md-row ng-repeat="token in Tokens | orderBy:['-verified','name']">
                             <td md-cell><a href="/address/{{token.address}}">{{token.name}}</a></td>
+                            <td md-cell><div blockie address={{token.address}} size="small" ng-if="token.verified"></div></td>
                             <td md-cell><a href="/address/{{token.address}}">{{token.address}}</a></td>
                             <td md-cell>{{token.symbol}}</td>
                             <td md-cell>{{token.decimals}}</td>
