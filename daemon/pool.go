@@ -50,6 +50,11 @@ func main() {
 		json, err := GetStats(pool)
 		if err != nil {
 			log.Printf("ERR: %s\n", err)
+			pool.Uptime = float64(float64(pool.OnlineCount)/float64(pool.Count)) * 100
+			_, err := poolService.Insert(&pool)
+			if err != nil {
+				log.Printf("FAILED TO UPDATE POOL: %s", err)
+			}
 		} else {
 			pool.OnlineCount++
 			pool.Uptime = float64(float64(pool.OnlineCount)/float64(pool.Count)) * 100
@@ -81,7 +86,7 @@ func GetStats(pool models.Pool) (models.Pool, error) {
 		if err := req.ToJSON(&res); err != nil {
 			return pool, err
 		}
-		pool.Hashrate = res.Getpoolstatus.Data.Hashrate
+		pool.Hashrate = res.Getpoolstatus.Data.Hashrate * 1000
 		pool.Miners = res.Getpoolstatus.Data.Miners
 	case "kings":
 		res := &King{}
