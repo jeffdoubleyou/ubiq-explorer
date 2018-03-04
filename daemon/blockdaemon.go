@@ -5,7 +5,10 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"log"
 	"math/big"
+	"os"
+	"os/signal"
 	"sync"
+	"syscall"
 	"time"
 	"ubiq-explorer/daemon/core"
 	"ubiq-explorer/daemon/tokens"
@@ -50,7 +53,7 @@ func main() {
 	}
 	lastBlock, err := blockDAO.LastImportedBlock()
 	if err != nil {
-		//panic(err)
+		panic(err)
 	}
 	log.Printf("Current block: %d - Last block imported: %d", currentBlock, lastBlock.Int64())
 
@@ -60,6 +63,14 @@ func main() {
 	importCount := float64(0)
 	importSeconds := float64(0)
 	remaining := float64(0)
+
+	signals := make(chan os.Signal, 1)
+	signal.Notify(signals, os.Interrupt, syscall.SIGTERM)
+	go func() {
+		sig := <-signals
+		log.Printf("Caught signal %s - shutting down", sig)
+		run = 0
+	}()
 
 	// Commence spaghetti
 	for run == 1 {
@@ -245,6 +256,10 @@ func main() {
 			importCount++
 			importSeconds += elapsed.Seconds()
 			remaining = float64(currentBlock.Int64()-lastBlock.Int64()) * (importSeconds / importCount) / 60 / 60
+			if run == 0 {
+				log.Println("Exiting because we have been asked to stop running")
+				os.Exit(1)
+			}
 		}
 		if syncing == 1 {
 			log.Printf("Current Block: %d Pending Block: %d", currentBlock, lastBlock)
