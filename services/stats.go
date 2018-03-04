@@ -120,7 +120,7 @@ func (s *StatsService) MinerList(blocks int) (map[string]*models.MinerList, erro
 		}
 	}
 	for _, miner := range minedBlocks {
-		miner.Percent = float64(miner.Count) / float64(blocks)
+		miner.Percent = float64(miner.Count) / float64(blocks) * 100
 	}
 	return minedBlocks, nil
 }

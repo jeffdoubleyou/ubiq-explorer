@@ -1,2 +1,1 @@
-*/5 * * * * cd /opt/ubiq-explorer && /opt/ubiq-explorer/bin/poolstats
-
+*/5 * * * * root cd /opt/ubiq-explorer && /opt/ubiq-explorer/bin/poolstats
