@@ -83,3 +83,12 @@ func (s *TransactionService) Receipt(hashString string) (*models.Receipt, error)
 	t.FormatJSON()
 	return t, err
 }
+
+func (s *TransactionService) Debug(hashString string) (interface{}, error) {
+	hash := common.HexToHash(hashString)
+	t, err := s.dao.Debug(hash)
+	if err != nil {
+		return nil, err
+	}
+	return t, err
+}
