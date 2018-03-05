@@ -20,9 +20,18 @@ angular.module('Explorer')
         $mdSidenav("right").toggle();
     }
 
+    $scope.recentBlocks = [];
+    $scope.recentBlocks["Blocks"] = [];
 	var updateRecentBlocks = function() {
         NetworkService.getRecentBlocks().then(function(res) {
-            $scope.recentBlocks = res.data;
+            if($scope.recentBlocks.Blocks && $scope.recentBlocks.Blocks.length > 0) {
+                angular.forEach(res.data.Blocks.reverse(), function(block) {
+                    if (block.block > $scope.recentBlocks.Blocks[0].block)
+                        $scope.recentBlocks.Blocks.unshift(block)
+                });
+            } else {
+                $scope.recentBlocks = res.data;
+            }
             if(res.data && res.data.End > $rootScope.blockNum)
                 $rootScope.blockNum = res.data.End
         });

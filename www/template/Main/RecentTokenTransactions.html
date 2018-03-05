@@ -7,7 +7,7 @@
         <h4>From: <a ng-href="/address/{{txn.from}}">{{ txn.from | knownMiners}}</a></h4>
         <h4>To: <a ng-href="/address/{{txn.to}}">{{ txn.to | knownMiners }}</a></h4>
         <p>
-        <span hide-gt-xs>{{txn.value}} {{txn.tokenInfo.symbol}}</span>
+        <span hide-gt-xs>{{txn.value }} {{txn.tokenInfo.symbol}}</span>
         <span hide-xs>{{ txn.timestamp | relativetime }}</span>
         </p>
         <md-button class="md-secondary" hide-xs ng-href="/address/{{txn.tokenInfo.address}}">{{ txn.value }} {{txn.tokenInfo.symbol}}</md-button>
