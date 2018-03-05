@@ -18,6 +18,25 @@ type RpcTransaction struct {
 	TxExtraInfo
 }
 
+type TxTraceResult struct {
+	Pc      uint64 `json:"pc"`
+	Op      string `json:"op"`
+	Gas     uint64 `json:"gas"`
+	GasCost uint64 `json:"gasCost"`
+	//Memory  []string `json:"memory"`
+	//MemorySize int                         `json:"memSize"`
+	Stack   []string                    `json:"stack"`
+	Storage map[common.Hash]common.Hash `json:"-"`
+	Depth   int                         `json:"depth"`
+	Err     error                       `json:"-"`
+}
+
+type RpcTraceResult struct {
+	Gas         uint64 `json:"gas"`
+	ReturnValue string `json:"returnValue"`
+	StructLogs  []*TxTraceResult
+}
+
 type Receipt struct {
 	// Consensus fields
 	Status            string       `json:"status"`

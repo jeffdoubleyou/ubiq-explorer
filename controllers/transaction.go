@@ -168,3 +168,29 @@ func (c *TransactionController) Receipt() {
 	}
 	c.ServeJSON()
 }
+
+// @Title Debug
+// @Description Get internal transactions
+// @Param hash	query	string	true	"Block hash to retrieve receipt for"
+// @Success 200 {object} models.TxReceipt
+// @Failure 404 transaction not found
+// @router /debug [get]
+func (c *TransactionController) Debug() {
+	hash := c.GetString("hash")
+	if hash != "" {
+		transactionDAO := daos.NewTransactionDAO()
+		transactionService := services.NewTransactionService(*transactionDAO)
+		txn, err := transactionService.Debug(hash)
+
+		if err != nil {
+			c.Data["json"] = &models.APIError{err.Error()}
+			c.Ctx.ResponseWriter.WriteHeader(404)
+		} else {
+			c.Data["json"] = txn
+		}
+	} else {
+		c.Data["json"] = &models.APIError{"Invalid hash"}
+		c.Ctx.ResponseWriter.WriteHeader(400)
+	}
+	c.ServeJSON()
+}

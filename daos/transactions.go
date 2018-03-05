@@ -80,3 +80,15 @@ func (dao *TransactionDAO) Receipt(hash common.Hash) (*models.Receipt, error) {
 	}
 	return json, nil
 }
+
+func (dao *TransactionDAO) Debug(hash common.Hash) (*models.RpcTraceResult, error) {
+	node := node.RPC()
+	var json *models.RpcTraceResult
+	err := node.CallContext(context.TODO(), &json, "debug_traceTransaction", hash)
+	if err != nil {
+		return nil, err
+	} else if json == nil {
+		return nil, fmt.Errorf("Not found")
+	}
+	return json, nil
+}
