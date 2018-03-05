@@ -337,8 +337,7 @@ div.md-tiny-holder {
     background-color: #3AA2F2;    
 }
 
-.div.main-widget-card {
-    height: 870px;
-    min-height: 870px;
+.md-card-scroll {
     overflow: scroll;
+    height: 540px;
 }

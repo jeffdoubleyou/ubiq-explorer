@@ -1,6 +1,6 @@
 <div class="container">
 
-    <div class="nav-center"><span class="md-headline">Ubiq Blockchain Explorer and Network Status</span></div>
+    <div class="nav-center" layout-padding layout-margin><span class="md-headline">Ubiq Blockchain Explorer and Network Status</span></div>
 
     <md-divider> </md-divider>
 
@@ -73,27 +73,28 @@
     </md-card-content>
 </md-card>
 
-<div  layout-xs="column" layout="row" class="main-widget-card">
-    <div flex-xs flex-gt-xs="50" layout="column" class=>
-        <md-card md-colors="{background: 'grey-25'}">
+<div  layout-xs="column" layout="row">
+
+    <div flex-xs flex-gt-xs="50" layout="column" layout-margin>
+        <md-card md-colors="{background: 'grey-25'}" layout-fill>
             <md-card-title>
                 <md-card-title-text><span class="md-title">Recent Blocks</span></md-card-title-text>
             </md-card-title>
-            <md-card-content>
+            <md-card-content style="height: 796px; overflow-y: auto;">
                 <div data-ng-include src="'template/Main/RecentBlocks.html'"></div>
             </md-card-content>
         </md-card>
     </div>
 
-    <div flex-xs flex-gt-xs="50" layout="column" class="main-widget-card" >
-        <md-card md-colors="{background: 'lime-50'}">
+    <div flex-xs flex-gt-xs="50" layout="column" layout-margin>
+        <md-card md-colors="{background: 'grey-100'}" layout-fill>
             <md-card-title>
                 <md-card-title-text>
                     <span class="md-title">Top Miners</span>
                 </md-card-title-text>
             </md-card-title>
-            <md-card-content layout-fill>
-                <md-divider></md-divider>
+            <md-card-content layout-align="none none" layout-fill layout-padding layout-margin>
+            <md-divider style="margin-top: 20px;"></md-divider>
                 <span class="md-subhead"> ( Last {{blockCount}} blocks )</span>
 		        <canvas id="miners-pie" class="chart-pie" chart-data="data" chart-labels="labels" chart-options="options" chart-legend="true" height="300"></canvas>
                 <md-divider layout-margin layout-padding></md-divider>
@@ -113,6 +114,9 @@
     <md-card-content>
         <div data-ng-include src="'template/Main/RecentTransactions.html'"></div>
     </md-card-content>
+</md-card>
+
+<md-card md-colors="{background: 'grey-100'}">
     <md-card-title>
         <md-card-title-text><span class="md-title">Recent Token Transactions</span></md-card-title-text>
     </md-card-title>
