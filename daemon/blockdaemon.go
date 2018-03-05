@@ -37,6 +37,7 @@ func main() {
 	addressDAO := daos.NewAddressDAO()
 
 	tokenBalanceService := services.NewTokenBalanceService(*tokenBalanceDAO)
+	tokenService := services.NewTokenService(*tokenDAO)
 	balanceService := services.NewBalanceService(*balanceDAO)
 	statsService := services.NewStatsService()
 
@@ -171,16 +172,19 @@ func main() {
 				token, isNewToken, _ := tokenTool.GetTokenInfo(t.To)
 				if token != nil {
 					if isNewToken == true {
-						_, err := tokenDAO.Insert(*token)
-						if err != nil {
-							log.Fatalf("Failed to insert new token: %s", err)
-							run = 0
-						}
-						// Add a known address for this token
-						_, err = addressDAO.Insert(models.AddressInfo{t.To, token.Name})
-						if err != nil {
-							log.Fatalf("Failed to insert new token address info: %s", err)
-							run = 0
+						tokenInfo, _ := tokenService.GetTokenByAddress(token.Address)
+						if tokenInfo.Name == "" {
+							_, err := tokenDAO.Insert(*token)
+							if err != nil {
+								log.Fatalf("Failed to insert new token: %s", err)
+								run = 0
+							}
+							// Add a known address for this token
+							_, err = addressDAO.Insert(models.AddressInfo{t.To, token.Name})
+							if err != nil {
+								log.Fatalf("Failed to insert new token address info: %s", err)
+								run = 0
+							}
 						}
 					}
 					tokenTransactions, err := tokenTool.GetTransactionInfo(t)
