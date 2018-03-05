@@ -19,13 +19,16 @@ angular.module('Explorer').service('NetworkService', function($rootScope, $inter
     }
 
     this.getRecentBlocks = function() {
-        return $http.get('/api/v1/block/list?limit=13');
+        return $http.get('/api/v1/block/list?limit=10');
     }
 
-    this.getRecentTransactions = function() {
-        return $http.get('/api/v1/transaction/list?limit=25');
+    this.getRecentTransactions = function(limit, cursor) {
+        return $http.get('/api/v1/transaction/list?limit='+limit+'&cursor='+cursor);
     }
 
+    this.getRecentTokenTransactions = function(limit, cursor) {
+        return $http.get('/api/v1/token/listTransactions?limit='+limit+'&cursor='+cursor);
+    }
     this.getTopMiners = function() {
         return $http.get('/api/v1/stats/miners');
     }
