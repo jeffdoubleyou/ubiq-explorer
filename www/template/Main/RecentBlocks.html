@@ -1,18 +1,11 @@
-<md-table-container>
-    <table md-table>
-        <thead md-head>
-            <tr md-row>
-                <th md-column>Block</th>
-                <th md-column>Miner</th>
-                <th md-column>Found</th>
-            </tr>
-        </thead>
-        <tbody md-body>
-            <tr md-row ng-repeat="block in recentBlocks.Blocks">
-                <td md-cell><a href="/block/{{block.block}}">{{block.block}}</a></td>
-                <td md-cell><a href="/address/{{block.miner}}">{{block.miner | knownMiners: '30'}}</a></td>
-                <td md-cell>{{block.timestamp | relativetime }}</td>
-            </tr>
-        </tbody>
-    </table>
-</md-table-container>
+<md-divider></md-divider>
+<md-list class="md-dense" flex>
+    <md-list-item class="md-3-line" ng-repeat="block in recentBlocks.Blocks" md-colors="{background: 'grey-25'}">
+    <a ng-href="/address/{{block.miner}}"><div class="md-avatar" blockie address={{block.miner}} size="large" ng-href="/address/{{block.miner}}"></div></a>
+    <div class="md-list-item-text" layout="column">
+        <h3>Block #: <a ng-href="/block/{{block.block}}">{{ block.block }}</a></h3>
+        <h4>Found by: <a ng-href="/address/{{block.miner}}">{{ block.miner | knownMiners: '30' }}</a></h4>
+         <p>{{ block.timestamp | relativetime }}</p>
+    </div>
+    </md-list-item>
+</md-list>

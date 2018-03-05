@@ -1,24 +1,21 @@
-<md-table-container>
-    <table md-table>
-        <thead md-head>
-            <tr md-row>
-                <th md-column>Block</th>
-                <th md-column>Hash</th>
-                <th md-column>From</th>
-                <th md-column>To</th>
-                <th md-column>Value</th>
-                <th md-column>Date</th>
-            </tr>
-        </thead>
-        <tbody md-body>
-            <tr md-row ng-repeat="txn in recentTransactions.Transactions">
-                <td md-cell><a href="/block/{{txn.number}}">{{txn.number}}</a></td>
-                <td md-cell><a href="/transaction/{{txn.hash}}">{{txn.hash | truncate: '25'}}</a></td>
-                <td md-cell><a href="/address/{{txn.from}}">{{txn.from | knownMiners: '25'}}</a></td>
-                <td md-cell><span ng-if="txn.contract"><md-tooltip>Contract Execution</md-tooltip><md-icon md-font-library="material-icons" style="font-size: 18px;" aria-label="Contract Execution">transform</md-icon></span><a href="/address/{{txn.to}}">{{txn.to | knownMiners: '25'}}</a></td>
-                <td md-cell>{{txn.value | fromWei}}</td>
-                <td md-cell>{{txn.timestamp | relativetime }}</td>
-            </tr>
-        </tbody>
-    </table>
-</md-table-container>
+<md-divider></md-divider>
+<md-list class="md-dense" ng-cloak>
+    <md-list-item class="md-3-line" ng-repeat="txn in recentTransactions.Transactions" md-colors="{background: 'grey-25'}">
+    <div blockie address="{{txn.from}}" size="large"></div>
+
+    <div class="md-list-item-text" layout="column">
+        <h4>Hash: <a ng-href="/transaction/{{txn.hash}}">{{ txn.hash | truncate: '40'}}</a></h4>
+        <h4>From: <a ng-href="/address/{{txn.from}}">{{ txn.from | knownMiners}}</a></h4>
+        <h4>To: <a ng-href="/address/{{txn.to}}">{{ txn.to | knownMiners }}</a></h4>
+        <p>
+            <span hide-gt-xs>{{txn.value | fromWei}} UBQ</span>
+            <span hide-xs>{{ txn.timestamp | relativetime }}</span>
+        </p>
+            <div class="md-secondary">
+                <span ng-if="txn.contract"><md-tooltip>Contract Execution</md-tooltip><md-icon md-font-library="material-icons" style="font-size: 18px;" aria-label="Contract Execution">transform</md-icon></span>
+            </div>
+            <md-button class="md-secondary" hide-xs>{{ txn.value | fromWei }} UBQ</md-button>
+            <div class="md-secondary" blockie address="{{txn.to}}" size="small"></div>
+    </div>
+    </md-list-item>
+</md-list>

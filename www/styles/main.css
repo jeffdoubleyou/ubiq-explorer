@@ -336,3 +336,9 @@ div.md-tiny-holder {
 .md-button.md-mini.twitter-blue:not([disabled]):hover {
     background-color: #3AA2F2;    
 }
+
+.div.main-widget-card {
+    height: 870px;
+    min-height: 870px;
+    overflow: scroll;
+}

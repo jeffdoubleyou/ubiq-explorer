@@ -73,9 +73,9 @@
     </md-card-content>
 </md-card>
 
-<div  layout-xs="column" layout="row">
-    <div flex-xs flex-gt-xs="50" layout="column">
-        <md-card md-colors="{background: 'grey-50'}">
+<div  layout-xs="column" layout="row" class="main-widget-card">
+    <div flex-xs flex-gt-xs="50" layout="column" class=>
+        <md-card md-colors="{background: 'grey-25'}">
             <md-card-title>
                 <md-card-title-text><span class="md-title">Recent Blocks</span></md-card-title-text>
             </md-card-title>
@@ -85,25 +85,18 @@
         </md-card>
     </div>
 
-    <div flex-xs flex-gt-xs="50" layout="column">
+    <div flex-xs flex-gt-xs="50" layout="column" class="main-widget-card" >
         <md-card md-colors="{background: 'lime-50'}">
             <md-card-title>
                 <md-card-title-text>
                     <span class="md-title">Top Miners</span>
-                    <span class="md-subhead"> ( Last {{blockCount}} blocks )</span>
                 </md-card-title-text>
             </md-card-title>
-            <md-card-content>
+            <md-card-content layout-fill>
+                <md-divider></md-divider>
+                <span class="md-subhead"> ( Last {{blockCount}} blocks )</span>
 		        <canvas id="miners-pie" class="chart-pie" chart-data="data" chart-labels="labels" chart-options="options" chart-legend="true" height="300"></canvas>
-            </md-card-content>
-        </md-card>
-        <md-card md-colors="{background: 'lime-50'}">
-            <md-card-title>
-                <md-card-title-text>
-                    <span class="md-title">Network Pool Overview</span>
-                </md-card-title-text>
-            </md-card-title>
-            </md-card-content>
+                <md-divider layout-margin layout-padding></md-divider>
                 <div class="md-padding">
                     <span class="md-subhead"><a href="/networkpools">Click here for an overview of all known Ubiq pools</a></span>
                 </div>
@@ -119,6 +112,12 @@
     </md-card-title>
     <md-card-content>
         <div data-ng-include src="'template/Main/RecentTransactions.html'"></div>
+    </md-card-content>
+    <md-card-title>
+        <md-card-title-text><span class="md-title">Recent Token Transactions</span></md-card-title-text>
+    </md-card-title>
+    <md-card-content>
+        <div data-ng-include src="'template/Main/RecentTokenTransactions.html'"></div>
     </md-card-content>
 </md-card>
 

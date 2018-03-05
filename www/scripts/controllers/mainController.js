@@ -31,15 +31,25 @@ angular.module('Explorer')
 	updateRecentBlocks();
 
 	$interval(updateRecentBlocks, 15000);
-
+    $scope.transactionCursor = "";
 	var updateRecentTransactions = function() {
-        NetworkService.getRecentTransactions().then(function(res) {
+        NetworkService.getRecentTransactions(10, $scope.transactionCursor).then(function(res) {
 			$scope.recentTransactions = res.data;
         });
 	}
 
+    $scope.tokenTransactionCursor = "";
+    var updateRecentTokenTransactions = function() {
+        NetworkService.getRecentTokenTransactions(10, $scope.tokenTransactionCursor).then(function(res) {
+            $scope.recentTokenTransactions = res.data;
+        });
+    }
+
 	updateRecentTransactions();
+    updateRecentTokenTransactions();
+
 	$interval(updateRecentTransactions, 15000);
+	$interval(updateRecentTokenTransactions, 15000);
 
 	var updateTopMiners = function() {
 		var labels = [];
