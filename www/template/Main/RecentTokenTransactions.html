@@ -1,0 +1,17 @@
+<md-divider></md-divider>
+<md-list class="md-dense" ng-cloak>
+    <md-list-item class="md-3-line" ng-repeat="txn in recentTokenTransactions.Transactions" md-colors="{background: 'grey-25'}">
+    <div blockie address="{{txn.from}}" size="large"></div>
+    <div class="md-list-item-text" layout="column">
+        <h4>Hash: <a ng-href="/transaction/{{txn.hash}}">{{ txn.hash | truncate: '40'}}</a></h4>
+        <h4>From: <a ng-href="/address/{{txn.from}}">{{ txn.from | knownMiners}}</a></h4>
+        <h4>To: <a ng-href="/address/{{txn.to}}">{{ txn.to | knownMiners }}</a></h4>
+        <p>
+        <span hide-gt-xs>{{txn.value}} {{txn.tokenInfo.symbol}}</span>
+        <span hide-xs>{{ txn.timestamp | relativetime }}</span>
+        </p>
+        <md-button class="md-secondary" hide-xs ng-href="/address/{{txn.tokenInfo.address}}">{{ txn.value }} {{txn.tokenInfo.symbol}}</md-button>
+        <div class="md-secondary" blockie address="{{txn.to}}" size="small"></div>
+    </div>
+    </md-list-item>
+</md-list>
