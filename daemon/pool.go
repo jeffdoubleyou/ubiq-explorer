@@ -31,7 +31,10 @@ type MPOS struct {
 
 // This is a modified open ethereum pool from ubiq-kings
 type King struct {
-	Totals *OpenEthereum
+	Totals struct {
+		Hashrate float64 `json:"hashrate"`
+		Miners   float64 `json:"miners"`
+	}
 }
 
 func main() {

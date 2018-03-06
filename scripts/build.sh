@@ -1,16 +1,3 @@
-echo "Stopping daemon and wallet services"
-if [ -e "/etc/systemd/system/blockdaemon.service" ]; then
-	sudo service blockdaemon stop
-fi
-
-if [ -e "/etc/systemd/system/wallet.service" ]; then
-	sudo service wallet stop
-fi
-
-if [ -e "/etc/systemd/system/ubiq-api.service" ]; then
-	sudo service ubiq-api stop
-fi
-
 echo "Generating native ABI token bindings"
 abigen --abi ./daemon/tokens/token.abi --pkg tokens --type Token --out ./daemon/tokens/tokens.go
 
@@ -27,6 +14,19 @@ echo "Packing application"
 bee pack
 if [ ! -e "/opt/ubiq-explorer" ]; then
 	sudo mkdir -p /opt/ubiq-explorer
+fi
+
+echo "Stopping daemon and wallet services"
+if [ -e "/etc/systemd/system/blockdaemon.service" ]; then
+	sudo service blockdaemon stop
+fi
+
+if [ -e "/etc/systemd/system/wallet.service" ]; then
+	sudo service wallet stop
+fi
+
+if [ -e "/etc/systemd/system/ubiq-api.service" ]; then
+	sudo service ubiq-api stop
 fi
 
 echo "Deploying packed application"
