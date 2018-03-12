@@ -18,12 +18,20 @@ angular.module('Explorer').service('NetworkService', function($rootScope, $inter
         return $http.get('/api/v1/stats/uncleRateHistory');
     }
 
-    this.getRecentBlocks = function() {
-        return $http.get('/api/v1/block/list?limit=10');
+    this.getRecentBlocks = function(limit, cursor) {
+        return $http.get('/api/v1/block/list?limit='+limit+'&cursor='+cursor);
+    }
+
+    this.getRecentUncles = function(limit, cursor) {
+        return $http.get('/api/v1/uncle/list?limit='+limit+'&cursor='+cursor);
     }
 
     this.getRecentTransactions = function(limit, cursor) {
         return $http.get('/api/v1/transaction/list?limit='+limit+'&cursor='+cursor);
+    }
+
+    this.getPendingTransactions = function(limit, cursor) {
+        return $http.get('/api/v1/transaction/pending');
     }
 
     this.getRecentTokenTransactions = function(limit, cursor) {

@@ -84,6 +84,31 @@ angular.module('Explorer', ['ngMaterial', 'md.data.table', 'ngRoute','chart.js',
                 controller: 'tokenController',
                 title: 'Ubiq Tokens'
             }).
+            when('/recent_transactions', {
+                templateUrl: 'views/recentTransactions.html',
+                controller: 'RecentTransactionController',
+                title: 'Recent Ubiq Transactions'
+            }).
+            when('/recent_token_transactions', {
+                templateUrl: 'views/recentTokenTransactions.html',
+                controller: 'RecentTokenTransactionController',
+                title: 'Recent Ubiq Token Transactions'
+            }).
+            when('/recent_blocks', {
+                templateUrl: 'views/recentBlocks.html',
+                controller: 'RecentBlocksController',
+                title: 'Recent Ubiq Blocks'
+            }).
+            when('/recent_uncles', {
+                templateUrl: 'views/recentUncles.html',
+                controller: 'RecentUncleController',
+                title: 'Recent Ubiq Uncles'
+            }).
+            when('/pending_transactions', {
+                templateUrl: 'views/pendingTransactions.html',
+                controller: 'PendingTransactionController',
+                title: 'Currently Pending Ubiq Transactions'
+            }).
             otherwise({
                 redirectTo: '/'
             });

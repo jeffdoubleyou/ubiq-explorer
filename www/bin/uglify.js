@@ -12,7 +12,20 @@ var options = {
 
 var outputFilename = 'ubiq-explorer.'+uuid()+'.js';
 
-console.log("Minifying Javascript to " + outputFilename)
+glob('ubiq-explorer.*.js', function(err, files) {
+    if(err) {
+        console.log("ERROR:", err)
+    } else {
+        console.log("Removing old minified javascript files");
+        files.forEach(function(file) {
+            console.log("Removing ", file)
+            fs.unlinkSync(file)
+        });
+    }
+});
+
+console.log("Minifying Javascript to " + outputFilename);
+
 glob( '*.js', { cwd: "./scripts", matchBase:true }, function( err, files ) {
   if(err) {
       console.log("ERROR:", err)

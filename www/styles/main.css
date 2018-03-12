@@ -341,3 +341,9 @@ div.md-tiny-holder {
     overflow: scroll;
     height: 540px;
 }
+
+td.md-cell-nopad {
+    color: rgba(0, 0, 0, 0.87);
+    font-size: 13px;
+    border-top: 1px rgba(0, 0, 0, 0.12) solid;
+}
