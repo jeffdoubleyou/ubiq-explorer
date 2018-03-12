@@ -11,6 +11,10 @@ import (
 	"strings"
 )
 
+type PendingBlock struct {
+	Transactions []Transaction `json:"transactions"`
+}
+
 var (
 	TransactionList map[string]*Transaction
 )

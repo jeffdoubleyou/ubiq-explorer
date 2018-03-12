@@ -108,7 +108,7 @@ func (dao *TransactionDAO) Pending() ([]models.Transaction, error) {
 	} else if len(raw) == 0 {
 		return nil, err
 	}
-	var body PendingBlock
+	var body *models.PendingBlock
 	if err := json.Unmarshal(raw, &body); err != nil {
 		return nil, err
 	}
