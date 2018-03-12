@@ -92,3 +92,7 @@ func (s *TransactionService) Debug(hashString string) (interface{}, error) {
 	}
 	return t, err
 }
+
+func (s *TransactionService) Pending() ([]models.Transaction, error) {
+	return s.dao.Pending()
+}

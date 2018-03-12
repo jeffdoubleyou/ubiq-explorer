@@ -2,9 +2,11 @@ package daos
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"github.com/ethereum/go-ethereum/common"
 	"gopkg.in/mgo.v2/bson"
+	//	"math/big"
 	"sync"
 	"ubiq-explorer/models"
 	"ubiq-explorer/models/db"
@@ -91,4 +93,25 @@ func (dao *TransactionDAO) Debug(hash common.Hash) (*models.RpcTraceResult, erro
 		return nil, fmt.Errorf("Not found")
 	}
 	return json, nil
+}
+
+type PendingBlock struct {
+	Transactions []models.Transaction `json:"transactions"`
+}
+
+func (dao *TransactionDAO) Pending() ([]models.Transaction, error) {
+	node := node.RPC()
+	var raw json.RawMessage
+	err := node.CallContext(context.TODO(), &raw, "eth_getBlockByNumber", "pending", true)
+	if err != nil {
+		return nil, err
+	} else if len(raw) == 0 {
+		return nil, err
+	}
+	var body PendingBlock
+	if err := json.Unmarshal(raw, &body); err != nil {
+		return nil, err
+	}
+	return body.Transactions, nil
+
 }

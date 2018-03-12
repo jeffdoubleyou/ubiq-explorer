@@ -2,7 +2,9 @@ package models
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/ethereum/go-ethereum/common"
+	"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/core/types"
 	"gopkg.in/mgo.v2/bson"
 	"math/big"
@@ -109,6 +111,32 @@ func (t *Transaction) MarshalJSON() ([]byte, error) {
 		Gas:       t.Gas,
 		GasPrice:  t.GasPrice,
 	})
+}
+
+func (t *Transaction) UnmarshalJSON(b []byte) error {
+	var txn map[string]string
+	fmt.Println("ABOUT TO DO IT\n")
+	err := json.Unmarshal(b, &txn)
+	if err != nil {
+		return err
+	}
+	for k, v := range txn {
+		fmt.Printf("K: %s V: %s\n", k, v)
+	}
+	t.From = common.HexToAddress(txn["from"])
+	t.To = common.HexToAddress(txn["to"])
+	t.Hash = common.HexToHash(txn["hash"])
+	if txn["to"] == "0x0000000000000000000000000000000000000000" {
+		t.Contract = 1
+	}
+	t.Gas, _ = hexutil.DecodeUint64(txn["hash"])
+	t.GasPrice = new(big.Int)
+	t.GasPrice.SetString(txn["gasPrice"], 0)
+	t.Timestamp = new(big.Int)
+	t.Timestamp.SetString(txn["timestamp"], 0)
+	t.Value = new(big.Int)
+	t.Value.SetString(txn["value"], 0)
+	return nil
 }
 
 // GetBSON implements bson.Getter.

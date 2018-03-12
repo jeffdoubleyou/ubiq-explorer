@@ -63,3 +63,26 @@ func (c *UncleController) Block() {
 	}
 	c.ServeJSON()
 }
+
+// @Title List
+// @Description Get a list of uncles
+// @Param   limit	query   int     true        "Number of blocks to retrieve"
+// @Param   cursor	query   string 	false       "Cursor string of last block result"
+// @Param   skip	query	int		false		"Number of blocks to skip after cursor"
+// @Success 200 {object} models.BlockPage
+// @Failure 404 block not found
+// @router /list [get]
+func (c *UncleController) List() {
+	limit, _ := c.GetInt("limit")
+	cursor := c.GetString("cursor")
+	uncleDAO := daos.NewUncleDAO()
+	uncleService := services.NewUncleService(*uncleDAO)
+	page, err := uncleService.List(limit, cursor)
+	if err != nil {
+		c.Data["json"] = &models.APIError{err.Error()}
+		c.Ctx.ResponseWriter.WriteHeader(404)
+	} else {
+		c.Data["json"] = page
+	}
+	c.ServeJSON()
+}

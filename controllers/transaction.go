@@ -194,3 +194,22 @@ func (c *TransactionController) Debug() {
 	}
 	c.ServeJSON()
 }
+
+// @Title Pending
+// @Description Get pending transactions
+// @Success 200 {object} []models.RpcTransaction
+// @Failure 404 transaction not found
+// @router /pending [get]
+func (c *TransactionController) Pending() {
+	transactionDAO := daos.NewTransactionDAO()
+	transactionService := services.NewTransactionService(*transactionDAO)
+	txn, err := transactionService.Pending()
+
+	if err != nil {
+		c.Data["json"] = &models.APIError{err.Error()}
+		c.Ctx.ResponseWriter.WriteHeader(404)
+	} else {
+		c.Data["json"] = txn
+	}
+	c.ServeJSON()
+}
