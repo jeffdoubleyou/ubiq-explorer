@@ -1,0 +1,136 @@
+<div layout="column" layout-align="end end">
+<md-menu-bar>
+
+ <md-menu>
+   <button ng-click="$mdMenu.open()">
+     Network Stats
+   </button>
+   <md-menu-content>
+    <md-menu-item class="md-indent">
+        <md-icon md-font-library="material-icons">view_module</md-icon>
+        <md-button>
+            Current Block
+            <span class="md-alt-text">{{blockNum}}</span>
+        </md-button>
+    </md-menu-item>
+    <md-menu-item class="md-indent">
+        <md-icon md-font-library="material-icons">poll</md-icon>
+        <md-button ng-href="/hashrate">
+            Hashrate
+            <span class="md-alt-text">{{networkHashRate | hashrate}}</span>
+        </md-button>
+    </md-menu-item>
+    <md-menu-item class="md-indent">
+        <md-icon md-font-library="material-icons">trending_up</md-icon>
+        <md-button ng-href="/difficulty">
+            Difficulty
+            <span class="md-alt-text">{{networkDifficulty | hashrate}}</span>
+        </md-button>
+    </md-menu-item>
+    <md-menu-item class="md-indent">
+        <md-icon md-font-library="material-icons">access_time</md-icon>
+        <md-button ng-href="/blocktime">
+            Block Time
+            <span class="md-alt-text">{{networkBlockTime}}/s</span>
+        </md-button>
+    </md-menu-item>
+    <md-menu-item class="md-indent">
+        <md-icon md-font-library="material-icons">picture_in_picture</md-icon>
+        <md-button ng-href="/unclerate">
+            Uncle Rate
+            <span class="md-alt-text">{{networkUncleRate}}%</span>
+        </md-button>
+    </md-menu-item>
+    <md-menu-item class="md-indent">
+        <md-icon md-font-library="material-icons">monetization_on</md-icon>
+        <md-button>
+            <span class="md-alt-text">${{shf_usd}}</span><span class="md-caption">BTC {{btc}}</span>
+        </md-button>
+    </md-menu-item>
+   </md-menu-content>
+ </md-menu>
+ <md-menu>
+   <button ng-click="$mdMenu.open()">
+     Blockchain
+   </button>
+   <md-menu-content>
+    <md-menu-item class="md-indent">
+        <md-icon md-font-library="material-icons">compare_arrows</md-icon>
+        <md-button ng-href="/recent_transactions">
+            Recent Transactions
+        </md-button>
+    </md-menu-item>
+    <md-menu-item class="md-indent">
+        <md-icon md-font-library="material-icons">timelapse</md-icon>
+        <md-button ng-href="/pending_transactions">
+            Pending Transactions
+        </md-button>
+    </md-menu-item>
+    <md-menu-item class="md-indent">
+        <md-icon md-font-library="material-icons">view_module</md-icon>
+        <md-button ng-href="/recent_blocks">
+            Mined Blocks
+        </md-button>
+    </md-menu-item>
+    <md-menu-item class="md-indent">
+        <md-icon md-font-library="material-icons">picture_in_picture</md-icon>
+        <md-button ng-href="/recent_uncles">
+            Mined Uncles
+        </md-button>
+    </md-menu-item>
+   </md-menu-content>
+ </md-menu>
+ <md-menu>
+   <button ng-click="$mdMenu.open()">
+     Pools
+   </button>
+   <md-menu-content>
+    <md-menu-item class="md-indent">
+        <md-icon md-font-library="material-icons">group_work</md-icon>
+        <md-button ng-href="/minerpool">
+            Ubiq.cc Pool
+        </md-button>
+    </md-menu-item>
+    <md-menu-item class="md-indent">
+        <md-icon md-font-library="material-icons">group_work</md-icon>
+        <md-button ng-href="/networkpools">
+            All Known Pools
+        </md-button>
+    </md-menu-item>
+   </md-menu-content>
+ </md-menu>
+ <md-menu>
+   <button ng-click="$mdMenu.open()">
+     Accounts
+   </button>
+   <md-menu-content>
+    <md-menu-item class="md-indent">
+        <md-icon md-font-library="material-icons">local_atm</md-icon>
+        <md-button ng-href="/richlist">
+            Rich List
+        </md-button>
+    </md-menu-item>
+   </md-menu-content>
+ </md-menu>
+ <md-menu>
+   <button ng-click="$mdMenu.open()">
+     Tokens
+   </button>
+   <md-menu-content>
+    <md-menu-item class="md-indent">
+        <md-icon md-font-library="material-icons">dashboard</md-icon>
+        <md-button ng-href="/tokens">
+            All ERC20 Tokens
+        </md-button>
+    </md-menu-item>
+    <md-menu-item class="md-indent">
+        <md-icon md-font-library="material-icons">repeat</md-icon>
+        <md-button ng-href="/recent_token_transactions">
+            Token Transactions
+        </md-button>
+    </md-menu-item>
+   </md-menu-content>
+ </md-menu>
+
+ </md-menu-bar>
+</div>

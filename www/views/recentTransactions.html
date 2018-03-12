@@ -1,0 +1,53 @@
+<div class="container" ng-init="init()">
+    <md-card ng-width=100>
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-title">Recent Ubiq Transactions</span>
+            </md-card-title-text>
+        </md-card-title>
+        <md-card-actions layout="row" layout-align="end center">
+            <md-button class="md-raised md-cornered md-primary" ng-href="https://www.cryptopia.co.nz/Register?referrer=jeffw">Buy More Ubiq</md-button>
+        </md-card-actions>
+        <md-card-content>
+
+            <div>
+                <md-table-container infinite-scroll='pageChanged()'>
+                    <table md-table>
+                        <thead md-head>
+                            <tr md-row>
+                                <th md-column colspan="2"><strong>From</strong></th>
+                                <th md-column colspan="2"><strong>To</strong></th>
+                                <th md-column><strong>Transaction</strong></th>
+                                <th md-column><strong>Amount</strong></th>
+                                <th md-column><strong>Date</strong></th>
+                            </tr>
+                        </thead>
+                        <tbody md-body>
+                            <tr md-row ng-repeat="txn in Transactions">
+                                <td class="md-cell-nopad"><div blockie address="{{txn.from}}"></div></td>
+                                <td md-cell><a href="/address/{{txn.from}}">{{txn.from | knownMiners: '24'}}</a></td>
+                                <td class="md-cell-nopad"><div blockie address="{{txn.to}}"></div></td>
+                                <td md-cell><span ng-if="txn.contract"><md-tooltip>Contract Execution</md-tooltip><md-icon md-font-library="material-icons" style="font-size: 18px;" aria-label="Contract Execution">transform</md-icon></span><a href="/address/{{txn.to}}">{{txn.to | knownMiners: '24'}}</a></td>
+                                <td md-cell><md-button class="md-mini md-cornered" ng-href="/transaction/{{txn.hash}}">View</md-button></td>
+                                <td md-cell>{{txn.value | fromWei}}</td>
+                                <td md-cell>{{txn.timestamp+"000" | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                            </tr>
+                            <tr md-row>
+                                <td md-cell colspan="4">Displaying {{Transactions.length}} of {{TotalTransactions}} Transactions</td>
+                                <td md-cell>&nbsp;</td>
+                                <td md-cell>
+                                    <span class="nowScrolling" ng-show="scrolling">Loading...</span>
+                                </td>
+                                <td md-cell>
+                                    <md-button ng-disabled="false" class="md-primary" ng-show="!scrolling" ng-click="pageChanged()">Load more</md-button>
+                                </td> 
+                            </tr>
+                        </tbody>
+                    </table>
+                </md-table-container>
+            </div>
+
+        </md-card-content>
+    </md-card>
+</div>
+<div ng-data-include="'template/misc/adsense.html'"></div>

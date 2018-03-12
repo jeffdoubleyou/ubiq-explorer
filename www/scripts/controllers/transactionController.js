@@ -19,4 +19,6 @@ angular.module('Explorer')
             }
         };
         $scope.init();
+
+
 });
