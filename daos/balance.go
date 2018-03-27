@@ -31,7 +31,7 @@ func (dao *BalanceDAO) Find(query bson.M, limit int, cursor string, sort string)
 	count, err := conn.DB("").C("balances").Find(query).Count()
 
 	if cursor != "" {
-		query["_id"] = bson.M{"$gt": bson.ObjectIdHex(cursor)}
+		query["_id"] = bson.M{"$lt": bson.ObjectIdHex(cursor)}
 	}
 
 	if sort == "" {
@@ -70,7 +70,7 @@ func (dao *BalanceDAO) FindCurrentBalance(query bson.M, limit int, cursor string
 	count, err := conn.DB("").C("currentBalance").Find(query).Count()
 
 	if cursor != "" {
-		query["_id"] = bson.M{"$gt": bson.ObjectIdHex(cursor)}
+		query["_id"] = bson.M{"$lt": bson.ObjectIdHex(cursor)}
 	}
 
 	if sort == "" {
