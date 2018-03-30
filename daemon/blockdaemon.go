@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"github.com/astaxie/beego"
 	"github.com/ethereum/go-ethereum/common"
 	"log"
@@ -17,6 +18,8 @@ import (
 	"ubiq-explorer/services"
 	"ubiq-explorer/util"
 )
+
+type balanceChange struct{ Incoming, Outgoing, Contract, Blocks, Uncles int }
 
 func main() {
 	_, err := util.InitializeMongoDB()
@@ -84,26 +87,17 @@ func main() {
 				run = 0
 			}
 			var wg sync.WaitGroup
-			//wg = nil
 			var balance *models.Balance
+			var balanceChanges = make(map[string]*balanceChange)
 			miner := blocks.Miner()
 			_, err = minerDAO.Insert(*miner)
 			if err != nil {
 				panic(err)
 			}
-			balance, err = blocks.Balance(common.HexToAddress(miner.Miner), lastBlock)
-			if err != nil {
-				panic(err)
+			if _, ok := balanceChanges[miner.Miner]; !ok {
+				balanceChanges[miner.Miner] = &balanceChange{0, 0, 0, 0, 0}
 			}
-			balance.ChangedBy = "Mined Block"
-			_, err = balanceDAO.Insert(*balance)
-			if err != nil {
-				panic(err)
-			}
-			_, err = balanceService.UpdateCurrentBalance(balance.Address, balance.Balance)
-			if err != nil {
-				panic(err)
-			}
+			balanceChanges[miner.Miner].Blocks++
 
 			uncles := blocks.Uncles()
 			for _, u := range uncles {
@@ -111,19 +105,10 @@ func main() {
 				if err != nil {
 					panic(err)
 				}
-				balance, err = blocks.Balance(common.HexToAddress(u.Miner), lastBlock)
-				if err != nil {
-					panic(err)
+				if _, ok := balanceChanges[u.Miner]; !ok {
+					balanceChanges[u.Miner] = &balanceChange{0, 0, 0, 0, 0}
 				}
-				balance.ChangedBy = "Mined Uncle"
-				_, err = balanceDAO.Insert(*balance)
-				if err != nil {
-					panic(err)
-				}
-				_, err = balanceService.UpdateCurrentBalance(balance.Address, balance.Balance)
-				if err != nil {
-					panic(err)
-				}
+				balanceChanges[u.Miner].Uncles++
 			}
 
 			for _, t := range blocks.Transactions() {
@@ -135,38 +120,20 @@ func main() {
 				}()
 
 				if t.To.String() != "0x0000000000000000000000000000000000000000" {
-					balance, err = blocks.Balance(t.To, lastBlock)
-					if err != nil {
-						panic(err)
+					if _, ok := balanceChanges[t.To.String()]; !ok {
+						balanceChanges[t.To.String()] = &balanceChange{0, 0, 0, 0, 0}
 					}
-					balance.ChangedBy = "Incoming Transaction"
-					_, err = balanceDAO.Insert(*balance)
-					if err != nil {
-						panic(err)
-					}
-					_, err = balanceService.UpdateCurrentBalance(balance.Address, balance.Balance)
-					if err != nil {
-						panic(err)
-					}
+					balanceChanges[t.To.String()].Incoming++
 				}
 
-				balance, err = blocks.Balance(t.From, lastBlock)
-				if err != nil {
-					panic(err)
+				if _, ok := balanceChanges[t.From.String()]; !ok {
+					balanceChanges[t.From.String()] = &balanceChange{0, 0, 0, 0, 0}
 				}
 
 				if t.To.String() == "0x0000000000000000000000000000000000000000" {
-					balance.ChangedBy = "Contract Execution"
+					balanceChanges[t.From.String()].Contract++
 				} else {
-					balance.ChangedBy = "Outgoing Transaction"
-				}
-				_, err = balanceDAO.Insert(*balance)
-				if err != nil {
-					panic(err)
-				}
-				_, err = balanceService.UpdateCurrentBalance(balance.Address, balance.Balance)
-				if err != nil {
-					panic(err)
+					balanceChanges[t.From.String()].Outgoing++
 				}
 
 				token, isNewToken, _ := tokenTool.GetTokenInfo(t.To)
@@ -232,6 +199,34 @@ func main() {
 						}
 					}
 				}
+			}
+			for a, b := range balanceChanges {
+				change := fmt.Sprintf("Changes at block: %d:", lastBlock)
+				if b.Blocks > 0 {
+					change = change + fmt.Sprintf(" %c Mined block", 0x1F528)
+				}
+				if b.Uncles > 0 {
+					change = change + fmt.Sprintf(" %c Mined uncle", 0x1F528)
+				}
+				if b.Incoming > 0 {
+					change = change + fmt.Sprintf(" %c %d Incoming transactions", 0x2199, b.Incoming)
+				}
+				if b.Outgoing > 0 {
+					change = change + fmt.Sprintf(" %c %d Outgoing transactions", 0x2198, b.Outgoing)
+				}
+				if b.Contract > 0 {
+					change = change + fmt.Sprintf(" %c %d Contract executions", 0x2699, b.Contract)
+				}
+				balance, err = blocks.Balance(common.HexToAddress(a), lastBlock)
+				if err != nil {
+					panic(err)
+				}
+				balance.ChangedBy = change
+				_, err = balanceDAO.Insert(*balance)
+				if err != nil {
+					panic(err)
+				}
+				_, err = balanceService.UpdateCurrentBalance(balance.Address, balance.Balance)
 			}
 			inStatsWindow = inStatsWindow.Add(lastBlock, big.NewInt(statsWindow))
 
