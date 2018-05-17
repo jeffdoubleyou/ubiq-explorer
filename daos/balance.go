@@ -15,9 +15,7 @@ func NewBalanceDAO() *BalanceDAO {
 }
 
 func (dao *BalanceDAO) Insert(balance models.Balance) (bool, error) {
-	conn := db.Conn()
-	defer conn.Close()
-	err := conn.DB("").C("balances").Insert(balance)
+	err := db.Insert("balances", balance)
 	if err != nil {
 		return false, err
 	}
@@ -53,10 +51,8 @@ func (dao *BalanceDAO) Find(query bson.M, limit int, cursor string, sort string)
 }
 
 func (dao *BalanceDAO) InsertCurrentBalance(balance models.CurrentBalance) (bool, error) {
-	conn := db.Conn()
-	defer conn.Close()
-
-	_, err := conn.DB("").C("currentBalance").Upsert(bson.M{"address": strings.ToLower(balance.Address.String())}, balance)
+	err := db.Upsert("currentBalance", &bson.M{"address": strings.ToLower(balance.Address.String())}, balance)
+	//_, err := conn.DB("").C("currentBalance").Upsert(bson.M{"address": strings.ToLower(balance.Address.String())}, balance)
 	if err != nil {
 		return false, err
 	}

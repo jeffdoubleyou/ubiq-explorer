@@ -8,7 +8,6 @@ import (
 	"math/big"
 	"os"
 	"os/signal"
-	"sync"
 	"syscall"
 	"time"
 	"ubiq-explorer/daemon/core"
@@ -86,7 +85,6 @@ func main() {
 				log.Fatalf("%s\n", err)
 				run = 0
 			}
-			var wg sync.WaitGroup
 			var balance *models.Balance
 			var balanceChanges = make(map[string]*balanceChange)
 			miner := blocks.Miner()
@@ -113,7 +111,7 @@ func main() {
 
 			for _, t := range blocks.Transactions() {
 				go func() {
-					_, err = transactionDAO.Insert(*t, &wg)
+					_, err = transactionDAO.Insert(*t)
 					if err != nil {
 						panic(err)
 					}
@@ -162,7 +160,7 @@ func main() {
 					var tokenAddresses = make(map[string]common.Address)
 					for _, tokenTransaction := range tokenTransactions {
 						go func() {
-							_, err := tokenDAO.InsertTokenTransaction(*tokenTransaction, &wg)
+							_, err := tokenDAO.InsertTokenTransaction(*tokenTransaction)
 							if err != nil {
 								log.Fatalf("Failed to insert token transaction: %s", err)
 								run = 0
@@ -246,8 +244,6 @@ func main() {
 					historyDAO.Insert("hashRateHistory", struct{ Value string }{stats.HashRate})
 				}
 			}
-
-			wg.Wait()
 
 			lastBlock = lastBlock.Add(lastBlock, big.NewInt(1))
 			end := time.Now()

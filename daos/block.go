@@ -2,7 +2,6 @@ package daos
 
 import (
 	"context"
-	//"github.com/ethereum/go-ethereum/common/hexutil"
 	"github.com/ethereum/go-ethereum/core/types"
 	"gopkg.in/mgo.v2/bson"
 	"math/big"
@@ -24,7 +23,7 @@ func (dao *BlockDAO) LastImportedBlock() (*big.Int, error) {
 	b := models.Miner{}
 	err := conn.DB("").C("minedBlocks").Find(bson.M{}).Sort("-timestamp").One(&b)
 	if err != nil {
-		return big.NewInt(0), err
+		return big.NewInt(0), nil
 	}
 	return b.Block, nil
 }

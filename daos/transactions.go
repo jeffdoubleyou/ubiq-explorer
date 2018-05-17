@@ -6,8 +6,6 @@ import (
 	"fmt"
 	"github.com/ethereum/go-ethereum/common"
 	"gopkg.in/mgo.v2/bson"
-	//	"math/big"
-	"sync"
 	"ubiq-explorer/models"
 	"ubiq-explorer/models/db"
 	"ubiq-explorer/node"
@@ -19,11 +17,15 @@ func NewTransactionDAO() *TransactionDAO {
 	return &TransactionDAO{}
 }
 
-func (dao *TransactionDAO) Insert(txn models.Transaction, wg *sync.WaitGroup) (bool, error) {
-	if wg != nil {
-		wg.Add(1)
-		defer wg.Done()
+func (dao *TransactionDAO) Insert(txn models.Transaction) (bool, error) {
+	err := db.Insert("transactions", txn)
+	if err != nil {
+		return false, err
 	}
+	return true, nil
+}
+
+func (dao *TransactionDAO) Insert2(txn models.Transaction) (bool, error) {
 	conn := db.Conn()
 	defer conn.Close()
 	err := conn.DB("").C("transactions").Insert(txn)

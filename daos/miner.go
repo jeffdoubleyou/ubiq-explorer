@@ -13,9 +13,7 @@ func NewMinerDAO() *MinerDAO {
 }
 
 func (dao *MinerDAO) Insert(miner models.Miner) (bool, error) {
-	conn := db.Conn()
-	defer conn.Close()
-	err := conn.DB("").C("minedBlocks").Insert(miner)
+	err := db.Insert("minedBlocks", miner)
 	if err != nil {
 		return false, err
 	}

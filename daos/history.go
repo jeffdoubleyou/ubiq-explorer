@@ -13,9 +13,7 @@ func NewHistoryDAO() *HistoryDAO {
 }
 
 func (dao *HistoryDAO) Insert(collection string, history interface{}) (bool, error) {
-	conn := db.Conn()
-	defer conn.Close()
-	err := conn.DB("").C(collection).Insert(history)
+	err := db.Insert(collection, history)
 	if err != nil {
 		return false, err
 	}

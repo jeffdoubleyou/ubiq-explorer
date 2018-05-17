@@ -15,9 +15,7 @@ func NewAddressDAO() *AddressDAO {
 }
 
 func (dao *AddressDAO) Insert(address models.AddressInfo) (bool, error) {
-	conn := db.Conn()
-	defer conn.Close()
-	_, err := conn.DB("").C("addresses").Upsert(bson.M{"address": strings.ToLower(address.Address.String())}, address)
+	err := db.Upsert("addresses", &bson.M{"address": strings.ToLower(address.Address.String())}, address)
 	if err != nil {
 		return false, err
 	}

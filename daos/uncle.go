@@ -15,9 +15,7 @@ func NewUncleDAO() *UncleDAO {
 }
 
 func (dao *UncleDAO) Insert(uncle models.Uncle) (bool, error) {
-	conn := db.Conn()
-	defer conn.Close()
-	err := conn.DB("").C("minedUncles").Insert(uncle)
+	err := db.Insert("minedUncles", uncle)
 	if err != nil {
 		return false, err
 	}

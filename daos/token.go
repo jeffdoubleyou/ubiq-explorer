@@ -3,7 +3,6 @@ package daos
 import (
 	"gopkg.in/mgo.v2/bson"
 	"strings"
-	"sync"
 	"ubiq-explorer/models"
 	"ubiq-explorer/models/db"
 )
@@ -49,11 +48,7 @@ func (dao *TokenDAO) GetTokenByAddress(address string) (models.TokenInfo, error)
 	return token, nil
 }
 
-func (dao *TokenDAO) InsertTokenTransaction(txn models.TokenTransaction, wg *sync.WaitGroup) (bool, error) {
-	if wg != nil {
-		wg.Add(1)
-		defer wg.Done()
-	}
+func (dao *TokenDAO) InsertTokenTransaction(txn models.TokenTransaction) (bool, error) {
 	conn := db.Conn()
 	defer conn.Close()
 	err := conn.DB("").C("tokenTransactions").Insert(txn)

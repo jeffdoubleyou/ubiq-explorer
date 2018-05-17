@@ -14,9 +14,7 @@ func NewTokenBalanceDAO() *TokenBalanceDAO {
 }
 
 func (dao *TokenBalanceDAO) Insert(balance *models.TokenBalance) (bool, error) {
-	conn := db.Conn()
-	defer conn.Close()
-	err := conn.DB("").C("tokenBalance").Insert(balance)
+	err := db.Insert("tokenBalance", balance)
 	if err != nil {
 		return false, err
 	}
