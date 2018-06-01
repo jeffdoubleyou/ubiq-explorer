@@ -29,6 +29,11 @@ type MPOS struct {
 	}
 }
 
+type Minerall struct {
+	Hashrate float64 `json:"hashrate"`
+	Miners   float64 `json:"workers"`
+}
+
 // This is a modified open ethereum pool from ubiq-kings
 type King struct {
 	Totals struct {
@@ -98,6 +103,13 @@ func GetStats(pool models.Pool) (models.Pool, error) {
 		}
 		pool.Hashrate = res.Totals.Hashrate
 		pool.Miners = res.Totals.Miners
+	case "minerall":
+		res := &Minerall{}
+		if err := req.ToJSON(&res); err != nil {
+			return pool, err
+		}
+		pool.Hashrate = res.Hashrate
+		pool.Miners = res.Miners
 	default:
 		return pool, fmt.Errorf("Invalid or undefined pool software")
 	}
