@@ -5,6 +5,12 @@ This is the API and front end for the Ubiq block explorer at www.ubiq.cc
 
 The API backend is written in golang and uses the beego framework.
 
+### Status ###
+
+I've been away for a while because I'm busy with life, but I'm trying to get everything fixed.
+
+Please feel free to donate to cover some costs for keeping this running - UBQ / ETH / ETC. 0x18520a8aaf5142e0d788db696bb46124b2e7bb9b
+
 ## API Requirements:
 
 * Go 1.7+ ( only 1.8 has been tested )
