@@ -110,12 +110,10 @@ func main() {
 			}
 
 			for _, t := range blocks.Transactions() {
-				go func() {
-					_, err = transactionDAO.Insert(*t)
-					if err != nil {
-						panic(err)
-					}
-				}()
+                _, err = transactionDAO.Insert(*t)
+                if err != nil {
+                    panic(err)
+                }
 
 				if t.To.String() != "0x0000000000000000000000000000000000000000" {
 					if _, ok := balanceChanges[t.To.String()]; !ok {
