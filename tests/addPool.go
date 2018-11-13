@@ -6,9 +6,11 @@ import (
 	"strconv"
 	"ubiq-explorer/daos"
 	"ubiq-explorer/models"
+	"ubiq-explorer/models/db"
 )
 
 func main() {
+    defer db.Close()
 	input := os.Args
 	dao := daos.NewPoolsDAO()
 	miners, _ := strconv.ParseFloat(input[4], 10)

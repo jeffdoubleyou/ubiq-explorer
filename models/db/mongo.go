@@ -96,3 +96,16 @@ func SyncUpsert(collection string) {
 		}
 	}
 }
+
+func Close() {
+    log.Println("Ensuring that DB pools are empty")
+    for collection := range pool {
+        log.Printf("Empty insert pool %s", collection)
+        SyncUpsert(collection)
+    }
+
+    for collection := range upsertPool {
+        log.Printf("Empty upsert pool %s", collection)
+        SyncUpsert(collection)
+    }
+}

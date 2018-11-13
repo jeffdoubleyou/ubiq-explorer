@@ -14,6 +14,7 @@ import (
 	"ubiq-explorer/daemon/tokens"
 	"ubiq-explorer/daos"
 	"ubiq-explorer/models"
+	"ubiq-explorer/models/db"
 	"ubiq-explorer/services"
 	"ubiq-explorer/util"
 )
@@ -25,6 +26,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
+    defer db.Close()
 	tokenTool := tokens.NewTokenUtils(nil)
 	blocks := core.NewBlocks()
 
