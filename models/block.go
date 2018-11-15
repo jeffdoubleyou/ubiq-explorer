@@ -7,12 +7,6 @@ import (
 	"strings"
 )
 
-func init() {
-	//TransactionList = make(map[string]*Transaction)
-	//u := Transaction{"user_11111", "astaxie", "11111", "literally nothing"}
-	//TransactionList["user_11111"] = &u
-}
-
 type BlockPage struct {
 	Start  string
 	End    string
