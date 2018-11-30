@@ -50,6 +50,11 @@ func init() {
 				&controllers.AddressController{},
 			),
 		),
+		beego.NSNamespace("/exchange",
+			beego.NSInclude(
+				&controllers.ExchangeController{},
+			),
+		),
 	)
 	beego.AddNamespace(ns)
 }

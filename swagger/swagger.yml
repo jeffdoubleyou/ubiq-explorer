@@ -9,8 +9,515 @@ info:
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
-basePath: /v1
+basePath: /api/v1
 paths:
+  /address/list:
+    get:
+      tags:
+      - address
+      description: Get all named addresses
+      operationId: AddressController.List
+      responses:
+        "200":
+          description: ""
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/models.AddressInfo'
+        "404":
+          description: no found addresses
+  /balance/get:
+    get:
+      tags:
+      - balance
+      description: Get balance for an address
+      operationId: BalanceController.Get
+      parameters:
+      - in: query
+        name: address
+        description: Address to get balance for
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Balance'
+        "404":
+          description: not found
+  /balance/history:
+    get:
+      tags:
+      - balance
+      description: Get a list of balances by address
+      operationId: BalanceController.History
+      parameters:
+      - in: query
+        name: address
+        description: Address to get balances of
+        required: true
+        type: string
+      - in: query
+        name: limit
+        description: Number of balance history records to retrieve
+        required: true
+        type: integer
+        format: int64
+      - in: query
+        name: cursor
+        description: Cursor string of last history result
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.BalancePage'
+        "404":
+          description: not found
+  /balance/richList:
+    get:
+      tags:
+      - balance
+      operationId: BalanceController.RichList
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.CurrentBalancePage'
+        "404":
+          description: not found
+  /block/get:
+    get:
+      tags:
+      - block
+      description: Get block
+      operationId: BlockController.Get
+      parameters:
+      - in: query
+        name: block
+        description: Block number to retrieve
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/types.Block'
+        "404":
+          description: block not found
+  /block/list:
+    get:
+      tags:
+      - block
+      description: Get a list of blocks
+      operationId: BlockController.List
+      parameters:
+      - in: query
+        name: limit
+        description: Number of blocks to retrieve
+        required: true
+        type: integer
+        format: int64
+      - in: query
+        name: cursor
+        description: Cursor string of last block result
+        type: string
+      - in: query
+        name: skip
+        description: Number of blocks to skip after cursor
+        type: integer
+        format: int64
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.BlockPage'
+        "404":
+          description: block not found
+  /block/miner:
+    get:
+      tags:
+      - block
+      description: Get a list of blocks mined by address
+      operationId: BlockController.Miner
+      parameters:
+      - in: query
+        name: address
+        description: Address of miner
+        required: true
+        type: string
+      - in: query
+        name: limit
+        description: Number of blocks to retrieve
+        required: true
+        type: integer
+        format: int64
+      - in: query
+        name: cursor
+        description: Cursor string of last block result
+        type: string
+      - in: query
+        name: skip
+        description: Number of blocks to skip after cursor
+        type: integer
+        format: int64
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.BlockPage'
+        "404":
+          description: not found
+  /exchange/history:
+    get:
+      tags:
+      - exchange
+      description: Get the exchange rate history of a symbol
+      operationId: ExchangeController.History
+      parameters:
+      - in: query
+        name: symbol
+        description: Symbol of asset to get exchange rate history for
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/models.ExchangeRate'
+        "404":
+          description: not found
+  /exchange/list:
+    get:
+      tags:
+      - exchange
+      description: Get a list of all available exchange rates
+      operationId: ExchangeController.List
+      responses:
+        "200":
+          description: ""
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/models.ExchangeRate'
+        "404":
+          description: not found
+  /exchange/symbol:
+    get:
+      tags:
+      - exchange
+      description: Get the exchange rate of a symbol
+      operationId: ExchangeController.Symbol
+      parameters:
+      - in: query
+        name: symbol
+        description: Symbol of asset to get exchange rates for
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.ExchangeRate'
+        "404":
+          description: not found
+  /stats/blockTimeHistory:
+    get:
+      tags:
+      - stats
+      description: Get Block Time History
+      operationId: StatsController.BlockTimeHistory
+      responses:
+        "200":
+          description: ""
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/interface{}'
+        "404":
+          description: not found
+  /stats/difficultyHistory:
+    get:
+      tags:
+      - stats
+      description: Get Difficulty History
+      operationId: StatsController.DifficultyHistory
+      responses:
+        "200":
+          description: ""
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/interface{}'
+        "404":
+          description: not found
+  /stats/get:
+    get:
+      tags:
+      - stats
+      description: Get stats
+      operationId: StatsController.Get
+      parameters:
+      - in: query
+        name: blocks
+        description: Number of blocks to get stats for
+        required: true
+        type: integer
+        format: int64
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Stats'
+        "404":
+          description: not found
+  /stats/hashRateHistory:
+    get:
+      tags:
+      - stats
+      description: Get Hash Rate History
+      operationId: StatsController.HashRateHistory
+      responses:
+        "200":
+          description: ""
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/interface{}'
+        "404":
+          description: not found
+  /stats/miners:
+    get:
+      tags:
+      - stats
+      description: Get Miner Stat History
+      operationId: StatsController.Miners
+      responses:
+        "200":
+          description: ""
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/models.MinerList'
+        "404":
+          description: not found
+  /stats/pools:
+    get:
+      tags:
+      - stats
+      description: Get Network Pool Stats
+      operationId: StatsController.Pools
+      responses:
+        "200":
+          description: ""
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/models.Pool'
+        "404":
+          description: Not found
+  /stats/uncleRateHistory:
+    get:
+      tags:
+      - stats
+      description: Get Uncle Rate History
+      operationId: StatsController.UncleRateHistory
+      responses:
+        "200":
+          description: ""
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/interface{}'
+        "404":
+          description: not found
+  /token/address:
+    get:
+      tags:
+      - token
+      description: Get token info at address
+      operationId: TokenController.Address
+      parameters:
+      - in: query
+        name: address
+        description: Address to retrieve token at
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.TokenInfo'
+        "404":
+          description: no token found at address
+  /token/balance:
+    get:
+      tags:
+      - token
+      description: Get token balances by address
+      operationId: TokenController.Balance
+      parameters:
+      - in: query
+        name: address
+        description: Address to get token balances for
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/models.TokenBalance'
+        "404":
+          description: no balances found for address
+  /token/from:
+    get:
+      tags:
+      - token
+      description: Get transactions sent from provided address
+      operationId: TokenController.From
+      parameters:
+      - in: query
+        name: address
+        description: The address to retrieve transactions from
+        required: true
+        type: string
+      - in: query
+        name: limit
+        description: Number of records to retrieve
+        required: true
+        type: integer
+        format: int64
+      - in: query
+        name: cursor
+        description: Cursor string of last record result
+        type: string
+      - in: query
+        name: skip
+        description: Number of records to skip after cursor
+        type: integer
+        format: int64
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.Transaction'
+        "404":
+          description: no transactions found
+  /token/listTokens:
+    get:
+      tags:
+      - token
+      description: Get a list of tokens
+      operationId: TokenController.ListTokens
+      parameters:
+      - in: query
+        name: limit
+        description: Number of records to retrieve
+        required: true
+        type: integer
+        format: int64
+      - in: query
+        name: cursor
+        description: Cursor string of last record result
+        type: string
+      - in: query
+        name: skip
+        description: Number of records to skip after cursor
+        type: integer
+        format: int64
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.TokenInfoPage'
+        "404":
+          description: no tokens found
+  /token/listTransactions:
+    get:
+      tags:
+      - token
+      description: Get a list of transactions
+      operationId: TokenController.ListTransactions
+      parameters:
+      - in: query
+        name: limit
+        description: Number of records to retrieve
+        required: true
+        type: integer
+        format: int64
+      - in: query
+        name: cursor
+        description: Cursor string of last record result
+        type: string
+      - in: query
+        name: skip
+        description: Number of records to skip after cursor
+        type: integer
+        format: int64
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.TransactionPage'
+        "404":
+          description: no transactions found
+  /token/symbol:
+    get:
+      tags:
+      - token
+      description: Get token info by symbol
+      operationId: TokenController.Symbol
+      parameters:
+      - in: query
+        name: symbol
+        description: Token Symbol to retrievei info about
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.TokenInfo'
+        "404":
+          description: no token found with given symbol
+  /token/to:
+    get:
+      tags:
+      - token
+      description: Get transactions sent to provided address
+      operationId: TokenController.To
+      parameters:
+      - in: query
+        name: address
+        description: The address to retrieve transactions from
+        required: true
+        type: string
+      - in: query
+        name: limit
+        description: Number of records to retrieve
+        required: true
+        type: integer
+        format: int64
+      - in: query
+        name: cursor
+        description: Cursor string of last record result
+        type: string
+      - in: query
+        name: skip
+        description: Number of records to skip after cursor
+        type: integer
+        format: int64
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.TransactionPage'
+        "404":
+          description: no transactions found
   /transaction/block:
     get:
       tags:
@@ -28,9 +535,28 @@ paths:
         "200":
           description: ""
           schema:
-            $ref: '#/definitions/.TrasactionPage'
+            $ref: '#/definitions/models.TrasactionPage'
         "404":
           description: no transactions found in block
+  /transaction/debug:
+    get:
+      tags:
+      - transaction
+      description: Get internal transactions
+      operationId: TransactionController.Debug
+      parameters:
+      - in: query
+        name: hash
+        description: Block hash to retrieve receipt for
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.TxReceipt'
+        "404":
+          description: transaction not found
   /transaction/from:
     get:
       tags:
@@ -81,7 +607,70 @@ paths:
         "200":
           description: ""
           schema:
-            $ref: '#/definitions/.Transaction'
+            $ref: '#/definitions/models.TxExtraInfo'
+        "404":
+          description: transaction not found
+  /transaction/list:
+    get:
+      tags:
+      - transaction
+      description: Get a list of transactions
+      operationId: TransactionController.List
+      parameters:
+      - in: query
+        name: limit
+        description: Number of records to retrieve
+        required: true
+        type: integer
+        format: int64
+      - in: query
+        name: cursor
+        description: Cursor string of last record result
+        type: string
+      - in: query
+        name: skip
+        description: Number of records to skip after cursor
+        type: integer
+        format: int64
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.TransactionPage'
+        "404":
+          description: no transactions found
+  /transaction/pending:
+    get:
+      tags:
+      - transaction
+      description: Get pending transactions
+      operationId: TransactionController.Pending
+      responses:
+        "200":
+          description: ""
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/models.RpcTransaction'
+        "404":
+          description: transaction not found
+  /transaction/receipt:
+    get:
+      tags:
+      - transaction
+      description: Get transaction receipt
+      operationId: TransactionController.Receipt
+      parameters:
+      - in: query
+        name: hash
+        description: Block hash to retrieve receipt for
+        required: true
+        type: string
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.TxReceipt'
         "404":
           description: transaction not found
   /transaction/to:
@@ -118,19 +707,355 @@ paths:
             $ref: '#/definitions/models.TransactionPage'
         "404":
           description: no transactions found
+  /uncle/block:
+    get:
+      tags:
+      - uncle
+      description: Get all uncles in the given block
+      operationId: UncleController.Block
+      parameters:
+      - in: query
+        name: block
+        description: The block number to retreive uncles for
+        required: true
+        type: integer
+        format: int64
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.UnclePage'
+        "404":
+          description: no uncles found in block
+  /uncle/list:
+    get:
+      tags:
+      - uncle
+      description: Get a list of uncles
+      operationId: UncleController.List
+      parameters:
+      - in: query
+        name: limit
+        description: Number of blocks to retrieve
+        required: true
+        type: integer
+        format: int64
+      - in: query
+        name: cursor
+        description: Cursor string of last block result
+        type: string
+      - in: query
+        name: skip
+        description: Number of blocks to skip after cursor
+        type: integer
+        format: int64
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.BlockPage'
+        "404":
+          description: block not found
+  /uncle/miner:
+    get:
+      tags:
+      - uncle
+      description: Get a list of uncles mined by address
+      operationId: UncleController.Miner
+      parameters:
+      - in: query
+        name: address
+        description: Address of miner
+        required: true
+        type: string
+      - in: query
+        name: limit
+        description: Number of uncles to retrieve
+        required: true
+        type: integer
+        format: int64
+      - in: query
+        name: cursor
+        description: Cursor string of last uncle result
+        type: string
+      - in: query
+        name: skip
+        description: Number of uncles to skip after cursor
+        type: integer
+        format: int64
+      responses:
+        "200":
+          description: ""
+          schema:
+            $ref: '#/definitions/models.BlockPage'
+        "404":
+          description: not found
 definitions:
-  .Address:
+  big.Float:
+    title: Float
     type: object
-  .Hash:
+  big.Int:
+    title: Int
     type: object
-  .Int:
+  bson.ObjectId:
+    title: ObjectId
     type: object
-  .ObjectId:
+  common.Address:
+    title: Address
     type: object
-  .Transaction:
+  common.Hash:
+    title: Hash
     type: object
-  .TrasactionPage:
+  interface{}:
+    title: interface{}
     type: object
+  models.AddressInfo:
+    title: AddressInfo
+    type: object
+    properties:
+      address:
+        $ref: '#/definitions/common.Address'
+      name:
+        type: string
+  models.Balance:
+    title: Balance
+    type: object
+    properties:
+      address:
+        $ref: '#/definitions/common.Address'
+      balance:
+        $ref: '#/definitions/big.Int'
+      block:
+        $ref: '#/definitions/big.Int'
+      changedBy:
+        type: string
+      id:
+        $ref: '#/definitions/bson.ObjectId'
+  models.BalancePage:
+    title: BalancePage
+    type: object
+    properties:
+      Balances:
+        type: array
+        items:
+          $ref: '#/definitions/models.Balance'
+      End:
+        type: string
+      Start:
+        type: string
+      Total:
+        type: integer
+        format: int64
+  models.BlockPage:
+    title: BlockPage
+    type: object
+    properties:
+      Blocks:
+        type: array
+        items:
+          $ref: '#/definitions/models.Miner'
+      End:
+        type: string
+      Start:
+        type: string
+      Total:
+        type: integer
+        format: int64
+  models.CurrentBalance:
+    title: CurrentBalance
+    type: object
+    properties:
+      address:
+        $ref: '#/definitions/common.Address'
+      balance:
+        $ref: '#/definitions/big.Int'
+      id:
+        $ref: '#/definitions/bson.ObjectId'
+  models.CurrentBalancePage:
+    title: CurrentBalancePage
+    type: object
+    properties:
+      Balances:
+        type: array
+        items:
+          $ref: '#/definitions/models.CurrentBalance'
+      End:
+        type: string
+      Start:
+        type: string
+      Total:
+        type: integer
+        format: int64
+  models.ExchangeRate:
+    title: ExchangeRate
+    type: object
+    properties:
+      btc:
+        type: number
+        format: double
+      source:
+        type: string
+      symbol:
+        type: string
+      timestamp:
+        type: integer
+        format: int64
+      usd:
+        type: number
+        format: double
+  models.Miner:
+    title: Miner
+    type: object
+    properties:
+      block:
+        $ref: '#/definitions/big.Int'
+      difficulty:
+        $ref: '#/definitions/big.Int'
+      gas:
+        type: integer
+        format: int64
+      miner:
+        type: string
+      timestamp:
+        type: integer
+        format: int64
+  models.MinerList:
+    title: MinerList
+    type: object
+    properties:
+      address:
+        type: string
+      count:
+        type: integer
+        format: int32
+      name:
+        type: string
+      percent:
+        type: number
+        format: double
+  models.Pool:
+    title: Pool
+    type: object
+    properties:
+      count:
+        type: integer
+        format: int64
+      hashrate:
+        type: number
+        format: double
+      miners:
+        type: number
+        format: double
+      name:
+        type: string
+      onlineCount:
+        type: integer
+        format: int64
+      software:
+        type: string
+      statsUrl:
+        type: string
+      uptime:
+        type: number
+        format: double
+      url:
+        type: string
+  models.RpcTransaction:
+    title: RpcTransaction
+    type: object
+    properties:
+      blockHash:
+        $ref: '#/definitions/common.Hash'
+      blockNumber:
+        type: string
+      from:
+        $ref: '#/definitions/common.Address'
+      gas:
+        type: string
+      gasPrice:
+        type: string
+      hash:
+        type: string
+      input:
+        type: string
+      nonce:
+        type: string
+      r:
+        type: string
+      s:
+        type: string
+      to:
+        type: string
+      transactionIndex:
+        type: string
+      tx:
+        $ref: '#/definitions/types.Transaction'
+      v:
+        type: string
+      value:
+        type: string
+  models.Stats:
+    title: Stats
+    type: object
+    properties:
+      blockTime:
+        type: number
+        format: double
+      difficulty:
+        type: string
+      hashRate:
+        type: string
+      lastBlock:
+        $ref: '#/definitions/big.Int'
+      uncleRate:
+        type: number
+        format: double
+  models.TokenBalance:
+    title: TokenBalance
+    type: object
+    properties:
+      address:
+        $ref: '#/definitions/common.Address'
+      balance:
+        $ref: '#/definitions/big.Float'
+      symbol:
+        type: string
+      token:
+        type: string
+      tokenAddress:
+        $ref: '#/definitions/common.Address'
+  models.TokenInfo:
+    title: TokenInfo
+    type: object
+    properties:
+      address:
+        $ref: '#/definitions/common.Address'
+      decimals:
+        type: integer
+        format: int32
+      id:
+        $ref: '#/definitions/bson.ObjectId'
+      name:
+        type: string
+      symbol:
+        type: string
+      verified:
+        type: boolean
+  models.TokenInfoPage:
+    title: TokenInfoPage
+    type: object
+    properties:
+      End:
+        type: string
+      Start:
+        type: string
+      Tokens:
+        type: array
+        items:
+          $ref: '#/definitions/models.TokenInfo'
+      Total:
+        type: integer
+        format: int64
   models.Transaction:
     title: Transaction
     type: object
@@ -140,6 +1065,11 @@ definitions:
         format: int64
       from:
         $ref: '#/definitions/common.Address'
+      gas:
+        type: integer
+        format: int64
+      gas_price:
+        $ref: '#/definitions/big.Int'
       hash:
         $ref: '#/definitions/common.Hash'
       id:
@@ -167,7 +1097,108 @@ definitions:
         type: array
         items:
           $ref: '#/definitions/models.Transaction'
+  models.TrasactionPage:
+    title: TrasactionPage
+    type: object
+  models.TxExtraInfo:
+    title: TxExtraInfo
+    type: object
+    properties:
+      blockHash:
+        $ref: '#/definitions/common.Hash'
+      blockNumber:
+        type: string
+      from:
+        $ref: '#/definitions/common.Address'
+      gas:
+        type: string
+      gasPrice:
+        type: string
+      hash:
+        type: string
+      input:
+        type: string
+      nonce:
+        type: string
+      r:
+        type: string
+      s:
+        type: string
+      to:
+        type: string
+      transactionIndex:
+        type: string
+      v:
+        type: string
+      value:
+        type: string
+  models.TxReceipt:
+    title: TxReceipt
+    type: object
+  models.Uncle:
+    title: Uncle
+    type: object
+    properties:
+      block:
+        $ref: '#/definitions/big.Int'
+      difficulty:
+        $ref: '#/definitions/big.Int'
+      gas:
+        type: integer
+        format: int64
+      height:
+        $ref: '#/definitions/big.Int'
+      miner:
+        type: string
+      timestamp:
+        type: integer
+        format: int64
+      uncle:
+        type: integer
+        format: int64
+  models.UnclePage:
+    title: UnclePage
+    type: object
+    properties:
+      End:
+        type: string
+      Start:
+        type: string
+      Total:
+        type: integer
+        format: int64
+      Uncles:
+        type: array
+        items:
+          $ref: '#/definitions/models.Uncle'
+  types.Block:
+    title: Block
+    type: object
+  types.Transaction:
+    title: Transaction
+    type: object
 tags:
 - name: transaction
   description: |
     Operations about transactions
+- name: block
+  description: |
+    Operations about blocks
+- name: uncle
+  description: |
+    Operations about uncles
+- name: balance
+  description: |
+    Operations about balances
+- name: token
+  description: |
+    Operations about transactions
+- name: stats
+  description: |
+    Operations about blocks
+- name: address
+  description: |
+    Operations about uncles
+- name: exchange
+  description: |
+    Operations about exchange rates

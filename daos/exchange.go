@@ -1,6 +1,7 @@
 package daos
 
 import (
+	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 	"ubiq-explorer/models"
 	"ubiq-explorer/models/db"
@@ -13,22 +14,42 @@ func NewExchangeDAO() *ExchangeDAO {
 	return &ExchangeDAO{}
 }
 
-func (dao *ExchangeDAO) Insert(exchange *models.ExchangeRate) (bool, error) {
-	_, err := db.Upsert("exchangeRate", bson.M{"symbol": exchange.Symbol}, exchange)
+func (dao *ExchangeDAO) InsertExchangeRate(exchange *models.ExchangeRate, cap int) (bool, error) {
+	err := db.Upsert("exchangeRate", &bson.M{"symbol": exchange.Symbol}, exchange)
 	if err != nil {
 		return false, err
 	}
-	err := db.Insert("exchangeRate_"+exchange.Symbol, exchange)
+	// We need a limit on the table
+	c := db.Conn()
+	defer c.Close()
+	symbolCollection := "exchangeRate_" + exchange.Symbol
+	if cnt, _ := c.DB("").C(symbolCollection).Count(); cnt == 0 {
+		if cap == 0 {
+			cap = 288
+		}
+		dbOptions := &mgo.CollectionInfo{
+			Capped:   true,
+			MaxDocs:  cap,
+			MaxBytes: 500000,
+		}
+		c.DB("").C(symbolCollection).DropCollection()
+		err = c.DB("").C(symbolCollection).Create(dbOptions)
+		if err != nil {
+			return false, err
+		}
+	}
+
+	err = db.Insert(symbolCollection, exchange)
 	if err != nil {
 		return false, err
 	}
 	return true, nil
 }
 
-func (dao *ExchangeDAO) Get(symbol string) *models.ExchangeRate {
+func (dao *ExchangeDAO) GetExchangeRate(symbol string) (*models.ExchangeRate, error) {
 	conn := db.Conn()
 	defer conn.Close()
-	exchange := models.ExhangeRate{}
+	exchange := &models.ExchangeRate{}
 	err := conn.DB("").C("exchangeRate").Find(bson.M{"symbol": symbol}).Sort("-timestamp").One(&exchange)
 	if err != nil {
 		return exchange, err
@@ -37,16 +58,24 @@ func (dao *ExchangeDAO) Get(symbol string) *models.ExchangeRate {
 
 }
 
-func (dao *ExchangeDAO) List() *models.ExchangeList {
-
+func (dao *ExchangeDAO) ExchangeRateList() ([]*models.ExchangeRate, error) {
+	conn := db.Conn()
+	defer conn.Close()
+	exchangeRates := []*models.ExchangeRate{}
+	err := conn.DB("").C("exchangeRate").Find(bson.M{}).All(&exchangeRates)
+	return exchangeRates, err
 }
 
-func (dao *ExchangeDAO) History(name string, symbol string) *models.ExchangeHistory {
-
+func (dao *ExchangeDAO) ExchangeRateHistory(symbol string) ([]*models.ExchangeRate, error) {
+	conn := db.Conn()
+	defer conn.Close()
+	exchangeRates := []*models.ExchangeRate{}
+	err := conn.DB("").C("exchangeRate_" + symbol).Find(bson.M{}).Sort("-timestamp").All(&exchangeRates)
+	return exchangeRates, err
 }
 
 func (dao *ExchangeDAO) GetExchangeSource(symbol string) (*models.ExchangeSource, error) {
-	source := models.ExchangeSource{}
+	source := &models.ExchangeSource{}
 	conn := db.Conn()
 	defer conn.Close()
 	err := conn.DB("").C("exchangeSource").Find(bson.M{"symbol": symbol}).One(&source)
@@ -57,15 +86,15 @@ func (dao *ExchangeDAO) GetExchangeSource(symbol string) (*models.ExchangeSource
 }
 
 func (dao *ExchangeDAO) InsertExchangeSource(source *models.ExchangeSource) (bool, error) {
-	_, err := db.Upsert("exchangeSource", bson.M{"symbol": source.Symbol}, source)
+	err := db.Upsert("exchangeSource", &bson.M{"symbol": source.Symbol}, source)
 	if err != nil {
 		return false, err
 	}
 	return true, nil
 }
 
-func (dao *ExhangeDAO) GetExhangeAuth(exchange string) (*models.ExchangeAuth, error) {
-	auth := models.ExchangeAuth{}
+func (dao *ExchangeDAO) GetExhangeAuth(exchange string) (*models.ExchangeAuth, error) {
+	auth := &models.ExchangeAuth{}
 	conn := db.Conn()
 	defer conn.Close()
 	err := conn.DB("").C("exchangeAuth").Find(bson.M{"exchange": exchange}).One(&auth)
@@ -76,7 +105,7 @@ func (dao *ExhangeDAO) GetExhangeAuth(exchange string) (*models.ExchangeAuth, er
 }
 
 func (dao *ExchangeDAO) InsertExchangeAuth(auth *models.ExchangeAuth) (bool, error) {
-	_, err := db.Upsert("exchangeAuth", bson.M{"exchange": auth.Exchange}, auth)
+	err := db.Upsert("exchangeAuth", &bson.M{"exchange": auth.Exchange}, auth)
 	if err != nil {
 		return false, err
 	}

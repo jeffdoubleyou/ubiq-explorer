@@ -3,19 +3,18 @@ package models
 import ()
 
 type ExchangeRate struct {
-	Name      string  `json:"name"`
 	Symbol    string  `json:"symbol"`
-	Btc       float32 `json:"btc"`
-	Usd       float32 `json:"usd"`
-	Timestamp uint32  `json:"timestamp"`
+	Btc       float64 `json:"btc"`
+	Usd       float64 `json:"usd"`
+	Timestamp int64   `json:"timestamp"`
 	Source    string  `json:"source"`
 }
 
 type ExchangeSource struct {
-	Name     string `json:"name"`
-	Symbol   string `json:"symbol"`
-	Exchange string `json:"exchange"`
-	Market   string `json:"market"`
+	Symbol    string `json:"symbol"`
+	Exchange  string `json:"exchange"`
+	Timestamp int64  `json:"timestamp"`
+	Blacklist bool   `json:"blacklist"`
 }
 
 type ExchangeAuth struct {
@@ -26,7 +25,7 @@ type ExchangeAuth struct {
 	APISecret string `json:"apiSecret"`
 }
 
-type ExchangeList struct {
+type ExchangeRateList struct {
 	Symbols []*ExchangeRate
 }
 
