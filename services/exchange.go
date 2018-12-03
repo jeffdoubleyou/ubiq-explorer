@@ -54,7 +54,7 @@ func (s *ExchangeService) UpdateExchangeRate(symbol string) (*models.ExchangeRat
 	exchangeSource, _ := s.dao.GetExchangeSource(symbol)
 	if exchangeSource.Exchange != "" {
 		market, err := s.exchanges[exchangeSource.Exchange].API.GetTicker(symbol)
-		if err != nil || market.Btc == 0 {
+		if err != nil || (market.Btc == 0 && market.Usd == 0) {
 			fmt.Printf("Failed to retrieve %s from existing exchange %s", symbol, exchangeSource.Exchange)
 		} else {
 			s.dao.InsertExchangeRate(market, 0)

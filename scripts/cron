@@ -1,1 +1,2 @@
 */5 * * * * root cd /opt/ubiq-explorer && /opt/ubiq-explorer/bin/poolstats
+*/1,6 * * * * root cd /opt/ubiq-explorer && /opt/ubiq-explorer/bin/exchange

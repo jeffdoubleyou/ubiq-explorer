@@ -17,6 +17,9 @@ func NewCryptopiaExchange(apiKey string, apiSecret string) *CryptopiaExchange {
 
 func (exchange *CryptopiaExchange) GetTicker(symbol string) (*models.ExchangeRate, error) {
 	ticker := symbol + "_BTC"
+	if symbol == "BTC" {
+		ticker = "USDT_BTC"
+	}
 	market, err := exchange.API.GetMarket(ticker, 24)
 	exchangeRate := &models.ExchangeRate{
 		Symbol:    symbol,
