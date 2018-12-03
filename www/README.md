@@ -26,7 +26,7 @@ Ubiq Blockchain Explorer
 ## Scripts
 
  - **npm run readme** : `node ./node_modules/.bin/node-readme`
- - **npm run postinstall** : `node ./uglify.js`
+ - **npm run postinstall** : `node ./bin/uglify.js`
 
 ## Dependencies
 
