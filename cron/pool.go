@@ -1,14 +1,53 @@
 package main
 
 import (
+	"crypto/tls"
 	"fmt"
 	"github.com/astaxie/beego"
+	"github.com/astaxie/beego/httplib"
 	"log"
+	"time"
+	"ubiq-explorer/daos"
+	"ubiq-explorer/models"
+	"ubiq-explorer/models/db"
 	"ubiq-explorer/services"
 )
 
+type Field struct {
+	Data map[string]interface{} `json:"-"`
+}
+
+type OpenEthereum struct {
+	Hashrate float64 `json:"hashrate"`
+	Miners   float64 `json:"minersTotal"`
+}
+
+type MPOS struct {
+	Getpoolstatus struct {
+		Data struct {
+			Miners   float64 `json:"workers"`
+			Hashrate float64 `json:"hashrate"`
+		}
+	}
+}
+
+type Minerall struct {
+	Hashrate float64 `json:"hashrate"`
+	Miners   float64 `json:"workers"`
+}
+
+// This is a modified open ethereum pool from ubiq-kings
+type King struct {
+	Totals struct {
+		Hashrate float64 `json:"hashrate"`
+		Miners   float64 `json:"miners"`
+	}
+}
+
 func main() {
-	exchange := services.NewExchangeService()
+	defer db.Close()
+	poolDAO := daos.NewPoolsDAO()
+	poolService := services.NewPoolsService(*poolDAO)
 
 	pools, err := poolService.List()
 
