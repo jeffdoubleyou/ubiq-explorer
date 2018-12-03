@@ -1,6 +1,7 @@
 package daos
 
 import (
+    "errors"
 	"gopkg.in/mgo.v2"
 	"gopkg.in/mgo.v2/bson"
 	"ubiq-explorer/models"
@@ -57,6 +58,20 @@ func (dao *ExchangeDAO) GetExchangeRate(symbol string) (*models.ExchangeRate, er
 	return exchange, nil
 
 }
+
+func (dao *ExchangeDAO) DeleteExchangeRate(symbol string) (bool, error) {
+	if symbol == "" {
+		return false, errors.New("Symbol is required")
+	}
+    conn := db.Conn()
+    defer conn.Close()
+    err := conn.DB("").C("exchangeRate").Remove(&bson.M{"symbol": symbol})
+    if err != nil {
+        return false, err
+    }
+    return true, nil
+}
+
 
 func (dao *ExchangeDAO) ExchangeRateList() ([]*models.ExchangeRate, error) {
 	conn := db.Conn()

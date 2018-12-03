@@ -52,6 +52,9 @@ func (s *ExchangeService) History(symbol string) ([]*models.ExchangeRate, error)
 
 func (s *ExchangeService) UpdateExchangeRate(symbol string) (*models.ExchangeRate, error) {
 	exchangeSource, _ := s.dao.GetExchangeSource(symbol)
+    if exchangeSource.Blacklist == true {
+        return nil, fmt.Errorf("The symbol %s is marked as blacklisted", symbol)
+    }
 	if exchangeSource.Exchange != "" {
 		market, err := s.exchanges[exchangeSource.Exchange].API.GetTicker(symbol)
 		if err != nil || (market.Btc == 0 && market.Usd == 0) {
