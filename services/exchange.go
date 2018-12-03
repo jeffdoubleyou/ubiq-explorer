@@ -68,7 +68,7 @@ func (s *ExchangeService) UpdateExchangeRate(symbol string) (*models.ExchangeRat
 	exchangeSource.Symbol = symbol
 	for exchange := range s.exchanges {
 		market, _ := s.exchanges[exchange].API.GetTicker(symbol)
-		if market.Btc != 0 {
+		if market.Btc != 0 || market.Usd != 0 {
 			exchangeSource.Exchange = exchange
 			s.dao.InsertExchangeSource(exchangeSource)
 			s.dao.InsertExchangeRate(market, 0)
