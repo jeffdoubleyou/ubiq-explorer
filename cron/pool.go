@@ -3,51 +3,12 @@ package main
 import (
 	"fmt"
 	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/httplib"
 	"log"
-	"time"
-    "crypto/tls"
-	"ubiq-explorer/daos"
-	"ubiq-explorer/models"
 	"ubiq-explorer/services"
-    "ubiq-explorer/models/db"
 )
 
-type Field struct {
-	Data map[string]interface{} `json:"-"`
-}
-
-type OpenEthereum struct {
-	Hashrate float64 `json:"hashrate"`
-	Miners   float64 `json:"minersTotal"`
-}
-
-type MPOS struct {
-	Getpoolstatus struct {
-		Data struct {
-			Miners   float64 `json:"workers"`
-			Hashrate float64 `json:"hashrate"`
-		}
-	}
-}
-
-type Minerall struct {
-	Hashrate float64 `json:"hashrate"`
-	Miners   float64 `json:"workers"`
-}
-
-// This is a modified open ethereum pool from ubiq-kings
-type King struct {
-	Totals struct {
-		Hashrate float64 `json:"hashrate"`
-		Miners   float64 `json:"miners"`
-	}
-}
-
 func main() {
-    defer db.Close()
-	poolDAO := daos.NewPoolsDAO()
-	poolService := services.NewPoolsService(*poolDAO)
+	exchange := services.NewExchangeService()
 
 	pools, err := poolService.List()
 
@@ -62,8 +23,8 @@ func main() {
 		if err != nil {
 			log.Printf("ERR: %s\n", err)
 			pool.Uptime = float64(float64(pool.OnlineCount)/float64(pool.Count)) * 100
-            pool.Hashrate = 0
-            pool.Miners = 0
+			pool.Hashrate = 0
+			pool.Miners = 0
 			_, err := poolService.Insert(&pool)
 			if err != nil {
 				log.Printf("FAILED TO UPDATE POOL: %s", err)
@@ -85,9 +46,8 @@ func main() {
 func GetStats(pool models.Pool) (models.Pool, error) {
 	req := httplib.Get(pool.StatsUrl).SetTimeout(10*time.Second, 10*time.Second)
 	req.Header("User-Agent", beego.AppConfig.String("pool_monitor::user_agent"))
-    var tlsConfig = &tls.Config{ VerifyPeerCertificate: nil, InsecureSkipVerify: true };
-    req.SetTLSClientConfig(tlsConfig)
-
+	var tlsConfig = &tls.Config{VerifyPeerCertificate: nil, InsecureSkipVerify: true}
+	req.SetTLSClientConfig(tlsConfig)
 
 	switch pool.Software {
 	case "open-ethereum":

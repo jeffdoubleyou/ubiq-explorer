@@ -3,7 +3,8 @@ abigen --abi ./daemon/tokens/token.abi --pkg tokens --type Token --out ./daemon/
 
 echo "Building bin files"
 go build -o ./bin/blockdaemon ./daemon/blockdaemon.go
-go build -o ./bin/poolstats ./daemon/pool.go
+go build -o ./bin/poolstats ./cron/pool.go
+go build -o ./bin/exchange ./cron/exchange.go
 
 echo "Building www files"
 cd www

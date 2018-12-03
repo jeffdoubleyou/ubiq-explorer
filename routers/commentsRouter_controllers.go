@@ -63,6 +63,30 @@ func init() {
 			MethodParams: param.Make(),
 			Params: nil})
 
+	beego.GlobalControllerRouter["ubiq-explorer/controllers:ExchangeController"] = append(beego.GlobalControllerRouter["ubiq-explorer/controllers:ExchangeController"],
+		beego.ControllerComments{
+			Method: "History",
+			Router: `/history`,
+			AllowHTTPMethods: []string{"get"},
+			MethodParams: param.Make(),
+			Params: nil})
+
+	beego.GlobalControllerRouter["ubiq-explorer/controllers:ExchangeController"] = append(beego.GlobalControllerRouter["ubiq-explorer/controllers:ExchangeController"],
+		beego.ControllerComments{
+			Method: "List",
+			Router: `/list`,
+			AllowHTTPMethods: []string{"get"},
+			MethodParams: param.Make(),
+			Params: nil})
+
+	beego.GlobalControllerRouter["ubiq-explorer/controllers:ExchangeController"] = append(beego.GlobalControllerRouter["ubiq-explorer/controllers:ExchangeController"],
+		beego.ControllerComments{
+			Method: "Symbol",
+			Router: `/symbol`,
+			AllowHTTPMethods: []string{"get"},
+			MethodParams: param.Make(),
+			Params: nil})
+
 	beego.GlobalControllerRouter["ubiq-explorer/controllers:StatsController"] = append(beego.GlobalControllerRouter["ubiq-explorer/controllers:StatsController"],
 		beego.ControllerComments{
 			Method: "BlockTimeHistory",
@@ -185,6 +209,14 @@ func init() {
 
 	beego.GlobalControllerRouter["ubiq-explorer/controllers:TransactionController"] = append(beego.GlobalControllerRouter["ubiq-explorer/controllers:TransactionController"],
 		beego.ControllerComments{
+			Method: "Debug",
+			Router: `/debug`,
+			AllowHTTPMethods: []string{"get"},
+			MethodParams: param.Make(),
+			Params: nil})
+
+	beego.GlobalControllerRouter["ubiq-explorer/controllers:TransactionController"] = append(beego.GlobalControllerRouter["ubiq-explorer/controllers:TransactionController"],
+		beego.ControllerComments{
 			Method: "From",
 			Router: `/from`,
 			AllowHTTPMethods: []string{"get"},
@@ -209,6 +241,14 @@ func init() {
 
 	beego.GlobalControllerRouter["ubiq-explorer/controllers:TransactionController"] = append(beego.GlobalControllerRouter["ubiq-explorer/controllers:TransactionController"],
 		beego.ControllerComments{
+			Method: "Pending",
+			Router: `/pending`,
+			AllowHTTPMethods: []string{"get"},
+			MethodParams: param.Make(),
+			Params: nil})
+
+	beego.GlobalControllerRouter["ubiq-explorer/controllers:TransactionController"] = append(beego.GlobalControllerRouter["ubiq-explorer/controllers:TransactionController"],
+		beego.ControllerComments{
 			Method: "Receipt",
 			Router: `/receipt`,
 			AllowHTTPMethods: []string{"get"},
@@ -227,6 +267,14 @@ func init() {
 		beego.ControllerComments{
 			Method: "Block",
 			Router: `/block`,
+			AllowHTTPMethods: []string{"get"},
+			MethodParams: param.Make(),
+			Params: nil})
+
+	beego.GlobalControllerRouter["ubiq-explorer/controllers:UncleController"] = append(beego.GlobalControllerRouter["ubiq-explorer/controllers:UncleController"],
+		beego.ControllerComments{
+			Method: "List",
+			Router: `/list`,
 			AllowHTTPMethods: []string{"get"},
 			MethodParams: param.Make(),
 			Params: nil})

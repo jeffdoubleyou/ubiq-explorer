@@ -22,12 +22,14 @@
                             <tr md-row>
                                 <td md-cell><strong>Token</strong></td>
                                 <td md-cell><strong>Symbol</strong></td>
-                                <td md-cell><strong>Balance</strong></td>
+                                <td md-cell colspan="3"><strong>Balance</strong></td>
                             </tr>
                                 <tr md-row ng-repeat="balance in tokenBalance">
                                     <td md-cell><a href="/address/{{balance.tokenAddress}}">{{balance.token}}</a></td>
                                     <td md-cell>{{balance.symbol}}</td>
                                     <td md-cell>{{+balance.balance}}</td>
+                                    <td md-cell>{{+balance.balance|tokenToBTC: balance.symbol}} BTC</td>
+                                    <td md-cell>${{+balance.balance|tokenToUSD: balance.symbol}}</td>
                                 </tr>
                         </tbody>
                     </table>
