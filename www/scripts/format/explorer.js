@@ -170,10 +170,12 @@ angular.module('Explorer').filter('utf8Decode', function() {
 });
 
 angular.module('Explorer').filter('toUSD', function($rootScope) {
-	return function(input) {
+	return function(input, decimals) {
 		if(input === undefined)
 			return ""
-		var usd = parseFloat($rootScope.shf_usd*input).toFixed(2);
+        if (!decimals)
+            decimals = 2;
+		var usd = parseFloat($rootScope.usd*input).toFixed(decimals);
 		return usd;
 	}
 });
@@ -185,6 +187,28 @@ angular.module('Explorer').filter('toBTC', function($rootScope) {
 		var btc = parseFloat(input*$rootScope.btc).toFixed(8);
 		return btc;
 	}
+});
+
+angular.module('Explorer').filter('tokenToBTC', function($rootScope) {
+    return function(amount, token) {
+        if(token === undefined)
+            return ""
+        if($rootScope.exchangeRates[token]) {
+            return parseFloat($rootScope.exchangeRates[token].btc*amount).toFixed(8)
+        }
+        return 0;
+    }
+});
+
+angular.module('Explorer').filter('tokenToUSD', function($rootScope) {
+    return function(amount, token) {
+        if(token === undefined)
+            return ""
+        if($rootScope.exchangeRates[token]) {
+            return parseFloat($rootScope.exchangeRates[token].btc*amount*$rootScope.exchangeRates["BTC"].usd).toFixed(2)
+        }
+        return 0;
+    }
 });
 
 

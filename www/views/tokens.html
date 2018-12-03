@@ -17,6 +17,8 @@
                             <th md-column>Address</th>
                             <th md-column>Symbol</th>
                             <th md-column>Decimals</th>
+                            <th md-column>BTC</th>
+                            <th md-column>USD</th>
                         </tr>
                     </thead>
                     <tbody md-body>
@@ -26,6 +28,8 @@
                             <td md-cell><a href="/address/{{token.address}}">{{token.address}}</a></td>
                             <td md-cell>{{token.symbol}}</td>
                             <td md-cell>{{token.decimals}}</td>
+                            <td md-cell>{{exchangeRates[token.symbol].btc}}</td>
+                            <td md-cell><span ng-if="exchangeRates[token.symbol]">${{exchangeRates[token.symbol].btc | toUSD: 6}}</td>
                         </tr>
                     </tbody>
                 </table>

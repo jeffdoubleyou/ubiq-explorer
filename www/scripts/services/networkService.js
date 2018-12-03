@@ -1,6 +1,7 @@
 angular.module('Explorer').service('NetworkService', function($rootScope, $interval, $http) {
 
     var networkService = this;
+    $rootScope.exchangeRates = {};
 
     this.getHashRateHistory = function() {
         return $http.get('/api/v1/stats/hashRateHistory');
@@ -60,17 +61,19 @@ angular.module('Explorer').service('NetworkService', function($rootScope, $inter
     };
 
 	this.updateExchangeRate = function() {
-	    $http({method : 'GET',url : 'https://api.coinmarketcap.com/v1/ticker/UBIQ/?convert=USD'})
+	    $http({method : 'GET',url : '/api/v1/exchange/list'})
 		.success(function(data, status) {
-            if(data && data[0]) {
-                $rootScope.btc = parseFloat(data[0].price_btc);
-                $rootScope.shf_usd = parseFloat(data[0].price_usd).toFixed(8);
+            if(data) {
+                angular.forEach(data, function(exchange) {
+                    $rootScope.exchangeRates[exchange.symbol] = exchange;
+                });
+                $rootScope.btc = parseFloat($rootScope.exchangeRates["UBQ"].btc);
+                $rootScope.usd = parseFloat($rootScope.exchangeRates["UBQ"].btc*$rootScope.exchangeRates["BTC"].usd).toFixed(6);
             }
 		})
 		.error(function(data, status) {
 			$rootScope.btc = 'N/A';
 			$rootScope.usd = 'N/A';
-			$rootScope.shf_usd = 'N/A';
 		})
 	}
 
