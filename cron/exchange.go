@@ -15,7 +15,7 @@ func main() {
 	cursor := ""
 	symbolList := make(map[string]int)
 	symbolList["BTC"] = 1
-	symbolList["UBIQ"] = 1
+	symbolList["UBQ"] = 1
 
 	tokenList, _ := tokenService.TokenList(limit, cursor)
 
