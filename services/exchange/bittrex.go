@@ -18,7 +18,7 @@ func NewBittrexExchange(apiKey string, apiSecret string) *BittrexExchange {
 func (exchange *BittrexExchange) GetTicker(symbol string) (*models.ExchangeRate, error) {
 	ticker := "BTC-" + symbol
 	if symbol == "BTC" {
-		ticker = "USDT-BTC"
+		ticker = "USD-BTC"
 	}
 	market, err := exchange.API.GetTicker(ticker)
 	exchangeRate := &models.ExchangeRate{
