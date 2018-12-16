@@ -4,11 +4,13 @@ angular.module('Explorer')
     if(!$rootScope.knownAddreses) {
         $rootScope.knownAddresses = [];
         NetworkService.getKnownAddresses().then(function(res) {
+	    $scope.addressList = res.data;
             angular.forEach(res.data, function(a) {
                 $rootScope.knownAddresses["_"+a.address] = a.name
             });
         });
     }
+
 
     $scope.search=function() {
         var searchString = $scope.searchString;

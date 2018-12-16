@@ -109,6 +109,11 @@ angular.module('Explorer', ['ngMaterial', 'md.data.table', 'ngRoute','chart.js',
                 controller: 'PendingTransactionController',
                 title: 'Currently Pending Ubiq Transactions'
             }).
+            when('/watched_addresses', {
+                templateUrl: 'views/watchedAddresses.html',
+                controller: 'mainController',
+                title: 'Watched Ubiq Addresses'
+            }).
             otherwise({
                 redirectTo: '/'
             });

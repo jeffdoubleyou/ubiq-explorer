@@ -1,0 +1,35 @@
+<div class="container" ng-init="init()">
+    <md-card ng-width=100>
+        <md-card-title>
+            <md-card-title-text>
+                <span class="md-title">Watched Addresses on the Ubiq Network</span>
+            </md-card-title-text>
+        </md-card-title>
+        <md-card-actions layout="row" layout-align="end center">
+            <md-button class="md-raised md-cornered md-primary" ng-href="https://www.cryptopia.co.nz/Register?referrer=jeffw">Buy More Ubiq</md-button>
+        </md-card-actions>
+        <md-card-content>
+            <md-table-container>
+                <table md-table>
+                    <thead md-head>
+                        <tr md-row>
+                            <th></th>
+                            <th></th>
+                            <th md-column>Address</th>
+                            <th colspan="1" md-column>Name</th>
+                        </tr>
+                    </thead>
+                    <tbody md-body>
+                        <tr md-row ng-repeat="account in addressList">
+                            <td md-cell>{{$index+1}}</td>
+                            <td md-cell><div blockie address={{account.address}} size="small"></div></td>
+                            <td md-cell><a href="/address/{{account.address}}">{{account.address}}</a></td>
+                            <td md-cell>{{account.name}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
+        </md-card-content>
+    </md-card>
+</div>
+<div ng-data-include="'template/misc/adsense.html'"></div>
