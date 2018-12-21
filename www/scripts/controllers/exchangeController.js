@@ -11,7 +11,7 @@ angular.module('Explorer').controller('ExchangeController', function (ExchangeSe
 	$scope.basePrice = ($scope.base == 'USD') ? $rootScope.exchangeRates["BTC"].usd : $rootScope.exchangeRates[$scope.base].btc;
 
 	ExchangeService.getExchangeHistory($scope.symbol).then(function(res) {
-		for(var i in res.data) {
+		for(var i in res.data.reverse()) {
 			$scope.labels.push("");
 			var rate = 0;
 			if(res.data[i] && res.data[i].btc > 0) {
