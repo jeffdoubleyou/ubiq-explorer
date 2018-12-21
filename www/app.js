@@ -114,6 +114,11 @@ angular.module('Explorer', ['ngMaterial', 'md.data.table', 'ngRoute','chart.js',
                 controller: 'mainController',
                 title: 'Watched Ubiq Addresses'
             }).
+            when('/exchange/:symbol/:base', {
+                templateUrl: 'views/exchange.html',
+                controller: 'ExchangeController',
+                title: 'Exchange Rates'
+            }).
             otherwise({
                 redirectTo: '/'
             });

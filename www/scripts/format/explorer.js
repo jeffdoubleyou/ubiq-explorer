@@ -211,6 +211,17 @@ angular.module('Explorer').filter('tokenToUSD', function($rootScope) {
     }
 });
 
+angular.module('Explorer').filter('BTCToUSD', function($rootScope) {
+    return function(amount, decimals) {
+        if(amount === undefined)
+            return ""
+	if (!decimals)
+		decimals = 2
+	return parseFloat($rootScope.exchangeRates["BTC"].usd*amount).toFixed(decimals)
+    }
+});
+
+
 
 /* From chrisveness - https://gist.github.com/chrisveness/bcb00eb717e6382c5608
     This fixes the error when using escape to deal w/ utf8 in extraData
