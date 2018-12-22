@@ -6,18 +6,22 @@ angular.module('Explorer').controller('ExchangeController', function (ExchangeSe
 	$scope.series = ['Price History for '+$scope.symbol];
 	$scope.baseCurrency = 'BTC';
 	if($scope.symbol == 'BTC') {
-		$scope.baseCurrency = 'BTC';
+		$scope.baseCurrency = 'USD';
 	}
 	$scope.basePrice = ($scope.base == 'USD') ? $rootScope.exchangeRates["BTC"].usd : $rootScope.exchangeRates[$scope.base].btc;
 
 	ExchangeService.getExchangeHistory($scope.symbol).then(function(res) {
 		for(var i in res.data.reverse()) {
-			$scope.labels.push("");
+			var d = new Date(res.data[i].timestamp*1000);
+			$scope.labels.push(d.toLocaleString());
 			var rate = 0;
 			if(res.data[i] && res.data[i].btc > 0) {
 				rate = res.data[i].btc;
 			} else {
-				rate = res.data[i].usd*$rootScope.exchangeRates["BTC"].btc;
+				if($scope.symbol == 'BTC')
+					rate = res.data[i].usd;
+				else
+					rate = res.data[i].usd*$rootScope.exchangeRates["BTC"].btc;
 			}
 			if($scope.base == $scope.baseCurrency) {
 				$scope.data.push(rate);
@@ -29,6 +33,7 @@ angular.module('Explorer').controller('ExchangeController', function (ExchangeSe
 				}
 			}
 		}
+		$scope.source = res.data[0].source;
 		$scope.price = res.data[res.data.length-1][$scope.baseCurrency.toLowerCase()];
 		if($scope.base != $scope.baseCurrency) {
 			if($scope.base == "USD") {

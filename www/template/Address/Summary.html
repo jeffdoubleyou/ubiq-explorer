@@ -6,6 +6,12 @@
                 <td md-cell>{{addressId}}</td>
                 <td md-cell colspan="2">{{addressId | knownMiners: 0}}</td>
             </tr>
+	    <tr md-row ng-show="exchangeRates[tokenInfo.symbol]">
+		<td md-cell><strong>Exchange Rate</strong></td>
+		<td md-cell>{{exchangeRates[tokenInfo.symbol].btc}} BTC</td>
+		<td md-cell>${{exchangeRates[tokenInfo.symbol].btc | BTCToUSD: 6}}</td>
+		<td md-cell>Source - {{exchangeRates[tokenInfo.symbol].source}}</td>
+	    </tr>
             <tr md-row>
                 <td md-cell><strong>Balance</strong></td>
                 <td md-cell>{{balance | fromWei}} UBQ</td>
