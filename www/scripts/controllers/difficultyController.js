@@ -10,7 +10,7 @@ angular.module('Explorer').controller('DifficultyHistoryController', function (N
             $scope.data.push(res.data[i].value/1000000000000)
         }
     });
-
+    $scope.colors = [ '#0ca579', '#00ea90', '#333333' ];
 	$scope.options = { 
 			responsive: true, 
 			maintainAspectRatio: true,

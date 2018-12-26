@@ -234,11 +234,12 @@ div.clear {
 	clear: both;
 }
 
-div.footer {
-    bottom: 0px;
+footer {
+    padding: 10px;
     text-align: center;
-    background-color: white;
     width:100%;
+    background-color: #ffffff;
+    border-top: 4px solid #635856;
 }
 
 .md-table-pagination > .buttons > .label {
@@ -346,4 +347,58 @@ td.md-cell-nopad {
     color: rgba(0, 0, 0, 0.87);
     font-size: 13px;
     border-top: 1px rgba(0, 0, 0, 0.12) solid;
+}
+
+
+div.ubiq-green-1, md-card.ubiq-green-1, md-toolbar.ubiq-green-1 {
+	background-color: #00ea90;
+}
+
+div.ubiq-green-2, md-card.ubiq-green-2, md-toolbar.ubiq-green-2 {
+	background-color: #0ca579;
+}
+
+div.ubiq-green-3, md-card.ubiq-green-3, md-toolbar.ubiq-green-3 {
+	background-color: #d0f4e7;
+}
+
+div.ubiq-green-4, md-card.ubiq-green-4, md-toolbar.ubiq-green-4 {
+	background-color: #A6DE7C;
+}
+
+div.ubiq-green-5, md-card.ubiq-green-5, md-toolbar.ubiq-green-5 {
+	background-color: #01c785;
+}
+
+div.ubiq-grey-1, md-card.ubiq-grey-1, md-toolbar.ubiq-grey-1 {
+	background-color: #494949;
+}
+
+div.ubiq-grey-2, md-card.ubiq-grey-2, md-toolbar.ubiq-grey-2 {
+	background-color: #333333;
+}
+
+div.ubiq-grey-3, md-card.ubiq-grey-3, md-toolbar.ubiq-grey-3 {
+	background-color: #4a4a4a;
+}
+
+input.ubiq-grey-4, md-card.ubiq-grey-4, div.ubiq-grey4, md-toolbar.ubiq-grey-4 {
+	background-color: #757475;
+}
+
+div.ubiq-grey-5, md-card.ubiq-grey-5, md-toolbar.ubiq-grey-5 {
+	background-color: #635856;
+}
+
+div.ubiq-black, md-toolbar.ubiq-black {
+	background-color: #222222;
+}
+
+.main-menu {
+	border-bottom: 2px solid #333333; 
+	border-top: 2px solid #0ca579;
+}
+
+span.heading-white {
+	color: #ffffff;
 }

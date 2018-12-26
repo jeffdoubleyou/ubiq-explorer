@@ -237,6 +237,7 @@ angular.module('Explorer').controller('AddressUnclesController', function(Addres
 });
 
 angular.module('Explorer').controller('AddressBalanceChartController', function(AddressService, $scope) {
+
     AddressService.getBalanceHistory($scope.addressId).then(function(res) {
 		$scope.labels = [];
 		$scope.series = ['Balance Change'];
@@ -245,19 +246,21 @@ angular.module('Explorer').controller('AddressBalanceChartController', function(
 			$scope.labels.push(res.data.Balances[i].changedBy);
 			$scope.data.push(res.data.Balances[i].balance/1000000000000000000);
 		}
-        // Chart options
+                // Chart options
+	        $scope.colors = [ '#0ca579', '#00ea90', '#333333', '#999999', '#494949' ];
 		$scope.options = { 
 			responsive: true, 
 			maintainAspectRatio: false,
 			elements: {
 				point: {
 					radius: 3,
-                    backgroundColor: '#837727'
+		                        backgroundColor: '#333333',
+					borderColor: '#494949'
 			       },
 				line: {
 					borderWidth: 3,
-                    //backgroundColor: '#528373',
-                    borderColor: '#779988'
+                    			backgroundColor: '#333333',
+                    			borderColor: '#333333'
 				}
    			},
 			scales : {
@@ -265,12 +268,12 @@ angular.module('Explorer').controller('AddressBalanceChartController', function(
 				    gridLines : {
 					    display : false
 				    },
-                    ticks: {
-                        display: false,
-                        minor: {
-                            display: false
-                        }
-                    }
+				ticks: {
+				    display: false,
+				    minor: {
+					display: false
+				    }
+				}
 				} ]
 			},
 		};

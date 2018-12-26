@@ -8,7 +8,7 @@ angular.module('Explorer').controller('UncleRateHistoryController', function (Ne
             $scope.data.push(res.data[i].value/10);
         }
     });
-
+    $scope.colors = [ '#0ca579', '#00ea90', '#333333' ];
 	$scope.options = { 
 			responsive: true, 
 			maintainAspectRatio: true,

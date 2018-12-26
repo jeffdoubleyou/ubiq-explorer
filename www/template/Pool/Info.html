@@ -33,10 +33,9 @@
     </md-card-title>
     <md-card-content>
         <md-divider></md-divider>
-        <p class="md-body-1">For stratum mining, you can use any miner that supports stratum such as <a href="https://bitcointalk.org/index.php?topic=1433925.0">Claymore Miner</a>.  For ethminer / getwork stratum support, you can use <a href="https://github.com/Atrides/eth-proxy">eth-proxy</a>.</p>
         <div  layout-xs="column" layout="row">
 
-            <div flex-xs flex-gt-xs="33" layout="column">
+            <div flex-xs flex-gt-xs="50" layout="column">
                 <md-card>
                     <md-card-title>
                         <md-card-title-text><span class="md-title">Small Miners</span></md-card-title-text>
@@ -50,13 +49,12 @@
                           <li class="list-group-item">
                             stratum.ubiq.cc:8009
                           </li>
-                          <li class="list-group-item">
                         </ul>	
                     </md-card-content>
                 </md-card>
             </div>
 
-            <div flex-xs flex-gt-xs="33" layout="column">
+            <div flex-xs flex-gt-xs="50" layout="column">
                 <md-card>
                     <md-card-title>
                         <md-card-title-text><span class="md-title">Large Miners</span></md-card-title-text>
@@ -70,7 +68,6 @@
                           <li class="list-group-item">
                             stratum.ubiq.cc:8008
                           </li>
-                          <li class="list-group-item">
                         </ul>	
                     </md-card-content>
                 </md-card>
@@ -85,18 +82,64 @@
 <md-card>
     <md-card-title>
         <md-card-title-text>
-            <span class="md-title">Getwork / Ethminer</span>
+            <span class="md-title">Supported Software</span>
         </md-card-title-text>
     </md-card-title>
     <md-card-content>
         <md-divider></md-divider>
-        <p class="md-body-1">Not recommended.  You may use getwork to mine Ubiq on our pool.  It's recommended to use stratum mining whenever possible.</p>
-        <span class="md-body-2">Point your ethminer to:</span>
-        <p class="md-caption">
-            Linux: ethminer -F http://getwork.ubiq.cc:8888/YOURADDRESS/<worker> -G
-            <br>
-            Windows: ethminer.exe -F http://getwork.ubiq.cc:8888/YOURADDRESS/<worker> -G
-        </p>
+        <div  layout-xs="column" layout="row">
+
+            <div flex-xs flex-gt-xs="50" layout="column">
+                <md-card>
+                    <md-card-title>
+                        <md-card-title-text><span class="md-title">Ubiq Miner</span></md-card-title-text>
+                    </md-card-title>
+                    <md-card-content>
+                        <ul class="list-group">
+                          <li class="list-group-item">
+                            <span class="badge">v0.17.0-alpha.1+</span>
+                            <a href="https://github.com/ubiq/ubqminer/releases" target="_blank">Releases</a>
+                          </li>
+                          <li class="list-group-item">
+                            Examples
+                          </li>
+                          <li class="list-group-item">
+				<i>Windows:</i>
+				<pre>ubqminer.exe -P stratum1+tcp://0x18520a8aaf5142e0d788db696bb46124b2e7bb9b.rig1@stratum.ubiq.cc:8008</pre>
+				<i>Linux:</i>
+				<pre>./ubqminer -P stratum1+tcp://0x18520a8aaf5142e0d788db696bb46124b2e7bb9b.rig1@stratum.ubiq.cc:8008</pre>
+			  </li>
+                        </ul>	
+                    </md-card-content>
+                </md-card>
+            </div>
+
+            <div flex-xs flex-gt-xs="50" layout="column">
+                <md-card>
+                    <md-card-title>
+                        <md-card-title-text><span class="md-title">Phoenix Miner</span></md-card-title-text>
+                    </md-card-title>
+                    <md-card-content>
+                        <ul class="list-group">
+                          <li class="list-group-item">
+                            <span class="badge">4.0b+</span>
+                            <a href="https://bitcointalk.org/index.php?topic=2647654.0" target="_blank">Download</a>
+                          </li>
+                          <li class="list-group-item">
+                            Example
+                          </li>
+                          <li class="list-group-item">
+				<i>Windows</i>
+				<pre>PhoenixMiner.exe -pool stratum.ubiq.cc:8008 -wal 0x18520a8aaf5142e0d788db696bb46124b2e7bb9b -worker rig1 -coin ubq</pre>
+				<i>Linux</i>
+				<pre>./PhoenixMiner -pool stratum.ubiq.cc:8008 -wal 0x18520a8aaf5142e0d788db696bb46124b2e7bb9b -worker rig1 -coin ubq</pre>
+			  </li>
+                        </ul>	
+                    </md-card-content>
+                </md-card>
+            </div>
+
+        </div>
     </md-card-content>
 </md-card>
 

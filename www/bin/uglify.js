@@ -3,6 +3,10 @@ var fs = require('fs');
 var UglifyJS = require("uglify-js");
 var uuid = require('uuid/v1');
 var replace = require("replace");
+var ini = require("ini");
+
+var config = ini.parse(fs.readFileSync('../conf/app.conf', 'utf-8'));
+console.log(config);
 
 var options = {
     "toplevel": true,
@@ -43,6 +47,13 @@ glob( '*.js', { cwd: "./scripts", matchBase:true }, function( err, files ) {
         paths: ['index.html'],
         recursive: false,
         silent: true
+    });
+    replace({
+       regex: '.*base href.* />',
+       replacement: '<base href="'+config.base_href+'" />',
+       paths: ['index.html'],
+       recursive: false,
+       silent: true
     });
     console.log("Done")
   }

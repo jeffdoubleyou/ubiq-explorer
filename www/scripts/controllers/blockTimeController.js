@@ -9,7 +9,7 @@ angular.module('Explorer').controller('BlockTimeHistoryController', function (Ne
             $scope.data.push(res.data[i].value)
         }
     });
-
+    $scope.colors = [ '#0ca579', '#00ea90', '#333333' ];
 	$scope.options = { 
 			responsive: true, 
 			maintainAspectRatio: true,
