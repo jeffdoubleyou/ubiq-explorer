@@ -40,6 +40,7 @@ sudo /bin/cp -af /opt/ubiq-explorer/scripts/systemd/ubiq-api.service /etc/system
 
 echo "Creating nginx symlink"
 sudo ln -f -s /opt/ubiq-explorer/scripts/nginx.conf /etc/nginx/sites-enabled/ubiq-explorer.nginx
+sudo ln -f -s /opt/ubiq-explorer/swagger /opt/ubiq-explorer/www/swag
 
 echo "Creating cron"
 sudo /bin/cp -af /opt/ubiq-explorer/scripts/cron /etc/cron.d/ubiq-explorer
