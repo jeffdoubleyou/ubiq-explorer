@@ -14,7 +14,9 @@ var options = {
     "compress": { "passes": 2 }
 };
 
-var outputFilename = 'ubiq-explorer.'+uuid()+'.js';
+var buildId = uuid();
+var outputFilename = 'ubiq-explorer.'+buildId+'.js';
+console.log("Build ID", buildId);
 
 glob('ubiq-explorer.*.js', function(err, files) {
     console.log("Removing old minified javascript files");
@@ -57,6 +59,14 @@ glob( '*.js', { cwd: "./scripts", matchBase:true }, function( err, files ) {
     });
     console.log("Done")
   }
+});
+
+replace({
+    regex: "src=\"'(.*).html.*'\"></div>",
+    replacement: "src=\"'$1.html#buildId="+buildId+"'\"></div>",
+    paths: ['index.html', 'views', 'template'],
+    recursive: true,
+    silent: false
 });
 
 
