@@ -9,8 +9,8 @@
         </thead>
         <tbody md-body>
             <tr md-row ng-repeat="stat in minersList | orderObjectBy:'hr':true">
-                <td md-cell><a href="/address/{{stat.key}}/pool">{{stat.key}}</a></td>
-                <td md-cell><a href="/transaction/{{block.hash}}">{{stat.hr | hashrate}}</a></td>
+                <td md-cell><a ng-href="/address/{{stat.key}}/pool">{{stat.key}}</a></td>
+                <td md-cell><a ng-href="/transaction/{{block.hash}}">{{stat.hr | hashrate}}</a></td>
                 <td md-cell>{{stat.lastBeat | relativetime }}</td>
             </tr>
         </tbody>

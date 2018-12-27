@@ -23,13 +23,13 @@
                     </thead>
                     <tbody md-body>
                     <tr md-row ng-repeat="token in Tokens | orderBy:['-verified','name']">
-                            <td md-cell><a href="/address/{{token.address}}">{{token.name}}</a></td>
+                            <td md-cell><a ng-href="/address/{{token.address}}">{{token.name}}</a></td>
                             <td md-cell><div blockie address={{token.address}} size="small" ng-if="token.verified"></div></td>
-                            <td md-cell><a href="/address/{{token.address}}">{{token.address}}</a></td>
+                            <td md-cell><a ng-href="/address/{{token.address}}">{{token.address}}</a></td>
                             <td md-cell>{{token.symbol}}</td>
                             <td md-cell>{{token.decimals}}</td>
-                            <td md-cell><span ng-if="exchangeRates[token.symbol]"><a href="/exchange/{{token.symbol}}/BTC">{{exchangeRates[token.symbol].btc}}</a></span></td>
-                            <td md-cell><span ng-if="exchangeRates[token.symbol]"><a href="/exchange/{{token.symbol}}/USD">${{exchangeRates[token.symbol].btc | BTCToUSD: 6}}</a></span></td>
+                            <td md-cell><span ng-if="exchangeRates[token.symbol]"><a ng-href="/exchange/{{token.symbol}}/BTC">{{exchangeRates[token.symbol].btc}}</a></span></td>
+                            <td md-cell><span ng-if="exchangeRates[token.symbol]"><a ng-href="/exchange/{{token.symbol}}/USD">${{exchangeRates[token.symbol].btc | BTCToUSD: 6}}</a></span></td>
                         </tr>
                     </tbody>
                 </table>

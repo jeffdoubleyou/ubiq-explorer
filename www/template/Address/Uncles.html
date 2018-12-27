@@ -12,8 +12,8 @@
         </thead>
         <tbody md-body>
             <tr md-row ng-repeat="uncle in minedUncles">
-                <td md-cell><a href="/block/{{uncle.block}}">{{uncle.block}}</a></td>
-                <td md-cell><a href="/block/{{uncle.height}}">{{uncle.height}}</a></td>
+                <td md-cell><a ng-href="/block/{{uncle.block}}">{{uncle.block}}</a></td>
+                <td md-cell><a ng-href="/block/{{uncle.height}}">{{uncle.height}}</a></td>
                 <td md-cell>{{uncle.difficulty | hashrate}}</td>
                 <td md-cell>{{uncle.gas}}</td>
                 <td md-cell>{{uncle.timestamp+"000" | date:'yyyy-MM-dd HH:mm:ss'}}</td>

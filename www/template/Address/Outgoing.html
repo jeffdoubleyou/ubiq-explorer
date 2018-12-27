@@ -11,8 +11,8 @@
         </thead>
         <tbody md-body>
             <tr md-row ng-repeat="txn in outgoingTransactions">
-                <td md-cell><span ng-if="txn.contract"><md-tooltip>Contract Execution</md-tooltip><md-icon md-font-library="material-icons" style="font-size: 18px;" aria-label="Contract Execution">transform</md-icon></span><a href="/address/{{txn.to}}">{{txn.to | knownMiners}}</a></td>
-                <td md-cell><a href="/transaction/{{txn.hash}}">{{txn.hash | truncate:'50'}}</a></td>
+                <td md-cell><span ng-if="txn.contract"><md-tooltip>Contract Execution</md-tooltip><md-icon md-font-library="material-icons" style="font-size: 18px;" aria-label="Contract Execution">transform</md-icon></span><a ng-href="/address/{{txn.to}}">{{txn.to | knownMiners}}</a></td>
+                <td md-cell><a ng-href="/transaction/{{txn.hash}}">{{txn.hash | truncate:'50'}}</a></td>
                 <td md-cell>{{txn.value | fromWei}}</td>
                 <td md-cell>{{txn.timestamp+"000" | date:'yyyy-MM-dd HH:mm:ss'}}</td>
             </tr>

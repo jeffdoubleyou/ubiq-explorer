@@ -11,8 +11,8 @@
         </thead>
         <tbody md-body>
             <tr md-row ng-repeat="block in matured">
-                <td md-cell><a href="/block/{{block.height}}">{{block.height}}</a></td>
-                <td md-cell><a href="/block/{{block.hash}}">{{block.hash }}</a></td>
+                <td md-cell><a ng-href="/block/{{block.height}}">{{block.height}}</a></td>
+                <td md-cell><a ng-href="/block/{{block.hash}}">{{block.hash }}</a></td>
                 <td md-cell>{{block.timestamp | relativetime }}</td>
                 <td md-cell ng-init="variance = block.shares/ block.difficulty*100">
                     <span ng-if="variance >= 100" class="label label-primary">{{variance | variance}}</span>

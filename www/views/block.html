@@ -1,181 +1,183 @@
 <div class="container">
 
-<md-card ng-width=100>
-    <md-card-title>
-        <md-card-title-text><span class="md-title"><h1>Block <small>Ubiq Block #{{blockNumber}}</small></h1></span></md-card-title-text>
-    </md-card-title>
-    <md-card-content>
-        <md-table-container>
-            <div style="padding-bottom:30px;width:100%;text-align:right;clear:both">
-                <button class="btn btn-primary">{{confirms}}</button>
-                <button class="btn btn-success cb"><span>{{result.gasLimit}} Gas Used</span></button>
-            </div>
-            <table md-table>
-                <tbody md-body>
-                    <tr md-row>
-                        <td md-cell><strong>Block Number</strong></td>
-                        <td md-cell colspan="2"><a href="/block/{{block.block}}">{{blockNumber}}</a></td>
-                    </tr>
-                    <tr md-row>
-                        <td md-cell><strong>Block Hash</strong></td>
-                        <td md-cell colspan="2"><a href="/block/{{result.hash}}">{{result.hash}}</a></td>
-                    </tr>
-                    <tr md-row>
-                        <td md-cell><strong>Block Found</strong></td>
-                        <td md-cell>{{result.timestamp+"000" | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                        <td md-cell>{{result.timestamp | relativetime}}</td>
-                    </tr>
-                    <tr md-row>
-                        <td md-cell><strong>Found By</strong></td>
-                        <td md-cell><a href="/address/{{result.miner}}">{{result.miner}}</a></td>
-                        <td md-cell><a href="/address/{{result.miner}}">{{result.miner | knownMiners: 0}}</a></td>
-                    </tr>
-                    <tr md-row>
-                        <td md-cell><strong>Difficulty</strong></td>
-                        <td md-cell colspan="2">{{result.difficulty | hashrate}}</td>
-                    </tr>
-                    <tr md-row>
-                        <td md-cell><strong>Nonce</strong></td>
-                        <td md-cell colspan="2">{{result.nonce}}</td>
-                    </tr>
-                    <tr md-row>
-                        <td md-cell><strong>Size</strong></td>
-                        <td md-cell colspan="2">{{result.size}}</td>
-                    </tr>
-                    <tr md-row>
-                        <td md-cell><strong>Gas Limit</strong></td>
-                        <td md-cell colspan="2">{{result.gasLimit}}</td>
-                    </tr>
-                    <tr md-row>
-                        <td md-cell><strong>Data</strong></td>
-                        <td md-cell colspan="2">{{result.extraData}}</td>
-                    </tr>
-                    <tr md-row>
-                        <td md-cell><strong>Data Translated</strong></td>
-                        <td md-cell colspan="2">{{result.extraData | hextoascii | utf8Decode }}</td>
-                    </tr>
-                </tbody>
-            </table>
-        </md-table-container>
-    </md-card-content>
-</md-card>
-
-<div ng-switch on="uncles.length">
-    <div ng-switch-when="0">
-        <md-card>
-            <md-card-title>
-                <md-card-title-text><span class="md-title">No uncles in this block</span></md-card-title-text>
-            </md-card-title>
-            <md-card-content>
-
-            </md-card-content>
-        </md-card>
-    </div>
-    <div ng-switch-default>
-        <md-card>
-            <md-card-title>
-                <md-card-title-text><span class="md-title">There were {{uncles.length}} uncles found in this block</span></md-card-title-text>
-            </md-card-title>
-            <md-card-content>
-                <md-card ng-repeat="result in uncles">
-                    <md-card-content>
-                        <md-table-container>
-                            <table md-table>
-                                <tbody md-body>
-                                    <tr md-row>
-                                        <td md-cell><strong>Uncle Found</strong></td>
-                                        <td md-cell>{{result.timestamp+"000" | date:'yyyy-MM-dd HH:mm:ss'}}</td>
-                                        <td md-cell>{{result.timestamp | relativetime}}</td>
-                                    </tr>
-                                    <tr md-row>
-                                        <td md-cell><strong>Found By</strong></td>
-                                        <td md-cell><a href="/address/{{result.miner}}">{{result.miner}}</a></td>
-                                        <td md-cell><a href="/address/{{result.miner}}">{{result.miner | knownMiners: 0}}</a></td>
-                                    </tr>
-                                    <tr md-row>
-                                        <td md-cell><strong>Difficulty</strong></td>
-                                        <td md-cell colspan="2">{{result.difficulty | hashrate}}</td>
-                                    </tr>
-                                    <tr md-row>
-                                        <td md-cell><strong>Nonce</strong></td>
-                                        <td md-cell colspan="2">{{result.nonce}}</td>
-                                    </tr>
-                                    <tr md-row>
-                                        <td md-cell><strong>Size</strong></td>
-                                        <td md-cell colspan="2">{{result.size}}</td>
-                                    </tr>
-                                    <tr md-row>
-                                        <td md-cell><strong>Gas Limit</strong></td>
-                                        <td md-cell colspan="2">{{result.gasLimit}}</td>
-                                    </tr>
-                                    <tr md-row>
-                                        <td md-cell><strong>Data</strong></td>
-                                        <td md-cell colspan="2">{{result.extraData}}</td>
-                                    </tr>
-                                    <tr md-row>
-                                        <td md-cell><strong>Data Translated</strong></td>
-                                        <td md-cell colspan="2">{{result.extraData | hextoascii | utf8Decode }}</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </md-table-container>
-                    </md-card-content>
-                </md-card>
-            </md-card-content>
-        </md-card>
-    </div>
-</div>
-
-<div ng-switch on="transactions.length">
-    <div ng-switch-when="0">
-    <md-card>
+    <md-card ng-width=100>
         <md-card-title>
-            <md-card-title-text><span class="md-title">No transactions in this block</span></md-card-title-text>
+            <md-card-title-text><div class="md-title"><h1>Block <small>Ubiq Block #{{blockNumber}}</small></h1></div></md-card-title-text>
         </md-card-title>
         <md-card-content>
-            
+            <md-table-container>
+                <div style="padding-bottom:30px;width:100%;text-align:right;clear:both">
+                    <button class="btn btn-primary">{{confirms}}</button>
+                    <button class="btn btn-success cb"><span>{{result.gasLimit}} Gas Used</span></button>
+                </div>
+                <table md-table>
+                    <tbody md-body>
+                        <tr md-row>
+                            <td md-cell><strong>Block Number</strong></td>
+                            <td md-cell colspan="2"><a ng-href="/block/{{block.block}}">{{blockNumber}}</a></td>
+                        </tr>
+                        <tr md-row>
+                            <td md-cell><strong>Block Hash</strong></td>
+                            <td md-cell colspan="2"><a ng-href="/block/{{result.hash}}">{{result.hash}}</a></td>
+                        </tr>
+                        <tr md-row>
+                            <td md-cell><strong>Block Found</strong></td>
+                            <td md-cell>{{result.timestamp+"000" | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                            <td md-cell>{{result.timestamp | relativetime}}</td>
+                        </tr>
+                        <tr md-row>
+                            <td md-cell><strong>Found By</strong></td>
+                            <td md-cell><a ng-href="/address/{{result.miner}}">{{result.miner}}</a></td>
+                            <td md-cell><a ng-href="/address/{{result.miner}}">{{result.miner | knownMiners: 0}}</a></td>
+                        </tr>
+                        <tr md-row>
+                            <td md-cell><strong>Difficulty</strong></td>
+                            <td md-cell colspan="2">{{result.difficulty | hashrate}}</td>
+                        </tr>
+                        <tr md-row>
+                            <td md-cell><strong>Nonce</strong></td>
+                            <td md-cell colspan="2">{{result.nonce}}</td>
+                        </tr>
+                        <tr md-row>
+                            <td md-cell><strong>Size</strong></td>
+                            <td md-cell colspan="2">{{result.size}}</td>
+                        </tr>
+                        <tr md-row>
+                            <td md-cell><strong>Gas Limit</strong></td>
+                            <td md-cell colspan="2">{{result.gasLimit}}</td>
+                        </tr>
+                        <tr md-row>
+                            <td md-cell><strong>Data</strong></td>
+                            <td md-cell colspan="2">{{result.extraData}}</td>
+                        </tr>
+                        <tr md-row>
+                            <td md-cell><strong>Data Translated</strong></td>
+                            <td md-cell colspan="2">{{result.extraData | hextoascii | utf8Decode }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </md-table-container>
         </md-card-content>
     </md-card>
+
+    <div ng-switch on="uncles.length">
+        <div ng-switch-when="0">
+            <md-card>
+                <md-card-title>
+                    <md-card-title-text><span class="md-title">No uncles in this block</span></md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+
+                </md-card-content>
+            </md-card>
+        </div>
+        <div ng-switch-default>
+            <md-card>
+                <md-card-title>
+                    <md-card-title-text><span class="md-title">There were {{uncles.length}} uncles found in this block</span></md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    <md-card ng-repeat="result in uncles">
+                        <md-card-content>
+                            <md-table-container>
+                                <table md-table>
+                                    <tbody md-body>
+                                        <tr md-row>
+                                            <td md-cell><strong>Uncle Found</strong></td>
+                                            <td md-cell>{{result.timestamp+"000" | date:'yyyy-MM-dd HH:mm:ss'}}</td>
+                                            <td md-cell>{{result.timestamp | relativetime}}</td>
+                                        </tr>
+                                        <tr md-row>
+                                            <td md-cell><strong>Found By</strong></td>
+                                            <td md-cell><a ng-href="/address/{{result.miner}}">{{result.miner}}</a></td>
+                                            <td md-cell><a ng-href="/address/{{result.miner}}">{{result.miner | knownMiners: 0}}</a></td>
+                                        </tr>
+                                        <tr md-row>
+                                            <td md-cell><strong>Difficulty</strong></td>
+                                            <td md-cell colspan="2">{{result.difficulty | hashrate}}</td>
+                                        </tr>
+                                        <tr md-row>
+                                            <td md-cell><strong>Nonce</strong></td>
+                                            <td md-cell colspan="2">{{result.nonce}}</td>
+                                        </tr>
+                                        <tr md-row>
+                                            <td md-cell><strong>Size</strong></td>
+                                            <td md-cell colspan="2">{{result.size}}</td>
+                                        </tr>
+                                        <tr md-row>
+                                            <td md-cell><strong>Gas Limit</strong></td>
+                                            <td md-cell colspan="2">{{result.gasLimit}}</td>
+                                        </tr>
+                                        <tr md-row>
+                                            <td md-cell><strong>Data</strong></td>
+                                            <td md-cell colspan="2">{{result.extraData}}</td>
+                                        </tr>
+                                        <tr md-row>
+                                            <td md-cell><strong>Data Translated</strong></td>
+                                            <td md-cell colspan="2">{{result.extraData | hextoascii | utf8Decode }}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </md-table-container>
+                        </md-card-content>
+                    </md-card>
+                </md-card-content>
+            </md-card>
+        </div>
     </div>
-    <div ng-switch-default>
+
+    <div ng-switch on="transactions.length">
+        <div ng-switch-when="0">
         <md-card>
             <md-card-title>
-                <md-card-title-text><span class="md-title">There were {{transactions.length}} transactions in this block</span></md-card-title-text>
+                <md-card-title-text><span class="md-title">No transactions in this block</span></md-card-title-text>
             </md-card-title>
             <md-card-content>
-                <md-card ng-repeat="tx in transactions">
-                    <md-card-content>
-			<md-table-container>
-				<table md-table>
-				    <tbody md-body>
-					<tr md-row>
-					    <td md-cell><strong>Transaction Hash</strong></td>
-					    <td md-cell colspan="2"><a href="/transaction/{{tx.hash}}">{{tx.hash}}</a></td>
-					</tr>
-					<tr md-row>
-					    <td md-cell><strong>From</strong></td>
-					    <td md-cell colspan="2"><a href="/address/{{tx.from}}">{{tx.from | knownMiners}}</a></td>
-					</tr>
-					<tr md-row>
-					    <td md-cell><strong>To</strong></td>
-					    <td md-cell colspan="2"><span ng-if="tx.contract"><md-tooltip>Contract Execution</md-tooltip><md-icon md-font-library="material-icons" style="font-size: 18px;" aria-label="Contract Execution">transform</md-icon></span><a href="/address/{{tx.to}}">{{tx.to | knownMiners}}</a></td>
-					</tr>
-					<tr md-row>
-					    <td md-cell><strong>Amount</strong></td>
-					    <td md-cell colspan="2">{{tx.value | fromWei}} UBQ</td>
-					</tr>
-					<tr md-row>
-					    <td md-cell><strong>Gas</strong></td>
-					    <td md-cell colspan="2">{{tx.gas}}</td>
-					</tr>
-				    </tbody>
-				</table>
-			</md-table-container>
-                    </md-card-content>
-                </md-card>
+                
             </md-card-content>
         </md-card>
+        </div>
+        <div ng-switch-default>
+            <md-card>
+                <md-card-title>
+                    <md-card-title-text><span class="md-title">There were {{transactions.length}} transactions in this block</span></md-card-title-text>
+                </md-card-title>
+                <md-card-content>
+                    <md-card ng-repeat="tx in transactions">
+                        <md-card-content>
+                            <md-table-container>
+                                <table md-table>
+                                    <tbody md-body>
+                                    <tr md-row>
+                                        <td md-cell><strong>Transaction Hash</strong></td>
+                                        <td md-cell><a ng-href="/transaction/{{tx.hash}}">{{tx.hash}}</a></td>
+                                    </tr>
+                                    <tr md-row>
+                                        <td md-cell><strong>From</strong></td>
+                                        <td md-cell><a ng-href="/address/{{tx.from}}">{{tx.from | knownMiners}}</a></td>
+                                    </tr>
+                                    <tr md-row>
+                                        <td md-cell><strong>To</strong></td>
+                                        <td md-cell><span ng-if="tx.contract"><md-tooltip>Contract Execution</md-tooltip><md-icon md-font-library="material-icons" style="font-size: 18px;" aria-label="Contract Execution">transform</md-icon></span><a ng-href="/address/{{tx.to}}">{{tx.to | knownMiners}}</a></td>
+                                    </tr>
+                                    <tr md-row>
+                                        <td md-cell><strong>Amount</strong></td>
+                                        <td md-cell>{{tx.value | fromWei}} UBQ</td>
+                                    </tr>
+                                    <tr md-row>
+                                        <td md-cell><strong>Gas</strong></td>
+                                        <td md-cell>{{tx.gas}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </md-table-container>
+                        </md-card-content>
+                    </md-card>
+                </md-card-content>
+            </md-card>
+        </div>
     </div>
+
 </div>
 
 <div ng-data-include="'template/misc/adsense.html'"></div>

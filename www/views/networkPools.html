@@ -21,13 +21,13 @@
                     <tbody md-body>
                         <!--tr md-row ng-repeat="pool in pools | orderObjectBy: 'uptime':true | orderObjectBy: 'hashrate':true"-->
                         <tr md-row ng-repeat="pool in pools | orderBy:['-hashrate', '-uptime']">
-                            <td md-cell><a href="{{pool.url}}" target="_blank">{{pool.name}}</a></td>
+                            <td md-cell><a ng-href="{{pool.url}}" target="_blank">{{pool.name}}</a></td>
                             <td md-cell ng-init="addMiners(pool.miners)">{{pool.miners}}</td>
                             <td md-cell ng-init="addHashRate(pool.hashrate)">{{pool.hashrate | hashrate}}</td>
                             <td md-cell>{{pool.uptime}}%</td>
                         </tr>
                         <tr md-row>
-                            <td colspan="4" md-cell><span class="md-subhead">Totals</td>
+                            <td colspan="4" md-cell><span class="md-subhead">Totals</span></td>
                         </tr>
                         <tr md-row>
                             <td md-cell>&nbsp;</td>

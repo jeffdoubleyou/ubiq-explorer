@@ -5,8 +5,8 @@
         <th style="text-align:center;">Date</th>
     </tr>
     <tr ng-repeat="txn in recentBlocks">
-        <td><a href="/block/{{txn.block}}">{{txn.block}}</a></td>
-        <td><a href="/address/{{txn.miner}}">{{txn.miner | knownMiners: '25'}}</a></td>
+        <td><a ng-href="/block/{{txn.block}}">{{txn.block}}</a></td>
+        <td><a ng-href="/address/{{txn.miner}}">{{txn.miner | knownMiners: '25'}}</a></td>
         <td>{{txn.timestamp+"000" | date:'yyyy-MM-dd HH:mm:ss'}}</td>
     </tr>
     </tbody>

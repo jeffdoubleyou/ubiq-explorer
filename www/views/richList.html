@@ -24,7 +24,7 @@
                         <tr md-row ng-repeat="account in richList.Balances">
                             <td md-cell>{{$index+1}}</td>
                             <td md-cell><div blockie address={{account.address}} size="small"></div></td>
-                            <td md-cell><a href="/address/{{account.address}}">{{account.address | knownMiners }}</a></td>
+                            <td md-cell><a ng-href="/address/{{account.address}}">{{account.address | knownMiners }}</a></td>
                             <td md-cell>{{account.balance | fromWei}} UBQ</td>
                             <td md-cell>${{account.balance | fromWei | toUSD}}</td>
                             <td md-cell>{{account.balance | fromWei | toBTC}} BTC</td>

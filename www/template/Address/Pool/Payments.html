@@ -11,7 +11,7 @@
             <tr md-row ng-repeat="payment in minerData.payments">
                 <td md-cell>{{payment.timestamp+"000" | date:'yyyy-MM-dd HH:mm:ss'}}</td>
                 <td md-cell>{{payment.amount | payment}}</td>
-                <td md-cell><a href="/transaction/{{payment.tx}}">{{payment.tx | truncate: 50}}</a></td>
+                <td md-cell><a ng-href="/transaction/{{payment.tx}}">{{payment.tx | truncate: 50}}</a></td>
             </tr>
         </tbody>
     </table>

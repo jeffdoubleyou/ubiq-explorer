@@ -24,9 +24,9 @@
                         </thead>
                         <tbody md-body>
                             <tr md-row ng-repeat="block in Blocks">
-                                <td class="md-cell-nopad"><a ng-href="/block/{{block.block}}">{{block.block}}</a></div></td>
+                                <td class="md-cell-nopad"><a ng-href="/block/{{block.block}}">{{block.block}}</a></td>
                                 <td class="md-cell-nopad"><div blockie address="{{block.miner}}"></div></td>
-                                <td md-cell><a href="/address/{{block.miner}}">{{block.miner | knownMiners: '24'}}</a></td>
+                                <td md-cell><a ng-href="/address/{{block.miner}}">{{block.miner | knownMiners: '24'}}</a></td>
                                 <td md-cell>{{block.difficulty | hashrate}}</td>
                                 <td md-cell>{{block.gas}}</td>
                                 <td md-cell>{{block.timestamp+"000" | date:'yyyy-MM-dd HH:mm:ss'}}</td>

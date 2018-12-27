@@ -25,9 +25,9 @@
                         <tbody md-body>
                             <tr md-row ng-repeat="txn in Transactions">
                                 <td class="md-cell-nopad"><div blockie address="{{txn.from}}"></div></td>
-                                <td md-cell><a href="/address/{{txn.from}}">{{txn.from | knownMiners: '24'}}</a></td>
+                                <td md-cell><a ng-href="/address/{{txn.from}}">{{txn.from | knownMiners: '24'}}</a></td>
                                 <td class="md-cell-nopad"><div blockie address="{{txn.to}}"></div></td>
-                                <td md-cell><span ng-if="txn.contract"><md-tooltip>Contract Execution</md-tooltip><md-icon md-font-library="material-icons" style="font-size: 18px;" aria-label="Contract Execution">transform</md-icon></span><a href="/address/{{txn.to}}">{{txn.to | knownMiners: '24'}}</a></td>
+                                <td md-cell><span ng-if="txn.contract"><md-tooltip>Contract Execution</md-tooltip><md-icon md-font-library="material-icons" style="font-size: 18px;" aria-label="Contract Execution">transform</md-icon></span><a ng-href="/address/{{txn.to}}">{{txn.to | knownMiners: '24'}}</a></td>
                                 <td md-cell><md-button class="md-mini md-cornered" ng-href="/transaction/{{txn.hash}}">View</md-button></td>
                                 <td md-cell>{{txn.value | fromWei}}</td>
                                 <td md-cell>Pending</td>

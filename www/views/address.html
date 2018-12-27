@@ -2,7 +2,7 @@
     <md-card ng-width=100>
         <md-card-title>
             <md-card-title-text>
-                <span class="md-headline">Ubiq Address Info for <a href="/address/{{addressId}}">{{addressId | knownMiners}}</a></span>
+                <span class="md-headline">Ubiq Address Info for <a ng-href="/address/{{addressId}}">{{addressId | knownMiners}}</a></span>
                 <span class="md-subhead" ng-show="tokenInfo">
                     <span class="md-button">
                         <md-icon md-font-library="material-icons" style="font-size: 18px;" aria-label="{{tokenInfo.name}}">transform</md-icon>
@@ -27,7 +27,7 @@
             <div ng-controller="AddressTabsController">
               <md-tabs md-border-bottom md-dynamic-height md-selected="ActiveAddressTab">
                 <md-tab ng-repeat="tab in tabs" label="{{tab.title}}" ng-init="template = tab.template">
-                    <div data-ng-include src="template"></div>
+                    <div data-ng-include="template"></div>
                 </md-tab>
               </md-tabs>
             </div>
