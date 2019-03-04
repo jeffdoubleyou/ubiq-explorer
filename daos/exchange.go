@@ -26,7 +26,7 @@ func (dao *ExchangeDAO) InsertExchangeRate(exchange *models.ExchangeRate, cap in
 	symbolCollection := "exchangeRate_" + exchange.Symbol
 	if cnt, _ := c.DB("").C(symbolCollection).Count(); cnt == 0 {
 		if cap == 0 {
-			cap = 288
+			cap = 2016
 		}
 		dbOptions := &mgo.CollectionInfo{
 			Capped:   true,
