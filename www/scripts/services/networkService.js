@@ -51,7 +51,7 @@ angular.module('Explorer').service('NetworkService', function($rootScope, $inter
     }
 
     this.updateStats = function() {
-        $http.get('/api/v1/stats/get?blocks=10').then(function(res) {
+        $http.get('/api/v1/stats/get?blocks=500').then(function(res) {
             $rootScope.blockNum = res.data.lastBlock;
             $rootScope.networkHashRate = res.data.hashRate;
             $rootScope.networkDifficulty = res.data.difficulty;
