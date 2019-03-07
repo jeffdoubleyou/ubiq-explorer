@@ -112,7 +112,8 @@ validator.validate(
             'uib-tab-heading-transclude'
         ],
         relaxerror: [
-            'Consider adding a “lang” attribute to the “html” start tag to declare the language of this document.'
+            'Consider adding a “lang” attribute to the “html” start tag to declare the language of this document.',
+            'Possible misuse of “aria-label”. (If you disagree with this warning, file an issue report or send e-mail to www-validator@w3.org.)'
         ],
         wrapping: {
             'li': '<ul>{0}</ul>'
@@ -162,14 +163,18 @@ validator.validate(
             'layout-padding',
             'layout-align',
             'uib-tab-content-transclude',
-            'uib-tab-heading-transclude'
-        ]
+            'uib-tab-heading-transclude',
+        ],
+        relaxerror: [
+            'Possible misuse of “aria-label”. (If you disagree with this warning, file an issue report or send e-mail to www-validator@w3.org.)'
+        ],
     }
 ).then(function(result) {
     if(result.allpassed == true) {
         console.log("HTML validation of index.html passed");
     } else {
         console.log("Failed HTML validation of index.html...", result);
+        console.log(result.failed[0]);
         process.exit(1);
     }
 }, function(err) {
