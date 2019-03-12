@@ -4,6 +4,7 @@ import (
 	"gopkg.in/mgo.v2/bson"
 	"ubiq-explorer/models"
 	"ubiq-explorer/models/db"
+    "strings"
 )
 
 type TokenBalanceDAO struct {
@@ -14,7 +15,10 @@ func NewTokenBalanceDAO() *TokenBalanceDAO {
 }
 
 func (dao *TokenBalanceDAO) Insert(balance *models.TokenBalance) (bool, error) {
-	err := db.Insert("tokenBalance", balance)
+	conn := db.Conn()
+	defer conn.Close()
+	_, err := conn.DB("").C("tokenBalance").Upsert(bson.M{"address": strings.ToLower(balance.Address.String()),"tokenAddress": strings.ToLower(balance.TokenAddress.String())},balance)
+
 	if err != nil {
 		return false, err
 	}
