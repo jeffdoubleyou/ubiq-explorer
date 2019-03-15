@@ -1,11 +1,11 @@
+
 [Unit]
 Description=UBIQ Wallet
 After=network.target
-
 [Service]
 Type=simple
 WorkingDirectory=/home/ubuntu
 User=ubuntu
 Group=ubuntu
 Restart=always
-ExecStart=/home/ubuntu/gubiq-linux-amd64  --syncmode=full
+ExecStart=/home/ubuntu/gubiq-linux-amd64 --syncmode=full --ethstats 'www.ubiq.cc:jbs4lyfe@ubiq.darcr.us' --maxpeers 100
