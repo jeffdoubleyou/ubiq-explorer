@@ -1,3 +1,21 @@
+#!/usr/bin/bash
+
+. "scripts/shini.sh"
+
+declare -A config
+
+__shini_parsed() {
+    if [ "$1" != "" ]; then
+        config["$1 $2"]="$3"
+    else
+        config["$2"]="$3"
+    fi
+}
+
+shini_parse "conf/app.conf"
+wallet_cmd="${config['wallet path']} ${config['wallet args']}"
+shini_write "scripts/systemd/wallet.service" "Service" "ExecStart" "$wallet_cmd"
+
 echo "Generating native ABI token bindings"
 abigen --abi ./daemon/tokens/token.abi --pkg tokens --type Token --out ./daemon/tokens/tokens.go
 
