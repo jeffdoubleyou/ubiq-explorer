@@ -271,6 +271,18 @@ db.runCommand({ createIndexes: "exchangeRate_SPC", indexes:
 	}
 ]
 });
+db.runCommand({ createIndexes: "exchangeRate_SPHR", indexes:
+[
+	{
+		"v" : 2,
+		"key" : {
+			"_id" : 1
+		},
+		"name" : "_id_",
+		"ns" : "ubiq-explorer.exchangeRate_SPHR"
+	}
+]
+});
 db.runCommand({ createIndexes: "exchangeRate_UBQ", indexes:
 [
 	{

@@ -1,5 +1,6 @@
 go run tools/addPool.go 'ubiqpool.fr' 'https://ubiqpool.fr' 'https://ubiqpool.fr/api/stats' 0.000000 0.000000 68.420458 open-ethereum 35428 24240
 go run tools/addPool.go 'Epool' 'http://ubq.epool.io' 'https://ubq.epool.io/api/stats' 0.000000 0.000000 0.000000 open-ethereum 35428 0
+go run tools/addPool.go 'MaxHash' 'https://ubiqpool.maxhash.org' 'https://ubiqpool.maxhash.org/api/stats' 184.000000 41009425111.000000 99.952014 open-ethereum 35427 35410
 go run tools/addPool.go 'ubiq.minerpool.net' 'http://ubiq.minerpool.net' 'http://ubiq.minerpool.net/api/stats' 39.000000 5604378836.000000 98.992322 open-ethereum 35428 35071
 go run tools/addPool.go 'Pool Sexy' 'http://ubq.pool.sexy' 'http://ubq.pool.sexy/api/stats' 4.000000 634940266.000000 99.971774 open-ethereum 35428 35418
 go run tools/addPool.go 'Ubiq Mine Peon' 'http://ubiq.spdns.eu' 'http://ubiq.spdns.eu/api/stats' 0.000000 0.000000 0.000000 open-ethereum 35428 0
@@ -36,7 +37,6 @@ go run tools/addPool.go 'UBQ.ALTpool.pro' 'http://ubq.altpool.pro' 'http://ubq.a
 go run tools/addPool.go 'Whalesburg' 'https://whalesburg.com' 'https://etc.pool.whalesburg.com/api/stats' 0.000000 0.000000 99.949191 open-ethereum 35427 35409
 go run tools/addPool.go 'Anorak.Tech' 'https://ubiq.anorak.tech' 'https://ubiq.anorak.tech/api/stats' 1.000000 69390039.000000 93.383577 open-ethereum 35427 33083
 go run tools/addPool.go 'minerall.io' 'https://minerall.io/' 'https://minerall.io/api/v1/poolstats/ubq' 0.000000 0.000000 0.000000 minerall 35427 0
-go run tools/addPool.go 'MaxHash' 'https://ubiqpool.maxhash.org' 'https://ubiqpool.maxhash.org/api/stats' 184.000000 41009425111.000000 99.952014 open-ethereum 35427 35410
 go run tools/addPool.go 'DigiPools.org' 'https://ubiq.digipools.org' 'https://ubiq.digipools.org/api/stats' 0.000000 0.000000 99.870156 open-ethereum 35427 35381
 go run tools/addPool.go 'BaikalMine' 'http://pool.baikalmine.com/ru/ubiq/' 'http://ubiq.baikalmine.com:1050/api/stats' 0.000000 0.000000 99.947633 open-ethereum 24825 24812
 go run tools/addPool.go 'Cryptodig.Ru' 'http://ubiq-solo.cryptodig.ru' 'http://ubiq-solo.cryptodig.ru/api/stats' 0.000000 0.000000 98.920329 open-ethereum 22229 21989
