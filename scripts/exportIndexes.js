@@ -1,0 +1,1 @@
+db.getCollectionNames().forEach(function(collection) {indexes = db[collection].getIndexes(); print("db.runCommand({ createIndexes: \"" + collection + "\", indexes:"); printjson(indexes); print ("});")});
