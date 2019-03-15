@@ -1,14 +1,14 @@
-go run tools/addPool.go 'ubiqpool.fr' 'https://ubiqpool.fr' 'https://ubiqpool.fr/api/stats' 0.000000 0.000000 68.422390 open-ethereum 35427 24240
-go run tools/addPool.go 'Epool' 'http://ubq.epool.io' 'https://ubq.epool.io/api/stats' 0.000000 0.000000 0.000000 open-ethereum 35427 0
-go run tools/addPool.go 'ubiq.minerpool.net' 'http://ubiq.minerpool.net' 'http://ubiq.minerpool.net/api/stats' 39.000000 5669422972.000000 98.992294 open-ethereum 35427 35070
-go run tools/addPool.go 'Pool Sexy' 'http://ubq.pool.sexy' 'http://ubq.pool.sexy/api/stats' 4.000000 623914376.000000 99.971773 open-ethereum 35427 35417
-go run tools/addPool.go 'Ubiq Mine Peon' 'http://ubiq.spdns.eu' 'http://ubiq.spdns.eu/api/stats' 0.000000 0.000000 0.000000 open-ethereum 35427 0
-go run tools/addPool.go 'MyPool.Online' 'http://ubq.mypool.online' 'https://ubq.mypool.online/api/stats' 1.000000 9179575.000000 99.308437 open-ethereum 35427 35182
-go run tools/addPool.go 'allcanmine.net' 'http://ubiq.allcanmine.net' 'http://ubiq.allcanmine.net/api/stats' 0.000000 0.000000 0.000000 open-ethereum 35427 0
-go run tools/addPool.go 'Suprnova' 'https://ubiq.suprnova.cc' 'https://ubiq.suprnova.cc/index.php?page=api&action=getpoolstatus&api_key=3a4c3780c63e2aad02c884288fa6337f6d9bfe817d04fcb9edd18dcd0202178f' 0.000000 0.000000 88.937816 mpos 35427 31508
-go run tools/addPool.go 'AltpOOls' 'http://ubq.altpools.xyz' 'http://ubq.altpools.xyz/api/stats' 0.000000 0.000000 0.000000 open-ethereum 35427 0
-go run tools/addPool.go 'Miners Zone' 'http://ubq.miners-zone.net' 'http://ubq.miners-zone.net/api/stats' 0.000000 0.000000 0.000000 open-ethereum 35427 0
-go run tools/addPool.go 'hashpower.farm' 'http://ubq.hashpower.farm' 'http://ubq.hashpower.farm/api/stats' 0.000000 0.000000 0.000000 open-ethereum 35427 0
+go run tools/addPool.go 'ubiqpool.fr' 'https://ubiqpool.fr' 'https://ubiqpool.fr/api/stats' 0.000000 0.000000 68.420458 open-ethereum 35428 24240
+go run tools/addPool.go 'Epool' 'http://ubq.epool.io' 'https://ubq.epool.io/api/stats' 0.000000 0.000000 0.000000 open-ethereum 35428 0
+go run tools/addPool.go 'ubiq.minerpool.net' 'http://ubiq.minerpool.net' 'http://ubiq.minerpool.net/api/stats' 39.000000 5604378836.000000 98.992322 open-ethereum 35428 35071
+go run tools/addPool.go 'Pool Sexy' 'http://ubq.pool.sexy' 'http://ubq.pool.sexy/api/stats' 4.000000 634940266.000000 99.971774 open-ethereum 35428 35418
+go run tools/addPool.go 'Ubiq Mine Peon' 'http://ubiq.spdns.eu' 'http://ubiq.spdns.eu/api/stats' 0.000000 0.000000 0.000000 open-ethereum 35428 0
+go run tools/addPool.go 'MyPool.Online' 'http://ubq.mypool.online' 'https://ubq.mypool.online/api/stats' 1.000000 8782936.000000 99.308457 open-ethereum 35428 35183
+go run tools/addPool.go 'allcanmine.net' 'http://ubiq.allcanmine.net' 'http://ubiq.allcanmine.net/api/stats' 0.000000 0.000000 0.000000 open-ethereum 35428 0
+go run tools/addPool.go 'Suprnova' 'https://ubiq.suprnova.cc' 'https://ubiq.suprnova.cc/index.php?page=api&action=getpoolstatus&api_key=3a4c3780c63e2aad02c884288fa6337f6d9bfe817d04fcb9edd18dcd0202178f' 0.000000 0.000000 88.935305 mpos 35428 31508
+go run tools/addPool.go 'AltpOOls' 'http://ubq.altpools.xyz' 'http://ubq.altpools.xyz/api/stats' 0.000000 0.000000 0.000000 open-ethereum 35428 0
+go run tools/addPool.go 'Miners Zone' 'http://ubq.miners-zone.net' 'http://ubq.miners-zone.net/api/stats' 0.000000 0.000000 0.000000 open-ethereum 35428 0
+go run tools/addPool.go 'hashpower.farm' 'http://ubq.hashpower.farm' 'http://ubq.hashpower.farm/api/stats' 0.000000 0.000000 0.000000 open-ethereum 35428 0
 go run tools/addPool.go 'Coinminer.space' 'http://ubiq.coinminer.space/' 'http://ubiq.coinminer.space/api/stats' 0.000000 0.000000 0.000000 open-ethereum 35427 0
 go run tools/addPool.go 'HODLPool' 'http://ubiq.hodlpool.com' 'http://ubiq.hodlpool.com/api/stats' 60.000000 13465861583.000000 99.977418 open-ethereum 35427 35419
 go run tools/addPool.go 'Mole-Pool' 'http://ubiq.mole-pool.net:83/' 'http://mole-pool.net:5050/api/stats' 0.000000 0.000000 0.000000 open-ethereum 35427 0
