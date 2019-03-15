@@ -54,11 +54,13 @@ exportExchangeData() {
 importExchangeData() {
     host=$(echo ${config['mongodb url']} | cut -d/ -f3)
     db=$(echo ${config['mongodb url']} | cut -d/ -f4)
+    echo -n "Importing exchange data : "
     import_cmd="mongorestore --quiet --host=$host --db=$db scripts/exchangeData/$db"
+    declare -i ret
     output=$((eval $import_cmd) 2>&1)
     ret=$?
-    if [ {$ret} != 0 ]; then
-        echo "FAIL - $output"
+    if [ ${ret} != 0 ]; then
+        echo "FAIL - $output $ret"
         exit $ret
     else
         echo "OK"
@@ -84,6 +86,7 @@ importVerifiedTokens() {
     declare -r cmd="sh scripts/verified_tokens.sh"
     declare -i ret
     declare output
+    echo -n "Importing verified tokens : "
     output=$((eval $cmd) 2>&1)
     ret=$?
     if [ ${ret} != 0 ]; then
@@ -113,6 +116,7 @@ importAddresses() {
     declare -r cmd="sh scripts/addresses.sh"
     declare -i ret
     declare output
+    echo -n "Importing addresses : "
     output=$((eval $cmd) 2>&1)
     ret=$?
     if [ ${ret} != 0 ]; then
@@ -142,6 +146,7 @@ importPools() {
     declare -r cmd="sh scripts/pools.sh"
     declare -i ret
     declare output
+    echo -n "Importing pools : "
     output=$((eval $cmd) 2>&1)
     ret=$?
     if [ ${ret} != 0 ]; then
@@ -183,7 +188,7 @@ importIndexes() {
 }
 
 dropDatabase() {
-    declare -r cmd="echo mongo --quiet ${config['mongodb url']} --eval=\"db.dropDatabase()\""
+    declare -r cmd="mongo --quiet ${config['mongodb url']} --eval=\"db.dropDatabase()\""
     echo -n "Dropping database from ${config['mongodb url']} : "
     declare -i ret
     declare output
@@ -202,7 +207,7 @@ importBlockData() {
     db=$(echo ${config['mongodb url']} | cut -d/ -f4)
     declare -r cmd="mongodump --quiet --db=$db --host=$SRC --archive | mongorestore --quiet --db=$db --host=$host --archive"
     declare -i ret
-    decoare output
+    declare output
     output=$((eval $cmd) 2>&1)
     ret=$?
     if [ ${ret} != 0 ]; then
@@ -214,7 +219,7 @@ importBlockData() {
 }
 
 commitBackups() {
-    declare -r cmd="git commit scripts/addresses.sh scripts/pools.sh scripts/verifiedTokens.sh -m 'Update backups during import of new block DB'"
+    declare -r cmd="git commit scripts/addresses.sh scripts/pools.sh scripts/verified_tokens.sh scripts/indexes.js -m 'Update backups during import of new block DB'"
     echo -n "Committing changes to backup scripts: "
     declare -i ret
     declare output
@@ -235,8 +240,6 @@ exportAddresses
 exportPools
 exportVerifiedTokens
 commitBackups
-exit
-
 dropDatabase
 importBlockData
 importExchangeData
