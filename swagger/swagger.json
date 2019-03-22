@@ -779,6 +779,56 @@
                 }
             }
         },
+        "/token/transfers": {
+            "get": {
+                "tags": [
+                    "token"
+                ],
+                "description": "Get token transfers for a token address",
+                "operationId": "TokenController.Transfers",
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "address",
+                        "description": "Token address to retrieve transactions from",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "limit",
+                        "description": "Number of records to retrieve",
+                        "required": true,
+                        "type": "integer",
+                        "format": "int64"
+                    },
+                    {
+                        "in": "query",
+                        "name": "cursor",
+                        "description": "Cursor string of last record result",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "skip",
+                        "description": "Number of records to skip after cursor",
+                        "type": "integer",
+                        "format": "int64"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "",
+                        "schema": {
+                            "$ref": "#/definitions/models.TransactionPage"
+                        }
+                    },
+                    "404": {
+                        "description": "no transactions found"
+                    }
+                }
+            }
+        },
         "/transaction/block": {
             "get": {
                 "tags": [

@@ -8,4 +8,4 @@ WorkingDirectory=/home/ubuntu
 User=ubuntu
 Group=ubuntu
 Restart=always
-ExecStart=/home/ubuntu/gubiq-linux-amd64 --syncmode=full --ethstats 'www.ubiq.cc:jbs4lyfe@ubiq.darcr.us' --maxpeers 100
+ExecStart=/home/ubuntu/gubiq-linux-amd64 --syncmode=full --maxpeers 100

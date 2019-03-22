@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 . "scripts/shini.sh"
 
@@ -13,8 +13,11 @@ __shini_parsed() {
 }
 
 shini_parse "conf/app.conf"
+if [ -e "conf/custom.conf" ]; then
+    shini_parse "conf/custom.conf"
+fi
+
 wallet_cmd="${config['wallet path']} ${config['wallet args']}"
-shini_write "scripts/systemd/wallet.service" "Service" "ExecStart" "$wallet_cmd"
 
 echo "Generating native ABI token bindings"
 abigen --abi ./daemon/tokens/token.abi --pkg tokens --type Token --out ./daemon/tokens/tokens.go
@@ -31,9 +34,12 @@ npm install || exit 255
 cd ..
 echo "Packing application"
 bee pack
+
 if [ ! -e "/opt/ubiq-explorer" ]; then
 	sudo mkdir -p /opt/ubiq-explorer
 fi
+
+sudo chown ${config['system user']}:${config['system group']} /opt/ubiq-explorer
 
 echo "Stopping daemon and wallet services"
 if [ -e "/etc/systemd/system/blockdaemon.service" ]; then
@@ -49,12 +55,24 @@ if [ -e "/etc/systemd/system/ubiq-api.service" ]; then
 fi
 
 echo "Deploying packed application"
-sudo tar -C /opt/ubiq-explorer -xf ./ubiq-explorer.tar.gz
+tar -C /opt/ubiq-explorer -xf ./ubiq-explorer.tar.gz
+
+echo "Updating service settings"
+shini_write "/opt/ubiq-explorer/scripts/systemd/wallet.service" "Service" "ExecStart" "$wallet_cmd"
+shini_write "/opt/ubiq-explorer/scripts/systemd/wallet.service" "Service" "User" "${config['system user']}"
+shini_write "/opt/ubiq-explorer/scripts/systemd/wallet.service" "Service" "Group" "${config['system group']}"
+
+shini_write "/opt/ubiq-explorer/scripts/systemd/blockdaemon.service" "Service" "User" "${config['system user']}"
+shini_write "/opt/ubiq-explorer/scripts/systemd/blockdaemon.service" "Service" "Group" "${config['system group']}"
+
+shini_write "/opt/ubiq-explorer/scripts/systemd/ubiq-api.service" "Service" "User" "${config['system user']}"
+shini_write "/opt/ubiq-explorer/scripts/systemd/ubiq-api.service" "Service" "Group" "${config['system group']}"
+
 
 echo "Creating services"
-sudo /bin/cp -af /opt/ubiq-explorer/scripts/systemd/blockdaemon.service /etc/systemd/system/blockdaemon.service
-sudo /bin/cp -af /opt/ubiq-explorer/scripts/systemd/wallet.service /etc/systemd/system/wallet.service
-sudo /bin/cp -af /opt/ubiq-explorer/scripts/systemd/ubiq-api.service /etc/systemd/system/ubiq-api.service
+/bin/cp -af /opt/ubiq-explorer/scripts/systemd/blockdaemon.service /etc/systemd/system/blockdaemon.service
+/bin/cp -af /opt/ubiq-explorer/scripts/systemd/wallet.service /etc/systemd/system/wallet.service
+/bin/cp -af /opt/ubiq-explorer/scripts/systemd/ubiq-api.service /etc/systemd/system/ubiq-api.service
 
 echo "Creating nginx symlink"
 sudo ln -f -s /opt/ubiq-explorer/scripts/nginx.conf /etc/nginx/sites-enabled/ubiq-explorer.nginx

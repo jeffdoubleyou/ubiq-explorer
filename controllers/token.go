@@ -68,6 +68,33 @@ func (c *TokenController) To() {
 	c.ServeJSON()
 }
 
+// @Title Transfers
+// @Description Get token transfers for a token address
+// @Param   address	query   string  true        "Token address to retrieve transactions from"
+// @Param   limit	query   int     true        "Number of records to retrieve"
+// @Param   cursor	query   string 	false       "Cursor string of last record result"
+// @Param   skip	query	int		false		"Number of records to skip after cursor"
+// @Success 200 {object} models.TransactionPage
+// @Failure 404 no transactions found
+// @router /transfers [get]
+func (c *TokenController) Transfers() {
+	address := c.GetString("address")
+	limit, _ := c.GetInt("limit")
+	cursor := c.GetString("cursor")
+	if address != "" {
+		tokenDAO := daos.NewTokenDAO()
+		var txn = services.NewTokenService(*tokenDAO)
+		page, err := txn.Transfers(common.HexToAddress(address), limit, cursor)
+		if err != nil {
+			c.Data["json"] = &models.APIError{err.Error()}
+			c.Ctx.ResponseWriter.WriteHeader(404)
+		} else {
+			c.Data["json"] = page
+		}
+	}
+	c.ServeJSON()
+}
+
 // @Title ListTransactions
 // @Description Get a list of transactions
 // @Param   limit	query   int     true        "Number of records to retrieve"
