@@ -43,6 +43,16 @@ func (s *TokenService) To(address common.Address, limit int, cursor string) (mod
 	return s.dao.FindTransactions(bson.M{"to": strings.ToLower(address.String())}, "-_id", limit, cursor)
 }
 
+func (s *TokenService) Transfers(tokenAddress common.Address, limit int, cursor string) (models.TokenTransactionPage, error) {
+	if limit > 100 {
+		limit = 100
+	}
+	if limit == 0 {
+		limit = 10
+	}
+	return s.dao.FindTransactions(bson.M{"address": strings.ToLower(tokenAddress.String())}, "-_id", limit, cursor)
+}
+
 func (s *TokenService) TransactionList(limit int, cursor string) (models.TokenTransactionPage, error) {
 	if limit > 100 {
 		limit = 100
