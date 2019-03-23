@@ -64,9 +64,11 @@ shini_write "/opt/ubiq-explorer/scripts/systemd/wallet.service" "Service" "Group
 
 shini_write "/opt/ubiq-explorer/scripts/systemd/blockdaemon.service" "Service" "User" "${config['system user']}"
 shini_write "/opt/ubiq-explorer/scripts/systemd/blockdaemon.service" "Service" "Group" "${config['system group']}"
+shini_write "/opt/ubiq-explorer/scripts/systemd/blockdaemon.service" "Service" "Environment" "=node:url${config['node url']}"
 
 shini_write "/opt/ubiq-explorer/scripts/systemd/ubiq-api.service" "Service" "User" "${config['system user']}"
 shini_write "/opt/ubiq-explorer/scripts/systemd/ubiq-api.service" "Service" "Group" "${config['system group']}"
+shini_write "/opt/ubiq-explorer/scripts/systemd/ubiq-api.service" "Service" "Environment" "=node:url${config['node url']}"
 
 
 echo "Creating services"
