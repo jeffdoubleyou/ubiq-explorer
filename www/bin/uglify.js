@@ -7,6 +7,10 @@ var ini = require("ini");
 var validator = require("html-angular-validate");
 
 var config = ini.parse(fs.readFileSync('../conf/app.conf', 'utf-8'));
+var customConfig = ini.parse(fs.readFileSync('../conf/custom.conf', 'utf-8'));
+
+if(customConfig.base_href)
+    config.base_href = customConfig.base_href
 
 var options = {
     "toplevel": true,
