@@ -39,7 +39,7 @@ if [ ! -e "/opt/ubiq-explorer" ]; then
 	sudo mkdir -p /opt/ubiq-explorer
 fi
 
-sudo chown ${config['system user']}:${config['system group']} /opt/ubiq-explorer
+sudo chown -R ${config['system user']}:${config['system group']} /opt/ubiq-explorer
 
 echo "Stopping daemon and wallet services"
 if [ -e "/etc/systemd/system/blockdaemon.service" ]; then
